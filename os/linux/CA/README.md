@@ -1,0 +1,14 @@
+# Private CA（Certificate Authority、Certification Authority）
+- shellの用途
+  - 以下を全て実行：ca.sh
+    - ディレクトリ作成：mkdir.sh
+    - 設定ファイル作成：openssl.cnf.sh
+    - ルート証明書作成：rootca.sh
+    - 中間証明書作成：interca.sh
+    - サーバ証明書作成：server.sh
+- その他
+  - サーバ証明書を作成する時は対象サーバで秘密鍵、CSR(Certificate Signing Request)まで作成して、CSRのみを認証局サーバに送り署名する。署名が完了したら、証明書を対象サーバに戻す。
+  - ブラウザにはルート証明書のみをインポートする。
+  - nginx、haproxyに登録するときはサーバ証明書、中間証明書の順でマージさせる。
+  - 秘密鍵のパスワードは外しておく。`openssl rsa -in <path\key> -out <path\key>`
+  - サーバ証明書を複数発行するなら、subjectAltNameは用途別に用意してcaコマンド時にオプション`-extfile filename.txt`を付けて実行したほうが簡単。
