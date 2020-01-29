@@ -1,0 +1,21 @@
+---
+- name: configure / Setup configuration file
+  template:
+    src: haproxy.cfg.j2
+    dest: /etc/haproxy/haproxy.cfg
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: configure / Start haproxy service
+  systemd:
+    name: haproxy
+    state: reloaded
+    enabled: yes
+
+- name: configure / Wait for haproxy reload
+  wait_for:
+    port: "{{ haproxy_stats_port }}"
+    delay: 3
+    timeout: 60

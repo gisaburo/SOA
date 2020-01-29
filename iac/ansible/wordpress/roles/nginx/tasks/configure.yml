@@ -1,0 +1,26 @@
+---
+- name: configure / Setup global configuration file
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/nginx.conf
+    owner: root
+    group: root
+    mode: 0644
+- name: configure / Setup configuration file
+  template:
+    src: wordpress.conf.j2
+    dest: /etc/nginx/conf.d/wordpress.conf
+    owner: root
+    group: root
+    mode: 0644
+- name: configure / Start nginx service
+  systemd:
+    name: nginx
+    state: reloaded
+    enabled: yes
+- name: configre / Wait for nginx restart
+  wait_for:
+    host: "{{ ansible_eth1.ipv4.address }}"
+    port: "{{ nginx_service_port }}"
+    delay: 3
+    timeout: 60

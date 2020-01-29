@@ -1,0 +1,31 @@
+---
+- name: configure / Backup original file
+  command: mv /etc/php-fpm.d/www.conf /etc/php-fpm.d/php-fpm.default
+  args:
+    creates: "/etc/php-fpm.d/php-fpm.default"
+
+- name: configure / Configuration file
+  template:
+    src: wordpress.conf.j2
+    dest: /etc/php-fpm.d/wordpress.conf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+- name: configure / Setup logdirectory
+  file:
+    path: /var/log/php-fpm
+    owner: "{{ phpfpm_user }}"
+    group: "{{ phpfpm_group }}"
+    mode: 0755
+    state: directory
+- name: configure / Start php-fpm service
+  systemd:
+    name: 'php-fpm'
+    state: restarted
+    enabled: yes
+- name: configure / Wait for php-fpm restart
+  wait_for:
+    path: "{{ phpfpm_unix_socket }}"
+    delay: 2
+    timeout: 60

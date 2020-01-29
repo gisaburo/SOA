@@ -1,0 +1,39 @@
+
+vrrp_script chk_haproxy {
+  script "killall -0 haproxy"
+  interval 2
+  timeout  3
+  raise    2
+  fall     4
+}
+
+{% for vintf in keepalived_vip_interfaces %}
+vrrp_instance VI_{{ loop.index }} {
+  interface {{ vintf.device }}
+  state BACKUP
+  virtual_router_id {{ keepalived_offset + loop.index}}
+{% if inventory_hostname == keepalived_target[0] %}
+  priority 100
+{% else %}
+  priority 50
+{% endif %}
+  nopreempt
+  advert_int 2
+  garp_master_refresh 2
+
+  virtual_ipaddress {
+    {{ vintf.address }} dev {{ vintf.device }}
+  }
+  track_script {
+    chk_haproxy
+  }
+}
+{% endfor %}
+
+vrrp_sync_group VG_SYNC_GROUP {
+  group {
+{% for vintf in keepalived_vip_interfaces %}
+    VI_{{ loop.index }}
+{% endfor %}
+  }
+}

@@ -1,0 +1,3 @@
+# Send {{ role_path|basename }} messages to a dedicated logfile
+programname, startswith, "{{ role_path|basename }}" /var/log/{{ role_path|basename }}.log
+& stop

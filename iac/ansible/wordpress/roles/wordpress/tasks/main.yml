@@ -1,0 +1,6 @@
+---
+- name: main / Load MariaDB variables
+  include_vars: roles/mariadb/vars/main.yml
+- include_tasks: roles/wordpress/tasks/check_install.yml
+- include_tasks: roles/wordpress/tasks/install.yml
+- include_tasks: roles/wordpress/tasks/configure.yml

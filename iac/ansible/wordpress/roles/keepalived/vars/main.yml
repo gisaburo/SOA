@@ -1,0 +1,4 @@
+---
+keepalived_packages:
+  - keepalived
+  - psmisc

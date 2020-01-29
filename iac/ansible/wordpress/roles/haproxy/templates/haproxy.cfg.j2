@@ -1,0 +1,42 @@
+global
+    chroot    /var/lib/haproxy
+    pidfile   /var/run/haproxy.pid
+    maxconn   10000
+    user      {{ haproxy_user }}
+    group     {{ haproxy_group }}
+    daemon
+    stats     socket /var/run/haproxy.sock mode 600 level admin
+    stats     bind-process 1
+    nbproc    {{ ansible_processor_cores }}
+defaults
+    mode                   tcp
+    log                    127.0.0.1 local2
+    option                 tcplog
+    option                 tcpka
+    option                 dontlognull
+    retries                3
+    timeout   http-request 10s
+    timeout   queue        1m 
+    timeout   connect      10s
+    timeout   client       10m
+    timeout   server       1m
+    timeout   check        10s
+    maxconn                300
+listen stats :{{ haproxy_stats_port }}
+    mode http
+    stats enable
+    stats uri /
+    stats realm HAProxy\ Statistics
+    stats auth {{ haproxy_user }}:{{ haproxy_pass }}
+frontend main {{ haproxy_frontend_address }}:{{ haproxy_frontend_port }}
+    default_backend {{ haproxy_backend_app }}
+{% for option in haproxy_frontend_option %}
+    {{ option }}
+{% endfor %}
+backend {{ haproxy_backend_app }}
+{% for option in haproxy_backend_option %}
+    {{ option }}
+{% endfor %}
+{% for host in groups[haproxy_backend_groups] %}
+    server {{ hostvars[host].inventory_hostname }} {{ hostvars[host].ansible_host }}:{{ haproxy_backend_port }} check inter 2000 rise 2 fall 5
+{% endfor %}

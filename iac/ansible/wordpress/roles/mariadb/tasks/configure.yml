@@ -1,0 +1,56 @@
+---
+- name: configre / Setup configre file
+  template:
+    src: server.cnf.j2
+    dest: /etc/my.cnf.d/server.cnf
+    owner: root
+    group: root
+    mode: 0644
+    backup: yes
+
+- name: configure / Stop all MariaDB for initialization
+  systemd:
+    name: mysql
+    state: stopped
+
+- block:
+  - name: configure / Bootstrap first MariaDB Galera Cluster node
+    command: galera_new_cluster
+    args:
+      creates: "/var/lib/mysql/{{ ansible_host }}.pid"
+
+  - name: configure / Change root password
+    command: mysqladmin -u root password "{{ mariadb_root_pass }}"
+    args:
+      creates: "/var/lib/mysql/.changed_root_pass.lck"
+    register: changed_root_pass
+
+  - name: configure / Setup flag file
+    file:
+      path: /var/lib/mysql/.changed_root_pass.lck
+      state: touch
+      mode: 0400
+    when: changed_root_pass.changed
+
+  - name: configure / Add Galera SST user
+    mysql_user:
+      login_password: "{{ mariadb_root_pass }}"
+      name: "{{ mariadb_sst_pass }}"
+      password: "{{ mariadb_sst_pass }}"
+      host: "{{ ansible_eth1.ipv4.network }}/{{ ansible_eth1.ipv4.netmask }}"
+      priv: "*.*:RELOAD,LOCK TABLES,REPLICATION CLIENT"
+      append_privs: yes
+
+  run_once: true
+
+- name: configure / Start MariaDB Galera Cluster node
+  systemd:
+    name: mysql
+    state: started
+
+- name: configure / Wait for starting MariaDB Galera Cluster node
+  wait_for:
+    host: "{{ ansible_eth1.ipv4.address }}"
+    port: "{{ mariadb_service_port }}"
+    delay: 5
+    timeout: 60

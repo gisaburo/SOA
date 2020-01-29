@@ -1,0 +1,6 @@
+---
+- name: main / load service variables
+  include_vars: roles/keepalived/vars/{{ cluster_service }}.yml
+- include_tasks: roles/keepalived/tasks/check_install.yml
+- include_tasks: roles/keepalived/tasks/install.yml
+- include_tasks: roles/keepalived/tasks/configure.yml

@@ -1,0 +1,31 @@
+---
+#- name: start service firewalld
+#  systemd:
+#    name: firewalld
+#    state: started
+#    enabled: yes
+
+- name: start service firewalld
+  systemd:
+    name: firewalld
+    state: stopped
+    enabled: no
+
+- name: check if firewalld is running
+  command: systemctl is-active firewalld
+  register: firewalld_result
+  changed_when: False
+  ignore_errors: True  # rc is 3 when firewalld is stopped
+
+#- name: check_install / Allow ports for firewalld
+#  firewalld:
+#    port: "{{ item }}"
+#    permanent: yes
+#    immediate: yes
+#    state: enabled
+#  with_items: "{{ mariadb_firewalld_port }}"
+
+- name: check_install / Remove current packages
+  yum:
+    name: mariadb-libs
+    state: absent

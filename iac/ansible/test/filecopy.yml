@@ -1,0 +1,16 @@
+---
+- hosts: server
+  tasks:
+  - name: create directory
+    file:
+       path: /home/ec2-user/tmp
+       state: directory
+       owner: ec2-user
+       mode: 0755
+
+  - name: copy file
+    copy:
+       src: /etc/hosts
+       dest: /home/ec2-user/tmp/hosts
+       owner: ec2-user
+       mode: 0644

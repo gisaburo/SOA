@@ -1,0 +1,33 @@
+---
+- name: Deploy Database for WordPress
+  hosts: databases
+  become: true
+#　環境変数が必要な場合は、プレイごとに以下を設定しておく。
+# vars:
+#   ansible_sudo_pass: 'ansible'
+# enviroment:
+#   http_proxy: "http://proxy.example.local:8080"   ## インターネットへのプロキシ
+#   https_proxy: "https://proxy.example.local:8080" ## が必要な場合
+  roles:
+    - { role: common, tags: common}
+    - { role: mariadb, tags: mariadb}
+## データベース接続用ロードバランサーの構築
+    - { role: haproxy, cluster_service: db_cluster, tags: haproxy}
+    - { role: keepalived, cluster_service: db_cluster, tags: keepalived}
+
+- name: Deploy Application for Wordpress
+  hosts: apps
+  become: true
+  roles:
+    - { role: common, tags: common}
+    - { role: nginx, tags: nginx}
+    - { role: php-fpm, tags: php-fpm}
+    - { role: wordpress, tags: wordpress}
+
+- name: Deploy LoadBalancer for WordPress
+  hosts: lbs
+  become: true
+  roles:
+    - { role: common, tags: common}
+    - { role: haproxy, cluster_service: app_cluster, tags: haproxy}
+    - { role: keepalived, cluster_service: app_cluster, tags: keepalived} 

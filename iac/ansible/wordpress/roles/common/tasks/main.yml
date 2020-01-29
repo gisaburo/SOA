@@ -1,0 +1,31 @@
+---
+- name: configure / Selinux permissived
+  selinux:
+    policy: targeted
+    state: permissive
+  when : ansible_selinux.config_mode == 'enforcing'
+
+- name: configre / Desable ipv6 interface
+  sysctl:
+    state: present
+    name: "{{ item }}"
+    value: 1
+    sysctl_set: yes
+    reload: yes
+  with_items:
+    - net.ipv6.conf.all.disable_ipv6
+    - net.ipv6.conf.default.disable_ipv6
+  ignore_errors: True
+
+- name: configure / Update yum packages
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: configre / Import EPEL Repository
+  yum:
+    name: epel-release
+    state: latest
+    update_cache: yes
+  ignore_errors: True

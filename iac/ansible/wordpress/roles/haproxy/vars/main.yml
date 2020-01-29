@@ -1,0 +1,9 @@
+---
+haproxy_user: haproxy
+haproxy_group: haproxy
+haproxy_pass: haproxy
+haproxy_stats_port: 10080
+
+haproxy_packages:
+  - haproxy
+  - socat

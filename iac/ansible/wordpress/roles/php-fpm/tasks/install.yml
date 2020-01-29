@@ -1,0 +1,12 @@
+---
+- name: install / Inport repository
+  get_url:
+    url: http://rpms.famillecollet.com/enterprise/remi.repo
+    dest: /etc/yum.repos.d/remi.repo
+    mode: 0644
+- name: install / Install required packages
+  yum:
+    name: "{{ item }}"
+    state: present
+    enablerepo: remi-php56
+  with_items: "{{ php_packages }}"

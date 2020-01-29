@@ -1,0 +1,18 @@
+[databases]
+db1i    ansible_host=192.168.56.41
+db2i    ansible_host=192.168.56.42
+db3i    ansible_host=192.168.56.43
+[databases_vip]
+db_v1i  ansible_host=192.168.56.44
+[apps]
+app1i   ansible_host=192.168.56.51
+app2i   ansible_host=192.168.56.52
+app3i   ansible_host=192.168.56.53
+[lbs]
+lb1i    ansible_host=192.168.56.31
+lb2i    ansible_host=192.168.56.32
+[lbs_ext]
+ib1e    ansible_host=192.168.56.12
+ib2e    ansible_host=192.168.56.13
+[app_vip]
+app_v1e ansible_host=192.168.56.11

@@ -1,0 +1,22 @@
+---
+mariadb_service_port: 3306
+mariadb_rsync_port: 4444
+mariadb_nodesync_port: 4567
+mariadb_snapshotstate_port: 4568
+
+mariadb_release: 10.2.11
+mariadb_sst_user: galera
+mariadb_sst_pass: galera
+mariadb_root_pass: ansible
+
+mariadb_firewalld_port:
+  - "{{ mariadb_service_port }}/tcp"
+  - "{{ mariadb_rsync_port }}/tcp"
+  - "{{ mariadb_snapshotstate_port }}/tcp"
+
+mariadb_packages:
+  - MariaDB-server
+  - MariaDB-client
+  - galera
+  - rsync
+  - MySQL-python 

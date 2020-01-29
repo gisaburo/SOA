@@ -1,0 +1,19 @@
+---
+- name: install / Download WrodPress
+  git:
+    repo: https://github.com/WordPress/WordPress.git
+    dest: "/srv/wordpress-{{ wordpress_version }}"
+    version: "{{ wordpress_version }}-branch"
+- name: install / Link wordpress root document
+  file:
+    src: /srv/wordpress-{{ wordpress_version }}
+    path: /srv/wordpress
+    owner: nginx
+    group: nginx
+    state: link
+- name:
+  file:
+    path: /srv/wordpress-{{ wordpress_version }}
+    owner: nginx
+    group: nginx
+    recurse: yes

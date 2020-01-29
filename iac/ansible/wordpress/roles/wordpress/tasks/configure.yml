@@ -1,0 +1,34 @@
+- name: configure / Fetch random salts for WrodPress config
+  uri:
+    url: http://api.wordpress.org/secret-key/1.1/salt/
+    return_content: yes
+  register: wordpress_salt
+  run_once: true
+- block:
+  - name: configure / Create WordPress database
+    mysql_db:
+      login_password: "{{ mariadb_root_pass }}"
+      name: "{{ wordpress_db_name }}"
+      state: present
+  - name: configure / Create WordPress database user
+    mysql_user:
+      login_password: "{{ mariadb_root_pass }}"
+      name: "{{ wordpress_db_user }}"
+      password: "{{ wordpress_db_password }}"
+      host: "{{ ansible_eth1.ipv4.network }}/{{ ansible_eth1.ipv4.netmask }}"
+      priv: "{{ wordpress_db_name }}.*:ALL"
+      state: present
+  run_once: true
+  delegate_to: "{{ hostvars.db1i.ansible_host }}"
+- name: configure / Deploy WordPress config file
+  template:
+    src: wp-config.php.j2
+    dest: /srv/wordpress/wp-config.php
+    owner: nginx
+    group: nginx
+    mode: 0644
+    backup: yes
+- name: configure / Reload php-fpm service
+  systemd:
+    name: php-fpm
+    state: restarted

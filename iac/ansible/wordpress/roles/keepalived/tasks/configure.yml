@@ -1,0 +1,38 @@
+---
+- name: configure / Congigure service defaults
+  copy:
+    src: default_keepalived
+    dest: /etc/default/keepalived
+    owner: root
+    group: root
+    mode: 0644
+- name: configure / Setup configuration file
+  template:
+    src: keepalived.conf.j2
+    dest: /etc/keepalived/keepalived.conf
+    owner: root
+    group: root
+    mode: 0644
+- name: configure / Configure rsyslog settings
+  template:
+    src: rsyslog_service.conf.j2
+    dest: /etc/rsyslog.d/keepalived.conf
+    owner: root
+    group: root
+    mode: 0644
+- name: configure / Start keepalived
+  systemd:
+    state: restarted
+    name: "{{ item }}"
+    enabled: yes
+  with_items:
+    - keepalived
+    - rsyslog
+- name: configure / Wait for keepalived reload
+  local_action:
+    module: wait_for
+    host: "{{ item.address }}"
+    delay: 5
+    timeout: 60
+  with_items: "{{ keepalived_vip_interfaces }}"
+  run_once: True

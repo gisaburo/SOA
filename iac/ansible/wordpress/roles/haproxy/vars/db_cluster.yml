@@ -1,0 +1,13 @@
+---
+haproxy_frontend_address: "{{ hostvars.db_v1i.ansible_host }}"
+haproxy_frontend_port: 3307
+haproxy_frontend_option:
+  - "maxconn  1000"
+haproxy_backend_port: 3306
+haproxy_backend_app: "{{ cluster_service }}"
+haproxy_backend_groups: databases
+haproxy_backend_option:
+  - "balance  source"
+haproxy_firewalld_port:
+  - "{{ haproxy_stats_port }}/tcp"
+  - "{{ haproxy_frontend_port }}/tcp"

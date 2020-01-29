@@ -1,0 +1,5 @@
+---
+keepalived_vip_interfaces:
+  - { address: "{{ hostvars.app_v1e.ansible_host }}", device: 'eth1' }
+keepalived_target: "{{ groups[ 'lbs' ] }}"
+keepalived_offset: 50

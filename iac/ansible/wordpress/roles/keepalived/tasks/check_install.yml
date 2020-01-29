@@ -1,0 +1,14 @@
+---
+#- name: check_install / Allow VRRP on firewalld
+#  firewalld:
+#    zone: public
+#    rich_rule: 'rule protocol value=vrrp family="ipv4" destination address="224.0.0.0/8" accept'
+#    permanent: yes
+#    state: enabled
+- name: check_install / Emsure ip forwarding
+  sysctl:
+    state: present
+    name: net.ipv4.ip_forward
+    value: 1
+    sysctl_set: yes
+    reload: yes

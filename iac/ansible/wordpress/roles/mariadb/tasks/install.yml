@@ -1,0 +1,16 @@
+---
+- name: install / Import repository key
+  yum_repository:
+    name: mariadb
+    description: Galea Cluster Repo
+    baseurl: http://yum.mariadb.org/{{ mariadb_release }}/centos7-amd64/
+    gpgkey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
+    gpgcheck: yes
+    file: MariaDB
+
+- name: install / Install required package
+  yum:
+    name: "{{ item }}"
+    state: present
+    enablerepo: mariadb
+  with_items: "{{ mariadb_packages }}"
