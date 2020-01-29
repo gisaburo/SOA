@@ -1,0 +1,43 @@
+$create = <<-SCRIPT
+cat <<EOF > ~/source
+# for ansible-sh ssh-copy-id.sh
+ipaddr=(192.168.56.11 192.168.56.21 192.168.56.22 192.168.56.23 192.168.56.24) # ansible target node
+# for ssh-copy-id.sh
+user="vagrant" # target node user
+password="vagrant" # target node password
+# for ssh-keygen.sh
+keyfile="id_rsa" # keyfileName
+# for package-dnf.sh
+dnf=(sshpass python3 python3-pip) # install dnf package
+# for package-pip.sh
+pip=(ansible) # install pip package
+EOF
+SCRIPT
+
+$delete = <<-SCRIPT
+rm ~/source
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "fedora/29-cloud-base"
+  config.vm.box_version = "29.20181024.1"
+
+  config.vm.define "ansible" do |ansible|
+    ansible.vm.hostname = "ansible"
+    ansible.vm.network "private_network", ip: "192.168.56.11"
+
+    config.vm.provider "virtualbox" do |vbox|
+      vbox.name = "virtualbox-fedora-ansible"
+      vbox.memory = "2048"
+      vbox.cpus = "2"
+    end
+    ansible.vm.provision "shell", privileged: false, inline: $create
+#    ansible.vm.provision "shell", privileged: false, path: "./provision/update.sh"
+#    ansible.vm.provision "shell", privileged: false, path: "./provision/packerge-dnf.sh"
+#    ansible.vm.provision "shell", privileged: false, path: "./provision/packerge-pip.sh"
+    ansible.vm.provision "shell", privileged: false, path: "./provision/ssh-keygen.sh"
+    ansible.vm.provision "shell", privileged: false, path: "./provision/ssh-copy-id.sh"
+    ansible.vm.provision "shell", privileged: false, path: "./provision/ansible-ping.sh"
+    ansible.vm.provision "shell", privileged: false, inline: $delete
+  end
+end

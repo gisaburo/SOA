@@ -1,0 +1,137 @@
+$common = <<-SCRIPT
+echo I am provisioning for all node...
+yum -y upgrade
+SCRIPT
+
+$haproxy = <<-SCRIPT
+echo I am provisioning for haproxy...
+yum -y install haproxy
+cat <<'EOF' > /etc/haproxy/haproxy.cfg.org
+global
+    log         127.0.0.1 local2 info
+    chroot      /var/lib/haproxy
+    pidfile     /var/run/haproxy.pid
+    maxconn     256
+    user        haproxy
+    group       haproxy
+    daemon
+    maxsslconn     256
+    tune.ssl.default-dh-param 2048
+defaults
+    mode               http
+    log                global
+    option             httplog
+    timeout connect    10s
+    timeout client     30s
+    timeout server     30s
+frontend http-in
+    bind *:80
+    bind *:443 ssl crt /etc/haproxy/certs/<your domain>.pem
+    default_backend    backend_servers
+    option             forwardfor
+    reqadd X-Forwarded-Proto:\ https
+backend backend_servers
+    balance            roundrobin
+    server             k8s-node01 <node IP>:<port> check
+    server             k8s-node02 <node IP>:<port> check
+    server             k8s-node03 <node IP>:<port> check
+EOF
+systemctl enable haproxy && systemctl start haproxy 
+SCRIPT
+
+$nfs = <<-SCRIPT
+echo I am provisioning for nfs...
+yum -y install nfs-utils
+systemctl enable rpcbind nfs-server && systemctl start rpcbind nfs-server
+mkdir -p /scratch/nfsdata
+chmod o+rw /scratch/nfsdata
+echo /scratch/nfsdata *(rw,fsid=root,no_root_squash,no_subtree_check) >> /etc/exports
+SCRIPT
+
+$k8s = <<-SCRIPT
+echo I am provisioning for k8s...
+cat <<'EOF' > /etc/yum.repos.d/kubernetes.repo
+[kubernetes]
+name=Kubernetes
+baseurl=https://packages.cloud.google.com/yum/repos/kubernetes-el7-$basearch
+enabled=1
+gpgcheck=1
+repo_gpgcheck=1
+gpgkey=https://packages.cloud.google.com/yum/doc/yum-key.gpg https://packages.cloud.google.com/yum/doc/rpm-package-key.gpg
+EOF
+sudo yum install -y git docker kubelet kubeadm
+systemctl enable docker kubelet && systemctl start docker kubelet
+echo "net.ipv4.ip_forward=1" >> /etc/sysctl.conf
+echo "net.bridge.bridge-nf-call-ip6tables = 1" >> /etc/sysctl.d/kubernetes.conf
+echo "net.bridge.bridge-nf-call-iptables = 1" >> /etc/sysctl.d/kubernetes.conf
+sysctl -p
+setenforce 0
+sed -i "s/\(^SELINUX=\).*/\1disabled/" /etc/selinux/config
+systemctl stop firewalld & systemctl disable firewalld
+SCRIPT
+
+Vagrant.configure("2") do |config|
+  config.vm.box = "centos/7"
+  config.disksize.size = '20GB'
+
+# haproxy
+  config.vm.define "hyaproxy" do |haproxy|
+    haproxy.vm.hostname = "haproxy"
+    haproxy.vm.provider "hyperv" do |h|
+      h.vmname = "HyperV-Vagrant-CentOS-7-haproxy"
+      h.memory = "1024"
+      h.cpus = 2
+    end
+    haproxy.vm.provision "shell",inline: $common
+    haproxy.vm.provision "shell",inline: $haproxy
+  end
+
+# k8s-master
+  config.vm.define "master" do |master|
+    master.vm.hostname = "k8s-master"
+    master.vm.provider "hyperv" do |h|
+      h.vmname = "HyperV-Vagrant-CentOS-7-k8s-master"
+      h.memory = "2048"
+      h.cpus = 2
+    end
+    master.vm.provision "shell",inline: $common
+    master.vm.provision "shell",inline: $nfs
+    master.vm.provision "shell",inline: $k8s
+  end
+
+# k8s-node01
+  config.vm.define "node01" do |node01|
+    node01.vm.hostname = "k8s-master"
+    node01.vm.provider "hyperv" do |h|
+      h.vmname = "HyperV-Vagrant-CentOS-7-k8s-node01"
+      h.memory = "2048"
+      h.cpus = 2
+    end
+    node01.vm.provision "shell",inline: $common
+    node01.vm.provision "shell",inline: $k8s
+  end
+
+# k8s-node02
+  config.vm.define "node02" do |node02|
+    node02.vm.hostname = "k8s-master"
+    node02.vm.provider "hyperv" do |h|
+      h.vmname = "HyperV-Vagrant-CentOS-7-k8s-node02"
+      h.memory = "2048"
+      h.cpus = 2
+    end
+    node02.vm.provision "shell",inline: $common
+    node02.vm.provision "shell",inline: $k8s
+  end
+
+# k8s-node03
+  config.vm.define "node03" do |node03|
+    node03.vm.hostname = "k8s-master"
+    node03.vm.provider "hyperv" do |h|
+      h.vmname = "HyperV-Vagrant-CentOS-7-k8s-node03"
+      h.memory = "2048"
+      h.cpus = 2
+    end
+    node03.vm.provision "shell",inline: $common
+    node03.vm.provision "shell",inline: $k8s
+  end
+end
