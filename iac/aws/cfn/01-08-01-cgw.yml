@@ -1,0 +1,74 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  CustomerGateway Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label:
+          default: "VPCid for CustomerGateway"
+        Parameters:
+          - SSMVPCPrefix
+      - Label: 
+          default: "CustomerGateway Configuration"
+        Parameters: 
+          - CGWName
+          - BgpAsn
+          - IpAddress
+          - Type
+    ParameterLabels: 
+      CGWName: 
+        default: "CustomerGateway Name"
+      BgpAsn:
+        default: "BgpAsn Number Default Vlue 65000"
+      IpAddress:
+        default: "IpAddress"
+      Type:
+        default: "VPN Connection Type Default Vlue ipsec.1"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: project-enviroment-vpc
+
+  CGWName:
+    Type: String
+    Default: "cgw"
+
+  BgpAsn:
+    Type: Number
+    Default: 65000
+
+  IpAddress:
+    Type: String
+    Default: "1.1.1.1"
+
+  Type:
+    Type: String
+    Default: "ipsec.1"
+
+# ------------------------------------------------------------#
+# CGW
+# ------------------------------------------------------------#
+Resources:
+  CGW:
+    Type: AWS::EC2::CustomerGateway
+    Properties: 
+      Type: !Ref Type
+      BgpAsn: !Ref BgpAsn
+      IpAddress: !Ref IpAddress
+      Tags:
+        - Key: Name
+          Value: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref CGWName ] ]
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#
+Outputs:
+  CGW:
+    Value: !Ref CGW
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref CGWName, id ] ]

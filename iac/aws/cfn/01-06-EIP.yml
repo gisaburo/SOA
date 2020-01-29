@@ -1,0 +1,51 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  EIP Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label:
+          default: "for EIP.AllocationId"
+        Parameters:
+          - SSMVPCPrefix
+      - Label: 
+          default: "EIP Name"
+        Parameters: 
+          - EIPName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "project-enviroment-vpc"
+
+  EIPName:
+    Type: String
+    Default: "eip"
+
+# ------------------------------------------------------------#
+#  EIP
+# ------------------------------------------------------------#
+Resources:
+  EIP: 
+    Type: "AWS::EC2::EIP"
+    Properties: 
+      Domain: vpc
+# Comments for future releases. As of November 17, 2019, 
+# eip tagging is not available for cloudformation.
+#
+#      Tags:
+#        - Key: Name
+#          Value: !Sub "${ProjectName}-${EnviromentName}-${EIPName}-eip"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#
+Outputs:
+  EIP:
+    Value: !GetAtt EIP.AllocationId
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref EIPName, id ] ]

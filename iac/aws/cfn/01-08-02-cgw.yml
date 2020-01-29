@@ -1,0 +1,83 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  NatGateway Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+      - Label: 
+          default: "CGW Configuration"
+        Parameters: 
+          - CGWName
+          - BgpAsn
+          - IpAddress
+          - Type
+    ParameterLabels: 
+      CGWName: 
+        default: "CGW Name"
+      BgpAsn:
+        default: "BgpAsn Number Default Vlue 65000"
+      IpAddress:
+        default: "IpAddress"
+      Type:
+        default: "VPN Connection Type Default Vlue ipsec.1"
+
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  CGWName:
+    Type: String
+
+  BgpAsn:
+    Type: Number
+    Default: 65000
+
+  IpAddress:
+    Type: String
+
+  Type:
+    Type: String
+    Default: "ipsec.1"
+    AllowedValues:
+      - "ipsec.1"
+
+Resources:
+# ------------------------------------------------------------#
+# CGW
+# ------------------------------------------------------------#  
+# CGW create
+  CGW:
+    Type: AWS::EC2::CustomerGateway
+    Properties: 
+      Type: !Ref Type
+      BgpAsn: !Ref BgpAsn
+      IpAddress: !Ref IpAddress
+      Tags:
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-${CGWName}-cgw"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# CGW
+  CGW:
+    Value: !Ref CGW
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-${CGWName}-CGW"

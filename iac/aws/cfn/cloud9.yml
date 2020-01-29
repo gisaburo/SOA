@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: A CodeCommit Repo and Cloud9 Environment for Basic Development
+Resources:
+  MyRepo:
+    Type: "AWS::CodeCommit::Repository"
+    Properties:
+      RepositoryName: MyRepo
+      RepositoryDescription: Sample Repo for Cloud9 CFN Post
+  MyC9Environment:
+    Type: "AWS::Cloud9::EnvironmentEC2"
+    Properties:
+      Repositories:
+        - PathComponent: /cfn
+          RepositoryUrl: !GetAtt MyRepo.CloneUrlHttp
+      InstanceType: t2.micro
+      SubnetId: subnet-xxxxxxx
+      AutomaticStopTimeMinutes: 45

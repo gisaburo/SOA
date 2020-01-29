@@ -1,0 +1,95 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  VPC Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+      - Label: 
+          default: "VPC Configuration"
+        Parameters: 
+          - CIDR
+          - DnsSupport
+          - DnsHostnames
+          - Tenancy
+    ParameterLabels: 
+      CIDR: 
+        default: "CIDR"
+      DnsSupport:
+        default: "DnsSupport"
+      DnsHostnames:
+        default: "DnsHostnames"
+      Tenancy:
+        default: "Tenancy"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  CIDR:
+    Type: String
+    Default: "10.0.0.0/16"
+  DnsSupport:
+    Type: String
+    Default: "true" 
+    AllowedValues:
+      - "true"
+      - "false"
+    
+  DnsHostnames:
+    Type: String
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
+
+  Tenancy:
+    Type: String
+    Default: "default"
+    AllowedValues:
+      - "default"
+      - "dedicated"
+
+Resources: 
+# ------------------------------------------------------------#
+# VPC
+# ------------------------------------------------------------#
+# VPC Create
+  VPC: 
+    Type: "AWS::EC2::VPC"
+    Properties: 
+      CidrBlock: !Ref CIDR
+      EnableDnsSupport: !Ref DnsSupport
+      EnableDnsHostnames: !Ref DnsHostnames
+      InstanceTenancy: !Ref Tenancy
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-vpc"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+  VPC:
+    Value: !Ref VPC
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-vpc"
+
+  CIDR:
+    Value: !Ref CIDR
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-vpc-cidr"

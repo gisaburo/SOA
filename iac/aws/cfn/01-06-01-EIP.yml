@@ -1,0 +1,60 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  EIP Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+
+      - Label: 
+          default: "EIP Name"
+        Parameters: 
+          - EIPName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  EIPName:
+    Type: String
+
+Resources: 
+# ------------------------------------------------------------#
+#  EIP
+# ------------------------------------------------------------#
+# EIP Create
+  EIP: 
+    Type: "AWS::EC2::EIP"
+    Properties: 
+      Domain: vpc
+# Comments for future releases. As of November 17, 2019, 
+# eip tagging is not available for cloudformation.
+#
+#      Tags:
+#        - Key: Name
+#          Value: !Sub "${ProjectName}-${EnviromentName}-${EIPName}-eip"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# EIP
+  EIP:
+    Value: !GetAtt EIP.AllocationId
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-${EIPName}-eip"

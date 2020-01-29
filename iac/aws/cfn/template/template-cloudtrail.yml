@@ -1,0 +1,18 @@
+Resources:
+  Type: AWS::CloudTrail::Trail
+  Properties: 
+    CloudWatchLogsLogGroupArn: String
+    CloudWatchLogsRoleArn: String
+    EnableLogFileValidation: Boolean
+    EventSelectors: 
+      - EventSelector
+    IncludeGlobalServiceEvents: Boolean
+    IsLogging: Boolean
+    IsMultiRegionTrail: Boolean
+    KMSKeyId: String
+    S3BucketName: String
+    S3KeyPrefix: String
+    SnsTopicName: String
+    Tags: 
+      - Tag
+    TrailName: String

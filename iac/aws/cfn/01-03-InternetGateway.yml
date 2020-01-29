@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  InternetGateway Create
+
+Metadata:
+  "AWS::CloudFormation::Interface":
+    ParameterGroups:
+      - Label:
+          default: "VPCid for InternetGateway Attachment"
+        Parameters:
+          - SSMVPCPrefix
+      - Label: 
+          default: "InternetGateway Configuration"
+        Parameters: 
+          - IGWName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "project-enviroment-vpc"
+
+  IGWName:
+    Type: String
+    Default: "igw"
+
+# ------------------------------------------------------------#
+# InternetGateway
+# ------------------------------------------------------------#
+Resources:
+  InternetGateway:
+    Type: "AWS::EC2::InternetGateway"
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref IGWName ] ]
+
+# ------------------------------------------------------------#
+# InternetGateway Attachment
+# ------------------------------------------------------------#
+  InternetGatewayAttachment:
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: 
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, id ] ]
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#          
+Outputs:
+  InternetGateway:
+    Value: !Ref InternetGateway
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref IGWName, id ] ]

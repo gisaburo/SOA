@@ -1,0 +1,164 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  VPC Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: VPC Configuration
+        Parameters:
+          - VPCTag
+          - CidrBlock
+          - EnableDnsSupport
+          - EnableDnsHostnames
+          - InstanceTenancy
+      - Label:
+          default: InternetGateway Configuration
+        Parameters:
+          - useInternetGateway
+          - InternetGatewayTag
+    ParameterLabels:
+      useInternetGateway:
+        default: Use InternetGateway and Attachment. enable use custom Acl. disable use Default Acl.
+# ------------------------------------------------------------#
+# Conditions Section
+# ------------------------------------------------------------#
+Conditions:
+  useInternetGateway: !Equals [ !Ref useInternetGateway, enable ]
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# VPC Input Parameters
+# ------------------------------------------------------------# 
+  VPCTag:
+    Type: String
+    Description: Rsource Name Tag
+# ------------------------------------------------------------# 
+  CidrBlock:
+    Type: String
+    Description: ex 10.0.0.0/16
+# ------------------------------------------------------------# 
+  EnableDnsSupport:
+    Type: String
+    Description: true | false
+    AllowedValues:
+      - true
+      - false
+# ------------------------------------------------------------# 
+  EnableDnsHostnames:
+    Type: String
+    Description: true | false
+    AllowedValues:
+      - true
+      - false
+# ------------------------------------------------------------# 
+  InstanceTenancy:
+    Type: String
+    Description: default | dedicated
+    AllowedValues:
+      - default
+      - dedicated
+# ------------------------------------------------------------#
+# InternetGateway Input Parameters
+# ------------------------------------------------------------#
+  useInternetGateway:
+    Type: String
+    Description: enable | disable
+    AllowedValues:
+      - enable
+      - disable
+  InternetGatewayTag:
+    Type: String
+    Description: Rsource Name Tag
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# VPC
+# ------------------------------------------------------------#
+  VPC: 
+    Type: AWS::EC2::VPC
+    DeletionPolicy: Delete
+    Properties:
+      CidrBlock: !Ref CidrBlock
+      EnableDnsSupport: !Ref EnableDnsSupport
+      EnableDnsHostnames: !Ref EnableDnsHostnames
+      InstanceTenancy: !Ref InstanceTenancy
+      Tags:
+        - Key: Name
+          Value: !Ref VPCTag
+# ------------------------------------------------------------#
+# InternetGateway
+# ------------------------------------------------------------#
+  InternetGateway:
+    Type: AWS::EC2::InternetGateway
+    DeletionPolicy: Delete
+    Condition: useInternetGateway
+    Properties:
+      Tags:
+        - Key: Name
+          Value: !Ref InternetGatewayTag
+# ------------------------------------------------------------#
+# InternetGateway Attachment
+# ------------------------------------------------------------#
+  InternetGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    DeletionPolicy: Delete
+    Condition: useInternetGateway
+    Properties:
+      InternetGatewayId: !Ref InternetGateway
+      VpcId: !Ref VPC
+# ------------------------------------------------------------#
+# VPCFlowLog
+# ------------------------------------------------------------#
+# ------------------------------------------------------------#
+# Output Section
+# ------------------------------------------------------------#
+Outputs:
+# ------------------------------------------------------------#
+# Ref Return Values
+# ------------------------------------------------------------#
+  VpcId:
+    Value: !Ref VPC
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", VPC ] ]
+  InternetGatewayId:  
+    Condition: useInternetGateway
+    Value: !Ref InternetGateway
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", InternetGateway ] ]
+  InternetGatewayAttachmentId:
+    Condition: useInternetGateway
+    Value: !Ref InternetGatewayAttachment
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", InternetGatewayAttachment ] ]
+# ------------------------------------------------------------#
+# GetAtt Return Values
+# ------------------------------------------------------------#
+  CidrBlock:
+    Value: !GetAtt VPC.CidrBlock
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", CidrBlock ] ]
+  DefaultNetworkAcl:
+    Value: !GetAtt VPC.DefaultNetworkAcl
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", DefaultNetworkAcl ] ]
+  DefaultSecurityGroup:
+    Value: !GetAtt VPC.DefaultSecurityGroup
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", DefaultSecurityGroup ] ]

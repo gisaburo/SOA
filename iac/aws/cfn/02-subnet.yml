@@ -1,0 +1,116 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  Subnet Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+      - Label: 
+          default: "Subnet Configuration"
+        Parameters: 
+          - PublicSubnetCIDR
+          - PublicAvailabilityZone
+          - PrivateSubnetCIDR
+          - PrivateAvailabilityZone
+    ParameterLabels: 
+      PublicSubnetCIDR: 
+        default: "PublicSubnet CIDR"
+      PrivateSubnetCIDR: 
+        default: "PrivateSubnet CIDR"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  PublicSubnetCIDR:
+    Type: String
+    Default: "10.0.0.0/24"
+
+  PublicAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+    AllowedValues:    
+      - "ap-northeast-1a"
+      - "ap-northeast-1c"
+      - "ap-northeast-1d"
+
+  PrivateSubnetCIDR:
+    Type: String
+    Default: "10.0.1.0/24"
+
+  PrivateAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+    AllowedValues:    
+      - "ap-northeast-1a"
+      - "ap-northeast-1c"
+      - "ap-northeast-1d"
+
+Resources: 
+# ------------------------------------------------------------#
+# Subnet
+# ------------------------------------------------------------#          
+# Public Subnet Create
+  PublicSubnet: 
+    Type: "AWS::EC2::Subnet"
+    Properties: 
+      AvailabilityZone: !Ref PublicAvailabilityZone
+      CidrBlock: !Ref PublicSubnetCIDR
+      VpcId: 
+        Fn::ImportValue: 
+          !Sub "${ProjectName}-${EnviromentName}-vpc"
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-public-subnet"
+
+# Private Subnet Create
+  PrivateSubnet: 
+    Type: "AWS::EC2::Subnet"
+    Properties: 
+      AvailabilityZone: !Ref PrivateAvailabilityZone
+      CidrBlock: !Ref PrivateSubnetCIDR
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-vpc"
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-private-subnet"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# Subnet
+  PublicSubnet:
+    Value: !Ref PublicSubnet
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-public-subnet"
+
+  PublicSubnetCIDR:
+    Value: !Ref PublicSubnetCIDR
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-public-subnet-cidr"
+
+  PrivateSubnet:
+    Value: !Ref PrivateSubnet
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-private-subnet"
+
+  PrivateSubnetCIDR:
+    Value: !Ref PrivateSubnetCIDR
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-private-subnet-cidr"

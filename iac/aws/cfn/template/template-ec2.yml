@@ -1,0 +1,59 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: "2010-09-09"
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  EC2 Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups:
+      - Label:
+          default: "Configuration"
+        Parameters: 
+          - InstanceName01
+          - SubnetId
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# Common Input Parameters
+# ------------------------------------------------------------#
+  InstanceTag:
+    Type: String
+    Default: "instance"
+  SubnetId:
+    Type: AWS::EC2::Subnet::Id
+  LaunchTemplateName:
+    Type: String
+    Default: template
+  LaunchTemplateNameVersion:
+    Type: String
+    Default: 1
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+  EIP:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref Instance
+  Instance:
+    Type: AWS::EC2::Instance
+    Properties: 
+      LaunchTemplate:
+        LaunchTemplateName: !Ref LaunchTemplateName 
+        Version: !Ref LaunchTemplateNameVersion
+      SubnetId: !Ref SubnetId
+      Tags: 
+        - Key: Name
+          Value: !Ref InstanceTag

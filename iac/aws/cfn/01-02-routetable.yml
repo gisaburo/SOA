@@ -1,0 +1,50 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  RouteTable Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label:
+          default: "Project and Enviroment and VPC prefix"
+        Parameters:
+          - SSMVPCPrefix
+      - Label:
+          default: "RouteTable Name"
+        Parameters:
+          - RouteTableName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "project-enviroment-vpc"
+
+  RouteTableName:
+    Type: String
+    Default: "routetable"
+
+# ------------------------------------------------------------#
+# RouteTable
+# ------------------------------------------------------------#          
+Resources:
+  RouteTable: 
+    Type: "AWS::EC2::RouteTable"
+    Properties:
+      VpcId: 
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, id ] ]
+
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref RouteTableName ] ]
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+  RouteTable:
+    Value: !Ref RouteTable
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref RouteTableName, id ] ]

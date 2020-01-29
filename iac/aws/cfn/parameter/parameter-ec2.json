@@ -1,0 +1,18 @@
+[
+    {
+        "ParameterKey": "Project",
+        "ParameterValue": "project"
+    },
+    {
+        "ParameterKey": "Enviroment",
+        "ParameterValue": "enviroment"
+    },
+    {
+        "ParameterKey": "VPCName",
+        "ParameterValue": "vpc"
+    },
+    {
+        "ParameterKey": "InstanceName01",
+        "ParameterValue": "instance01"
+    }
+]

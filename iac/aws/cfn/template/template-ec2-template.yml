@@ -1,0 +1,125 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  EC2 Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: template Configuration
+        Parameters: 
+          - LaunchTemplateName
+          - DeviceName
+          - VolumeSize
+          - VolumeType
+          - DisableApiTermination
+          - IamInstanceProfile
+          - ImageId
+          - InstanceType
+          - EbsOptimized
+          - InstanceInitiatedShutdownBehavior
+          - KeyName
+          - Monitoring
+          - CpuCredits
+          - Tenancy
+          - SecurityGroupIds
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# Common Input Parameters
+# ------------------------------------------------------------#
+  LaunchTemplateName:
+    Type: String
+    Description: Rsource Name Tag
+  DeviceName:
+    Type: String
+    Default: /dev/sda1
+  VolumeSize:
+    Type: String
+    Default: 8
+  VolumeType:
+    Type: String
+    Default: gp2
+  DisableApiTermination:
+    Type: String
+    Default: true
+  IamInstanceProfile:
+    Type: String
+    Default: InstanceProfile
+  ImageId:
+    Type: String
+    Default: ami-045f38c93733dd48d
+  InstanceType:
+    Type: String
+    Default: t2.micro
+  EbsOptimized:
+    Type: String
+    Default: false
+  InstanceInitiatedShutdownBehavior:
+    Type: String
+    Default: stop
+  KeyName:
+    Type: String
+    Default: key
+  Monitoring:
+    Type: String
+    Default: true
+  CpuCredits:
+    Type: String
+    Default: unlimited
+  Tenancy:
+    Type: String
+    Default: default
+  SecurityGroupIds:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+  LaunchTemplate:
+    Type: AWS::EC2::LaunchTemplate
+    Properties:
+      LaunchTemplateName: !Ref LaunchTemplateName
+      LaunchTemplateData:
+        BlockDeviceMappings: 
+          - DeviceName: !Ref DeviceName
+            Ebs:
+              VolumeSize: !Ref VolumeSize
+              VolumeType: !Ref VolumeType
+        DisableApiTermination: !Ref DisableApiTermination
+        IamInstanceProfile: 
+          Name: !Ref IamInstanceProfile
+        ImageId: !Ref ImageId
+        InstanceType: !Ref InstanceType
+        EbsOptimized: !Ref EbsOptimized
+        InstanceInitiatedShutdownBehavior: !Ref InstanceInitiatedShutdownBehavior
+        KeyName: !Ref KeyName
+        Monitoring:
+          Enabled: !Ref Monitoring
+        CreditSpecification:
+          CpuCredits: !Ref CpuCredits
+        Placement:
+          Tenancy: !Ref Tenancy
+        SecurityGroupIds: !Ref SecurityGroupIds
+        UserData: !Base64
+          Fn::Sub: |
+            #!/bin/bash -xe
+            sudo yum update -y
+            sudo yum install -y https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+            sudo systemctl enable amazon-ssm-agent
+            sudo systemctl start amazon-ssm-agent
+            sudo systemctl status amazon-ssm-agent
+            sudo yum install -y https://s3.amazonaws.com/amazoncloudwatch-agent/centos/amd64/latest/amazon-cloudwatch-agent.rpm

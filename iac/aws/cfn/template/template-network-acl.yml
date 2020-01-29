@@ -1,0 +1,190 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  NetworkAcl Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: NetworkACL Configuration
+        Parameters:
+          - VpcId
+          - NetworkAclTag
+      - Label:
+          default: SubnetNetworkAclAssociation Configuration
+        Parameters:
+          - SubnetId01
+          - SubnetId02
+          - SubnetId03
+          - SubnetId04
+          - SubnetId05
+          - SubnetId06
+          - SubnetId07
+          - SubnetId08
+          - SubnetId09
+# ------------------------------------------------------------#
+# Conditions Section
+# ------------------------------------------------------------#
+Conditions:
+  isSubnetId01: !Not [ !Equals [ !Ref SubnetId01, "" ] ]
+  isSubnetId02: !Not [ !Equals [ !Ref SubnetId02, "" ] ]
+  isSubnetId03: !Not [ !Equals [ !Ref SubnetId03, "" ] ]
+  isSubnetId04: !Not [ !Equals [ !Ref SubnetId04, "" ] ]
+  isSubnetId05: !Not [ !Equals [ !Ref SubnetId05, "" ] ]
+  isSubnetId06: !Not [ !Equals [ !Ref SubnetId06, "" ] ]
+  isSubnetId07: !Not [ !Equals [ !Ref SubnetId07, "" ] ]
+  isSubnetId08: !Not [ !Equals [ !Ref SubnetId08, "" ] ]
+  isSubnetId09: !Not [ !Equals [ !Ref SubnetId09, "" ] ]
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# VpcId Parameter
+# ------------------------------------------------------------#
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+# ------------------------------------------------------------#
+# NetworkAcl Input Parameters
+# ------------------------------------------------------------#
+  NetworkAclTag:
+    Type: String
+    Description: Rsource Name Tag
+  SubnetId01:
+    Type: String
+    Description: subnet-12345
+  SubnetId02:
+    Type: String
+    Description: subnet-12345
+  SubnetId03:
+    Type: String
+    Description: subnet-12345
+  SubnetId04:
+    Type: String
+    Description: subnet-12345
+  SubnetId05:
+    Type: String
+    Description: subnet-12345
+  SubnetId06:
+    Type: String
+    Description: subnet-12345
+  SubnetId07:
+    Type: String
+    Description: subnet-12345
+  SubnetId08:
+    Type: String
+    Description: subnet-12345
+  SubnetId09:
+    Type: String
+    Description: subnet-12345
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# NetworkACL
+# ------------------------------------------------------------#
+  NetworkAcl:
+    Type: AWS::EC2::NetworkAcl    
+    DeletionPolicy: Delete
+    Properties: 
+      VpcId: !Ref VpcId
+      Tags: 
+        - Key: Name
+          Value: !Ref NetworkAclTag
+# ------------------------------------------------------------#
+  NetworkAclEntry01:
+    Type: AWS::EC2::NetworkAclEntry
+    DeletionPolicy: Delete
+    Properties: 
+      CidrBlock: 0.0.0.0/0
+      Egress: true
+      NetworkAclId: !Ref NetworkAcl
+      Protocol: -1
+      RuleAction: allow
+      RuleNumber: 100
+# ------------------------------------------------------------#
+  NetworkAclEntry02:
+    Type: AWS::EC2::NetworkAclEntry
+    DeletionPolicy: Delete
+    Properties: 
+      CidrBlock: 0.0.0.0/0
+      Egress: false
+      NetworkAclId: !Ref NetworkAcl
+      Protocol: -1
+      RuleAction: allow
+      RuleNumber: 100
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation01:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId01
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId01
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation02:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId02
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId02
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation03:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId03
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId03
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation04:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId04
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId04
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation05:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId05
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId05
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation06:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId06
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId06
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation07:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId07
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId07
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation08:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId08
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId08
+# ------------------------------------------------------------#
+  SubnetNetworkAclAssociation09:
+    Type: AWS::EC2::SubnetNetworkAclAssociation
+    Condition: isSubnetId09
+    Properties: 
+      NetworkAclId: !Ref NetworkAcl
+      SubnetId: !Ref SubnetId09

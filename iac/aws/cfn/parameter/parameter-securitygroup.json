@@ -1,0 +1,38 @@
+[
+    {
+        "ParameterKey": "Project",
+        "ParameterValue": "project"
+    },
+    {
+        "ParameterKey": "Enviroment",
+        "ParameterValue": "enviroment"
+    },
+    {
+        "ParameterKey": "VPCName",
+        "ParameterValue": "vpc"
+    },
+    {
+        "ParameterKey": "GroupDescription01",
+        "ParameterValue": "For Public"
+    },
+    {
+        "ParameterKey": "GroupDescription02",
+        "ParameterValue": "For Private"
+    },
+    {
+        "ParameterKey": "GroupDescription03",
+        "ParameterValue": "For RDS"
+    },
+    {
+        "ParameterKey": "GroupName01",
+        "ParameterValue": "publicsecuritygroup01"
+    },
+    {
+        "ParameterKey": "GroupName02",
+        "ParameterValue": "privatesecuritygroup02"
+    },
+    {
+        "ParameterKey": "GroupName03",
+        "ParameterValue": "rdssecuritygroup03"
+    }
+]

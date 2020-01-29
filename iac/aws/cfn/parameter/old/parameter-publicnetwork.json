@@ -1,0 +1,106 @@
+[
+    {
+        "ParameterKey": "Route",
+        "ParameterValue": "Public"
+    },
+    {
+        "ParameterKey": "AvailabilityZone01",
+        "ParameterValue": "ap-northeast-1a"
+    },
+    {
+        "ParameterKey": "SubnetTag01",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet01-1a"
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock01",
+        "ParameterValue": "10.0.0.0/25"
+    },
+    {
+        "ParameterKey": "SubnetTag02",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet02-1a"
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock02",
+        "ParameterValue": "10.0.1.0/25"
+    },
+    {
+        "ParameterKey": "SubnetTag03",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock03",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "AvailabilityZone02",
+        "ParameterValue": "ap-northeast-1d"
+    },
+    {
+        "ParameterKey": "SubnetTag04",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet01-1d"
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock04",
+        "ParameterValue": "10.0.0.128/25"
+    },
+    {
+        "ParameterKey": "SubnetTag05",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet02-1d"
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock05",
+        "ParameterValue": "10.0.1.128/25"
+    },
+    {
+        "ParameterKey": "SubnetTag06",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock06",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "AvailabilityZone03",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetTag07",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock07",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetTag08",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock08",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetTag09",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetCidrBlock09",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "RouteTableTag",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "InternetGatewayId",
+        "ParameterValue": "stack-project-enviroment-vpc01-InternetGateway"
+    },
+    {
+        "ParameterKey": "PublicSubnetId",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "NatGatewayTag",
+        "ParameterValue": ""
+    }
+]

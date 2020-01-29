@@ -1,0 +1,56 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  RouteTableAssociation Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label:
+          default: "VpcId for RouteTableAssociation"
+        Parameters:
+          - SSMVPCPrefix
+      - Label: 
+          default: "RouteTableName find RouteTableId for RouteTableAssociation"
+        Parameters: 
+          - RouteTableName
+      - Label: 
+          default: "SubnetName find SubnetId for RouteTableAssociation"
+        Parameters: 
+          - SubnetName
+      - Label: 
+          default: "Subnet AvailabilityZone find SubnetId for RouteTableAssociation"
+        Parameters: 
+          - SubnetAvailabilityZone
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "project-enviroment-vpc"
+
+  RouteTableName:
+    Type: String
+    Default: "routetable"
+
+  SubnetName:
+    Type: String
+    Default: "subnet"
+
+  SubnetAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+
+# ------------------------------------------------------------#
+# RouteTable Associate
+# ------------------------------------------------------------#
+Resources:
+  SubnetRouteTableAssociation: 
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties: 
+      SubnetId: 
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref SubnetName, !Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ], id ] ]
+
+      RouteTableId: 
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref RouteTableName, id ] ]

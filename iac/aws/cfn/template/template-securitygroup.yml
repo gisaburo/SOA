@@ -1,0 +1,96 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description: 
+  SecurityGroup Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: VPC Configuration
+        Parameters:
+          - VpcId
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# VpcId Parameter
+# ------------------------------------------------------------#
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# SecurityGroup
+# ------------------------------------------------------------#
+  SecurityGroup01:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      VpcId: !Ref VpcId
+      Fn::Transform:
+        Name: 'AWS::Include'
+        Parameters:
+          Location: s3://gisa-cfn/include/include-securitygroup-isolate.yml
+# ------------------------------------------------------------#
+  SecurityGroup02:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      VpcId: !Ref VpcId
+      Fn::Transform:
+        Name: 'AWS::Include'
+        Parameters:
+          Location: s3://gisa-cfn/include/include-securitygroup-public.yml
+# ------------------------------------------------------------#
+  SecurityGroup03:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      VpcId: !Ref VpcId
+      Fn::Transform:
+        Name: 'AWS::Include'
+        Parameters:
+          Location: s3://gisa-cfn/include/include-securitygroup-update.yml
+# ------------------------------------------------------------#
+  SecurityGroup04:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      VpcId: !Ref VpcId
+      Fn::Transform:
+        Name: 'AWS::Include'
+        Parameters:
+          Location: s3://gisa-cfn/include/include-securitygroup-private.yml
+# ------------------------------------------------------------#
+# Output Section
+# ------------------------------------------------------------#
+Outputs:
+# ------------------------------------------------------------#
+# Ref Return Values
+# ------------------------------------------------------------#
+  SecurityGroup01:
+    Value: !Ref SecurityGroup01
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SecurityGroup01 ] ]
+  SecurityGroup02:
+    Value: !Ref SecurityGroup02
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SecurityGroup02 ] ]
+  SecurityGroup03:
+    Value: !Ref SecurityGroup03
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SecurityGroup03 ] ]
+  SecurityGroup04:
+    Value: !Ref SecurityGroup04
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SecurityGroup04 ] ]

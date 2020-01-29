@@ -1,0 +1,120 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: "2010-09-09"
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  IAM Create
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# ManagedPolicy
+# ------------------------------------------------------------#
+  ManagedPolicy01:
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+        ManagedPolicyName: MFADeviceAccess1
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            -
+              Effect: Allow
+              Action:
+                - iam:*MFADevice
+              Resource:
+                - arn:aws:iam::*:user/${aws:username}
+                - arn:aws:iam::*:mfa/${aws:username}
+            -
+              Effect: Allow
+              Action:
+                - iam:ListAccount*
+                - iam:GetAccountSummary
+                - iam:ListUsers
+                - iam:ListMFADevices
+                - iam:ListVirtualMFADevices
+              Resource: "*"
+# ------------------------------------------------------------#
+  ManagedPolicy02:
+      Type: AWS::IAM::ManagedPolicy
+      Properties:
+        ManagedPolicyName: PortalReadonlyAccess1
+        PolicyDocument:
+          Version: "2012-10-17"
+          Statement:
+            -
+              Effect: Allow
+              Action:
+                - aws-portal:View
+              Resource: "*"
+# ------------------------------------------------------------#
+# Role
+# ------------------------------------------------------------#
+  Role01:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+      RoleName: InstanceRole
+# ------------------------------------------------------------#
+  Role02:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Principal:
+              AWS: 
+                - arn:aws:iam::XXXXXXXX:root
+            Action:
+              - 'sts:AssumeRole'
+      ManagedPolicyArns:
+        - arn:aws:iam::aws:policy/AdministratorAccess
+      RoleName: CrossAcountRole
+# ------------------------------------------------------------#
+# Profile
+# ------------------------------------------------------------#
+  InstanceProfile01:  
+    Type: AWS::IAM::InstanceProfile
+    Properties:
+      InstanceProfileName: InstanceProfile01
+      Path: "/"  
+      Roles:  
+        - !Ref Role01
+# ------------------------------------------------------------#
+# Group
+# ------------------------------------------------------------#
+  Group01:
+    Type: AWS::IAM::Group
+    Properties: 
+      GroupName: admingroup
+      ManagedPolicyArns: 
+        - arn:aws:iam::aws:policy/ReadOnlyAccess
+        - !Ref ManagedPolicy01
+        - !Ref ManagedPolicy02
+      Path: /
+# ------------------------------------------------------------#
+# Output Section
+# ------------------------------------------------------------#
+#Outputs:
+# ------------------------------------------------------------#
+# Ref Return Values
+# ------------------------------------------------------------#
+#  InstanceProfile01:
+#    Value: !Ref InstanceProfile01
+#    Export:
+#      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, InstanceProfile01 ] ]

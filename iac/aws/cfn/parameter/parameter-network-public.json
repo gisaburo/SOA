@@ -1,0 +1,54 @@
+[
+    {
+        "ParameterKey": "Route",
+        "ParameterValue": "Public"
+    },
+    {
+        "ParameterKey": "VpcId",
+        "ParameterValue": "vpc-0a2db1d515e3c6132"
+    },
+    {
+        "ParameterKey": "GatewayId",
+        "ParameterValue": "igw-01d092d2d37ad699a"
+    },
+    {
+        "ParameterKey": "RouteTableTag",
+        "ParameterValue": "project-enviroment-vpc01-public-routetable"
+    },
+    {
+        "ParameterKey": "SubnetValue01",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet01-1a, 10.0.0.0/24, ap-northeast-1a"
+    },
+    {
+        "ParameterKey": "SubnetValue02",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet01-1c, 10.0.1.0/24, ap-northeast-1c"
+    },
+    {
+        "ParameterKey": "SubnetValue03",
+        "ParameterValue": "project-enviroment-vpc01-public-subnet01-1d, 10.0.2.0/24, ap-northeast-1d"
+    },
+    {
+        "ParameterKey": "SubnetValue04",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue05",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue06",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue07",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue08",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue09",
+        "ParameterValue": ""
+    }
+]

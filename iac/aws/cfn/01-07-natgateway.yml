@@ -1,0 +1,75 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  NatGateway Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label:
+          default: "VPCid for NatGateway"
+        Parameters:
+          - SSMVPCPrefix
+      - Label: 
+          default: "EIP Name"
+        Parameters: 
+          - EIPName
+      - Label: 
+          default: "Subnet Name"
+        Parameters: 
+          - SubnetName
+      - Label:
+          default: "SubnetAvailabilityZone"
+        Parameters: 
+          - SubnetAvailabilityZone
+      - Label: 
+          default: "NatGateway Name"
+        Parameters: 
+          - NatGWName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: project-enviroment-vpc
+
+  EIPName:
+    Type: String
+    Default: "eip"
+
+  SubnetName:
+    Type: String
+    Default: "subnet"
+
+  SubnetAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+
+  NatGWName:
+    Type: String
+    Default: "natgw"
+
+# ------------------------------------------------------------#
+# NatGateway
+# ------------------------------------------------------------#
+Resources:
+  NatGW:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref EIPName, id ] ]
+      SubnetId:
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref SubnetName, !Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ], id ] ]
+      Tags:
+        - Key: Name
+          Value: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref NatGWName ,!Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ] ] ]
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+  NatGW:
+    Value: !Ref NatGW
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref NatGWName, !Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ], id ] ]

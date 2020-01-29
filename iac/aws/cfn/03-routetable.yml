@@ -1,0 +1,101 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  RouteTable Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+Resources: 
+# ------------------------------------------------------------#
+# RouteTable
+# ------------------------------------------------------------#          
+# Public RouteTable Create
+  PublicRouteTable: 
+    Type: "AWS::EC2::RouteTable"
+    Properties: 
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-vpc"
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-public-route"
+
+# Private RouteTable Create
+  PrivateRouteTable: 
+    Type: "AWS::EC2::RouteTable"
+    Properties: 
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-vpc"
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-private-route"
+
+# ------------------------------------------------------------#
+# Routing
+# ------------------------------------------------------------# 
+# PublicRoute Create
+  PublicRoute: 
+    Type: "AWS::EC2::Route"
+    Properties: 
+      RouteTableId: !Ref PublicRouteTable
+      DestinationCidrBlock: "0.0.0.0/0"
+      GatewayId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-igw" 
+
+# ------------------------------------------------------------#
+# RouteTable Associate
+# ------------------------------------------------------------# 
+# PublicRouteTable Associate Subnet
+  PublicSubnetRouteTableAssociation: 
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties: 
+      SubnetId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-public-subnet"
+
+      RouteTableId: !Ref PublicRouteTable
+
+# PrivateRouteTable Associate Subnet
+  PrivateSubnetRouteTableAssociation: 
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties: 
+      SubnetId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-private-subnet"
+      RouteTableId: !Ref PrivateRouteTable
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# Route
+  PublicRouteTable:
+    Value: !Ref PublicRouteTable
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-public-route"
+
+  PrivateRouteTable:
+    Value: !Ref PrivateRouteTable
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-private-route"

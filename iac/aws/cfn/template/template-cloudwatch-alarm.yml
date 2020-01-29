@@ -1,0 +1,45 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description: 
+  Alarm Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+  Alarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties: 
+      ActionsEnabled: True
+      AlarmActions: 
+        - String
+      AlarmDescription: String
+      AlarmName: String
+      ComparisonOperator: String
+      DatapointsToAlarm: Integer
+      Dimensions: 
+        - Dimension
+      EvaluateLowSampleCountPercentile: String
+      EvaluationPeriods: Integer
+      ExtendedStatistic: String
+      InsufficientDataActions: 
+        - String
+      MetricName: String
+      Metrics: 
+        - MetricDataQuery
+      Namespace: String
+      OKActions: 
+        - String
+      Period: Integer
+      Statistic: String
+      Threshold: Double
+      ThresholdMetricId: String
+      TreatMissingData: String
+      Unit: String

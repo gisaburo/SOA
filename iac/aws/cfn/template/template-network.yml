@@ -1,0 +1,571 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description: 
+  Subnet Netwrok Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: Network Route Configuration
+        Parameters:
+          - Route
+      - Label:
+          default: VPC Configuration
+        Parameters:
+          - VpcId
+      - Label:
+          default: Public Network Configuration
+        Parameters:
+          - GatewayId
+      - Label:
+          default: Private Nat Network Configuration
+        Parameters:
+          - NatGatewayTag
+          - SubnetId
+      - Label:
+          default: RouteTable Configuration
+        Parameters:
+          - RouteTableTag
+      - Label:
+          default: Subnet Network Configuration
+        Parameters:
+          - SubnetValue01
+          - SubnetValue02
+          - SubnetValue03
+          - SubnetValue04
+          - SubnetValue05
+          - SubnetValue06
+          - SubnetValue07
+          - SubnetValue08
+          - SubnetValue09
+    ParameterLabels:
+      SubnetValue01:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue02:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue03:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue04:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue05:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue06:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue07:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue08:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+      SubnetValue09:
+        default: 1.Rsource Name Tag, 2.Subnet Cidr, 3.Availability Zone. Not generated if empty.
+# ------------------------------------------------------------#
+# Conditions Section
+# ------------------------------------------------------------#
+Conditions:
+  useSubnet01: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue01 ], "" ] ]
+  useSubnet02: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue02 ], "" ] ]
+  useSubnet03: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue03 ], "" ] ]
+  useSubnet04: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue04 ], "" ] ]
+  useSubnet05: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue05 ], "" ] ]
+  useSubnet06: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue06 ], "" ] ]
+  useSubnet07: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue07 ], "" ] ]
+  useSubnet08: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue08 ], "" ] ]
+  useSubnet09: !Not [ !Equals [ !Select [ 0, !Ref SubnetValue09 ], "" ] ]
+  usePublic: !Equals [ !Ref Route, Public ]
+  useNatGateway:  !Equals [ !Ref Route, NatGateway ]
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# VpcId Parameter
+# ------------------------------------------------------------#
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+# ------------------------------------------------------------#
+# Public Network Parameter
+# ------------------------------------------------------------#
+  GatewayId:
+    Type: String
+    Description: igw-12345
+# ------------------------------------------------------------#
+# RouteTable Input Parameters料金
+# ------------------------------------------------------------#
+  RouteTableTag:
+    Type: String
+    Description: Rsource Name Tag
+# ------------------------------------------------------------#
+# NatGateway Input Parameters
+# ------------------------------------------------------------#
+  NatGatewayTag:
+    Type: String
+    Description: Rsource Name Tag
+  SubnetId:
+    Type: String
+    Description: Subnet-12345
+# ------------------------------------------------------------#
+# Subnet Input Parameters
+# ------------------------------------------------------------#
+  SubnetValue01:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue02:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue03:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue04:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue05:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue06:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue07:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue08:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+  SubnetValue09:
+    Type: CommaDelimitedList
+    Description: ex project-enviroment-vpc-subnet, 10.0.0.0/24, ap-northeast-1@
+# ------------------------------------------------------------#
+# Route Input Parameters
+# ------------------------------------------------------------#
+  Route:
+    Type: String
+    Description: '"Public" connect to the Internet. "NatGateway" connects to the Internet only for outbound traffic. "Isolate" does not connect to the Internet.'
+    AllowedValues:
+      - Public
+      - NatGateway
+      - Isolate
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# Subnet
+# ------------------------------------------------------------#
+  Subnet01:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet01
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue01 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue01 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue01 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet02:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet02
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue02 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue02 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue02 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet03:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet03
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue03 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue03 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue03 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet04:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet04
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue04 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue04 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue04 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet05:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet05
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue05 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue05 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue05 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet06:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet06
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue06 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue06 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue06 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet07:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet07
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue07 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue07 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue07 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet08:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet08
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue08 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue08 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue08 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+  Subnet09:
+    Type: AWS::EC2::Subnet
+    Condition: useSubnet09
+    Properties:
+      AvailabilityZone: !Select [ 2, !Ref SubnetValue09 ]
+      CidrBlock: !Select [ 1, !Ref SubnetValue09 ]
+      Tags: 
+        - Key: Name
+          Value: !Select [ 0, !Ref SubnetValue01 ]
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+# RouteTable
+# ------------------------------------------------------------#
+  RouteTable:
+    Type: AWS::EC2::RouteTable
+    Properties:
+      Tags:
+      - Key: Name
+        Value: !Ref RouteTableTag
+      VpcId: !Ref VpcId
+# ------------------------------------------------------------#
+# Route For Public
+# ------------------------------------------------------------#
+  Route01:
+    Type: AWS::EC2::Route
+    Condition: usePublic 
+    Properties:
+      RouteTableId: !Ref RouteTable
+      DestinationCidrBlock: 0.0.0.0/0
+      GatewayId: !Ref GatewayId 
+# ------------------------------------------------------------#
+# SubnetRouteTableAssociation
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation01:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet01
+    Properties:
+      SubnetId: !Ref Subnet01
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation02:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet02
+    Properties:
+      SubnetId: !Ref Subnet02
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation03:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet03
+    Properties:
+      SubnetId: !Ref Subnet03
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation04:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet04
+    Properties:
+      SubnetId: !Ref Subnet04
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation05:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet05
+    Properties:
+      SubnetId: !Ref Subnet05
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation06:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet06
+    Properties:
+      SubnetId: !Ref Subnet06
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation07:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet07
+    Properties:
+      SubnetId: !Ref Subnet07
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation08:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet08
+    Properties:
+      SubnetId: !Ref Subnet08
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation09:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: useSubnet09
+    Properties:
+      SubnetId: !Ref Subnet09
+      RouteTableId: !Ref RouteTable
+# ------------------------------------------------------------#
+# NatGateway
+# ------------------------------------------------------------#
+  NAT:
+    Type: AWS::EC2::NatGateway
+    Condition: useNatGateway
+    Properties:
+        AllocationId:
+          Fn::GetAtt:
+          - EIP
+          - AllocationId
+        SubnetId: !Ref SubnetId
+        Tags:
+        - Key: Name
+          Value: !Ref NatGatewayTag
+# ------------------------------------------------------------#
+  EIP:
+    Type: AWS::EC2::EIP
+    Condition: useNatGateway
+    Properties:
+        Domain: vpc
+# ------------------------------------------------------------#
+  Route02:
+    Type: AWS::EC2::Route
+    Condition: useNatGateway
+    Properties:
+        RouteTableId: !Ref RouteTable
+        DestinationCidrBlock: 0.0.0.0/0
+        NatGatewayId: !Ref NAT
+# ------------------------------------------------------------#
+# Output Section
+# ------------------------------------------------------------#
+Outputs:
+# ------------------------------------------------------------#
+# Ref Return Values
+# ------------------------------------------------------------#
+  SubnetId01:
+    Condition: useSubnet01
+    Value: !Ref Subnet01
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet01 ] ]
+  SubnetId02:
+    Condition: useSubnet02
+    Value: !Ref Subnet02
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet02 ] ]
+  SubnetId03:
+    Condition: useSubnet03
+    Value: !Ref Subnet03
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet03 ] ]
+  SubnetId04:
+    Condition: useSubnet04
+    Value: !Ref Subnet04
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet04 ] ]
+  SubnetId05:
+    Condition: useSubnet05
+    Value: !Ref Subnet05
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet05 ] ]
+  SubnetId06:
+    Condition: useSubnet06
+    Value: !Ref Subnet06
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet06 ] ]
+  SubnetId07:
+    Condition: useSubnet07
+    Value: !Ref Subnet07
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet07 ] ]
+  SubnetId08:
+    Condition: useSubnet08
+    Value: !Ref Subnet08
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet08 ] ]
+  SubnetId09:
+    Condition: useSubnet09
+    Value: !Ref Subnet09
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet09 ] ]
+# ------------------------------------------------------------#
+  RouteTable:
+    Value: !Ref RouteTable
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Routetable ] ]
+# ------------------------------------------------------------#     
+  SubnetRouteTableAssociation01:
+    Condition: useSubnet01
+    Value: !Ref SubnetRouteTableAssociation01
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation01 ] ]
+  SubnetRouteTableAssociation02:
+    Condition: useSubnet02
+    Value: !Ref SubnetRouteTableAssociation02
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation02 ] ]
+  SubnetRouteTableAssociation03:
+    Condition: useSubnet03
+    Value: !Ref SubnetRouteTableAssociation03
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation03 ] ]
+  SubnetRouteTableAssociation04:
+    Condition: useSubnet04
+    Value: !Ref SubnetRouteTableAssociation04
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation04 ] ]
+  SubnetRouteTableAssociation05:
+    Condition: useSubnet05
+    Value: !Ref SubnetRouteTableAssociation05
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation05 ] ]
+  SubnetRouteTableAssociation06:
+    Condition: useSubnet06
+    Value: !Ref SubnetRouteTableAssociation06
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation06 ] ]
+  SubnetRouteTableAssociation07:
+    Condition: useSubnet07
+    Value: !Ref SubnetRouteTableAssociation07
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation07 ] ]
+  SubnetRouteTableAssociation08:
+    Condition: useSubnet08
+    Value: !Ref SubnetRouteTableAssociation08
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation08 ] ]
+  SubnetRouteTableAssociation09:
+    Condition: useSubnet09
+    Value: !Ref SubnetRouteTableAssociation09
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", SubnetRouteTableAssociation09 ] ]
+# ------------------------------------------------------------#
+# GetAtt Return Values
+# ------------------------------------------------------------#
+  AvailabilityZone01:
+    Condition: useSubnet01
+    Value: !GetAtt Subnet01.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet01, AvailabilityZone ] ]
+  AvailabilityZone02:
+    Condition: useSubnet02
+    Value: !GetAtt Subnet02.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet02, AvailabilityZone ] ]
+  AvailabilityZone03:
+    Condition: useSubnet03
+    Value: !GetAtt Subnet03.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet03, AvailabilityZone ] ]
+  AvailabilityZone04:
+    Condition: useSubnet04
+    Value: !GetAtt Subnet04.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet04, AvailabilityZone ] ]
+  AvailabilityZone05:
+    Condition: useSubnet05
+    Value: !GetAtt Subnet05.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet05, AvailabilityZone ] ]
+  AvailabilityZone06:
+    Condition: useSubnet06
+    Value: !GetAtt Subnet06.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet06, AvailabilityZone ] ]
+  AvailabilityZone07:
+    Condition: useSubnet07
+    Value: !GetAtt Subnet07.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet07, AvailabilityZone ] ]
+  AvailabilityZone08:
+    Condition: useSubnet08
+    Value: !GetAtt Subnet08.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet08, AvailabilityZone ] ]
+  AvailabilityZone09:
+    Condition: useSubnet09
+    Value: !GetAtt Subnet09.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet09, AvailabilityZone ] ]
+# ------------------------------------------------------------#
+  NetworkAclAssociationId01:
+    Condition: useSubnet01
+    Value: !GetAtt Subnet01.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet01, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId02:
+    Condition: useSubnet02
+    Value: !GetAtt Subnet02.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet02, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId03:
+    Condition: useSubnet03
+    Value: !GetAtt Subnet03.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet03, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId04:
+    Condition: useSubnet04
+    Value: !GetAtt Subnet04.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet04, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId05:
+    Condition: useSubnet05
+    Value: !GetAtt Subnet05.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet05, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId06:
+    Condition: useSubnet06
+    Value: !GetAtt Subnet06.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet06, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId07:
+    Condition: useSubnet07
+    Value: !GetAtt Subnet07.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet07, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId08:
+    Condition: useSubnet08
+    Value: !GetAtt Subnet08.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet08, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId09:
+    Condition: useSubnet09
+    Value: !GetAtt Subnet09.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref "AWS::StackName", Subnet09, NetworkAclAssociationId ] ]

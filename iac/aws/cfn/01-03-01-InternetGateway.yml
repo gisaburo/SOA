@@ -1,0 +1,58 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  InternetGateway Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+Resources: 
+# ------------------------------------------------------------#
+# InternetGateway
+# ------------------------------------------------------------#
+# InternetGateway Create
+  InternetGateway: 
+    Type: "AWS::EC2::InternetGateway"
+    Properties: 
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-igw"
+
+# ------------------------------------------------------------#
+# InternetGateway Attachment
+# ------------------------------------------------------------#
+# InternetGateway Attachment
+  InternetGatewayAttachment: 
+    Type: "AWS::EC2::VPCGatewayAttachment"
+    Properties: 
+      InternetGatewayId: !Ref InternetGateway
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-vpc" 
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+  InternetGateway:
+    Value: !Ref InternetGateway
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-igw"

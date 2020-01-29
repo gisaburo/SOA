@@ -1,0 +1,643 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: "2010-09-09"
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description: 
+  PrivateSubnet Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups:
+      - Label:
+          default: "Cmmon Prameter Configuration"
+        Parameters: 
+          - Project
+          - Enviroment
+          - VPCname
+      - Label:
+          default: "PrivateSubnet Nat AvailabilityZone Configuration"
+        Parameters:
+          - AvailabilityZone01
+          - AvailabilityZone02
+          - AvailabilityZone03
+      - Label:
+          default: "PrivateSubnet Nat Network For AZ1 Configuration"
+        Parameters:
+          - SubnetName01
+          - SubnetCidrBlock01
+          - SubnetnName02
+          - SubnetCidrBlock02
+          - SubnetName03
+          - SubnetCidrBlock03
+      - Label:
+          default: "PrivateSubnet Nat Network For AZ2 Configuration"
+        Parameters:
+          - SubnetName04
+          - SubnetCidrBlock04
+          - SubnetName05
+          - SubnetCidrBlock05
+          - SubnetName06
+          - SubnetCidrBlock06
+      - Label:
+          default: "PrivateSubnet Nat Network For AZ3 Configuration"
+        Parameters:
+          - SubnetName07
+          - SubnetCidrBlock07
+          - SubnetName08
+          - SubnetCidrBlock08
+          - SubnetName09
+          - SubnetCidrBlock09
+      - Label:
+          default: "PrivateRouteTable Nat Configuration"
+        Parameters:
+          - RouteTableName01
+          - RouteTableName02
+          - RouteTableName03
+    ParameterLabels:
+      Project:
+        default: "Project name"
+      Enviroment:
+        default: "Enviroment name"
+      AvailabilityZone01:
+        default: "AvailabilityZone For AZ1"
+      AvailabilityZone02:
+        default: "AvailabilityZone For AZ2"
+      AvailabilityZone02:
+        default: "AvailabilityZone For AZ3"
+      RouteTableName01:
+        default: "RouteTable For AZ1"
+      RouteTableName02:
+        default: "RouteTable For AZ2"
+      RouteTableName03:
+        default: "RouteTable For AZ3"
+# ------------------------------------------------------------#
+# Conditions Section
+# ------------------------------------------------------------#
+Conditions:
+  AvailabilityZone01: !Not [ !Equals [ !Ref AvailabilityZone01, "" ] ]
+  AvailabilityZone02: !Not [ !Equals [ !Ref AvailabilityZone02, "" ] ]
+  AvailabilityZone03: !Not [ !Equals [ !Ref AvailabilityZone03, "" ] ]
+  SubnetName01: !Not [ !Equals [ !Ref SubnetName01, "" ] ]
+  SubnetName02: !Not [ !Equals [ !Ref SubnetName02, "" ] ]
+  SubnetName03: !Not [ !Equals [ !Ref SubnetName03, "" ] ]
+  SubnetName04: !Not [ !Equals [ !Ref SubnetName04, "" ] ]
+  SubnetName05: !Not [ !Equals [ !Ref SubnetName05, "" ] ]
+  SubnetName06: !Not [ !Equals [ !Ref SubnetName06, "" ] ]
+  SubnetName07: !Not [ !Equals [ !Ref SubnetName07, "" ] ]
+  SubnetName08: !Not [ !Equals [ !Ref SubnetName08, "" ] ]
+  SubnetName09: !Not [ !Equals [ !Ref SubnetName09, "" ] ]
+  RouteTableName01: !Not [ !Equals [ !Ref RouteTableName01, "" ] ]
+  RouteTableName02: !Not [ !Equals [ !Ref RouteTableName02, "" ] ]
+  RouteTableName03: !Not [ !Equals [ !Ref RouteTableName03, "" ] ]
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# Common Input Parameters
+# ------------------------------------------------------------#
+  Project:
+    Type: String
+    Default: "project"
+  Enviroment:
+    Type: String
+    Default: "enviroment"
+  VPCName:
+    Type: String
+    Default: "vpc"
+# ------------------------------------------------------------#
+# AvailabilityZone Input Parameters
+# ------------------------------------------------------------#
+  AvailabilityZone01:
+    Type: String
+    Default: "ap-northeast-1a"
+  AvailabilityZone02:
+    Type: String
+    Default: "ap-northeast-1c"
+  AvailabilityZone03:
+    Type: String
+    Default: "ap-northeast-1d"
+# ------------------------------------------------------------#
+# Subnet Input Parameters
+# ------------------------------------------------------------#
+  SubnetName01:
+    Type: String
+    Default: "privatenatsubnet01"
+  SubnetCidrBlock01:
+    Type: String
+    Default: "10.0.0.0/24"
+# ------------------------------------------------------------#
+  SubnetName02:
+    Type: String
+  SubnetCidrBlock02:
+    Type: String
+# ------------------------------------------------------------#
+  SubnetName03:
+    Type: String
+  SubnetCidrBlock03:
+    Type: String
+# ------------------------------------------------------------#
+  SubnetName04:
+    Type: String
+    Default: "privatenatsubnet04"
+  SubnetCidrBlock04:
+    Type: String
+    Default: "10.0.2.0/24"
+# ------------------------------------------------------------#
+  SubnetName05:
+    Type: String
+  SubnetCidrBlock05:
+    Type: String
+# ------------------------------------------------------------#
+  SubnetName06:
+    Type: String
+  SubnetCidrBlock06:
+    Type: String
+# ------------------------------------------------------------#
+  SubnetName07:
+    Type: String
+    Default: "privatenatsubnet07"
+  SubnetCidrBlock07:
+    Type: String
+    Default: "10.0.3.0/24"
+# ------------------------------------------------------------#
+  SubnetName08:
+    Type: String
+  SubnetCidrBlock08:
+    Type: String
+# ------------------------------------------------------------#
+  SubnetName09:
+    Type: String
+  SubnetCidrBlock09:
+    Type: String
+# ------------------------------------------------------------#
+# RouteTable Input Parameters
+# ------------------------------------------------------------#
+  RouteTableName01:
+    Type: String
+    Default: "privateroutetable01"
+# ------------------------------------------------------------#
+  RouteTableName02:
+    Type: String
+    Default: "privateroutetable02"
+# ------------------------------------------------------------#
+  RouteTableName03:
+    Type: String
+    Default: "privateroutetable03"
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# Subnet
+# ------------------------------------------------------------#
+  Subnet01:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone01
+    Condition: SubnetName01
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone01
+      CidrBlock: !Ref SubnetCidrBlock01
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName01, !Select [2, !Split ["-", !Ref AvailabilityZone01 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet02:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone01
+    Condition: SubnetName02
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone01
+      CidrBlock: !Ref SubnetCidrBlock02
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName02, !Select [2, !Split ["-", !Ref AvailabilityZone01 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet03:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone01
+    Condition: SubnetName03
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone01
+      CidrBlock: !Ref SubnetCidrBlock03
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName03, !Select [2, !Split ["-", !Ref AvailabilityZone01 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet04:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone02
+    Condition: SubnetName04
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone02
+      CidrBlock: !Ref SubnetCidrBlock04
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName04, !Select [2, !Split ["-", !Ref AvailabilityZone02 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet05:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone02
+    Condition: SubnetName05
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone02
+      CidrBlock: !Ref SubnetCidrBlock05
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName05, !Select [2, !Split ["-", !Ref AvailabilityZone02 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet06:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone02
+    Condition: SubnetName06
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone02
+      CidrBlock: !Ref SubnetCidrBlock06
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName06, !Select [2, !Split ["-", !Ref AvailabilityZone02 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet07:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone03
+    Condition: SubnetName07
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone03
+      CidrBlock: !Ref SubnetCidrBlock07
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName07, !Select [2, !Split ["-", !Ref AvailabilityZone07 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet08:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone03
+    Condition: SubnetName08
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone03
+      CidrBlock: !Ref SubnetCidrBlock08
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName08, !Select [2, !Split ["-", !Ref AvailabilityZone08 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+  Subnet09:
+    Type: AWS::EC2::Subnet
+    Condition: AvailabilityZone03
+    Condition: SubnetName09
+    Properties:
+      AvailabilityZone: !Ref AvailabilityZone03
+      CidrBlock: !Ref SubnetCidrBlock09
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref SubnetName09, !Select [2, !Split ["-", !Ref AvailabilityZone09 ] ] ] ]
+      VpcId:
+        Fn::ImportValue:
+          !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+# ------------------------------------------------------------#
+# RouteTable
+# ------------------------------------------------------------#
+  RouteTable01:
+    Type: AWS::EC2::RouteTable
+    Condition: RouteTableName01
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+      Tags:
+      - Key: Name
+        Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref RouteTableName01 ] ]
+# ------------------------------------------------------------#
+  RouteTable02:
+    Type: AWS::EC2::RouteTable
+    Condition: RouteTableName02
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+      Tags:
+      - Key: Name
+        Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref RouteTableName02 ] ]
+# ------------------------------------------------------------#
+  RouteTable03:
+    Type: AWS::EC2::RouteTablepublic
+    Condition: RouteTableName03
+    Properties:
+      VpcId:
+        Fn::ImportValue: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName ] ]
+      Tags:
+      - Key: Name
+        Value: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, !Ref RouteTableName03 ] ]
+# ------------------------------------------------------------#
+# SubnetRouteTableAssociation
+# ------------------------------------------------------------#
+# For RouteTable01
+  SubnetRouteTableAssociation01:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName01
+    Properties:
+      SubnetId: !Ref Subnet01
+      RouteTableId: !Ref RouteTable01
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation02:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName01
+    Properties:
+      SubnetId: !Ref Subnet02
+      RouteTableId: !Ref RouteTable01
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation03:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName01
+    Properties:
+      SubnetId: !Ref Subnet03
+      RouteTableId: !Ref RouteTable01
+# ------------------------------------------------------------#
+# For RouteTable02
+  SubnetRouteTableAssociation04:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName02
+    Properties:
+      SubnetId: !Ref Subnet04
+      RouteTableId: !Ref RouteTable02
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation05:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName02
+    Properties:
+      SubnetId: !Ref Subnet05
+      RouteTableId: !Ref RouteTable02
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation06:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName02
+    Properties:
+      SubnetId: !Ref Subnet06
+      RouteTableId: !Ref RouteTable02
+# ------------------------------------------------------------#
+# For RouteTable03
+  SubnetRouteTableAssociation07:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName03
+    Properties:
+      SubnetId: !Ref Subnet07
+      RouteTableId: !Ref RouteTable03
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation08:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName03
+    Properties:
+      SubnetId: !Ref Subnet08
+      RouteTableId: !Ref RouteTable03
+# ------------------------------------------------------------#
+  SubnetRouteTableAssociation09:
+    Type: AWS::EC2::SubnetRouteTableAssociation
+    Condition: RouteTableName03
+    Properties:
+      SubnetId: !Ref Subnet09
+      RouteTableId: !Ref RouteTable03
+# ------------------------------------------------------------#
+# Output Section
+# ------------------------------------------------------------#
+Outputs:
+# ------------------------------------------------------------#
+# Ref Return Values
+# ------------------------------------------------------------#
+  SubnetId01:
+    Condition: AvailabilityZone01
+    Condition: SubnetName01
+    Value: !Ref Subnet01
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet01 ] ]
+  SubnetId02:
+    Condition: AvailabilityZone01
+    Condition: SubnetName02
+    Value: !Ref Subnet02
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet02 ] ]
+  SubnetId03:
+    Condition: AvailabilityZone01
+    Condition: SubnetName03
+    Value: !Ref Subnet03
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet03 ] ]
+  SubnetId04:
+    Condition: AvailabilityZone02
+    Condition: SubnetName04
+    Value: !Ref Subnet04
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet04 ] ]
+  SubnetId05:
+    Condition: AvailabilityZone02
+    Condition: SubnetName05
+    Value: !Ref Subnet05
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet05 ] ]
+  SubnetId06:
+    Condition: AvailabilityZone02
+    Condition: SubnetName06
+    Value: !Ref Subnet06
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet06 ] ]
+  SubnetId07:
+    Condition: AvailabilityZone03
+    Condition: SubnetName07
+    Value: !Ref Subnet07
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet07 ] ]
+  SubnetId08:
+    Condition: AvailabilityZone03
+    Condition: SubnetName08
+    Value: !Ref Subnet08
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet08 ] ]
+  SubnetId09:
+    Condition: AvailabilityZone03
+    Condition: SubnetName09
+    Value: !Ref Subnet09
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet09 ] ]
+# ------------------------------------------------------------#
+  RouteTable01:
+    Condition: RouteTableName01
+    Value: !Ref RouteTable01
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable01 ] ]
+  RouteTable02:
+    Condition: RouteTableName02
+    Value: !Ref RouteTable02
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable02 ] ]
+  RouteTable03:
+    Condition: RouteTableName03
+    Value: !Ref RouteTable03
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable03 ] ]
+# ------------------------------------------------------------#     
+  SubnetRouteTableAssociation01:
+    Condition: RouteTableName01
+    Value: !Ref SubnetRouteTableAssociation01
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable01, SubnetRouteTableAssociation01 ] ]
+  SubnetRouteTableAssociation02:
+    Condition: RouteTableName01
+    Value: !Ref SubnetRouteTableAssociation02
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable01, SubnetRouteTableAssociation02 ] ]
+  SubnetRouteTableAssociation03:
+    Condition: RouteTableName01
+    Value: !Ref SubnetRouteTableAssociation03
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable01, SubnetRouteTableAssociation03 ] ]
+  SubnetRouteTableAssociation04:
+    Condition: RouteTableName02
+    Value: !Ref SubnetRouteTableAssociation04
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable02, SubnetRouteTableAssociation04 ] ]
+  SubnetRouteTableAssociation05:
+    Condition: RouteTableName02
+    Value: !Ref SubnetRouteTableAssociation05
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable02, SubnetRouteTableAssociation05 ] ]
+  SubnetRouteTableAssociation06:
+    Condition: RouteTableName02
+    Value: !Ref SubnetRouteTableAssociation06
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable02, SubnetRouteTableAssociation06 ] ]
+  SubnetRouteTableAssociation07:
+    Condition: RouteTableName03
+    Value: !Ref SubnetRouteTableAssociation07
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable03, SubnetRouteTableAssociation07 ] ]
+  SubnetRouteTableAssociation08:
+    Condition: RouteTableName03
+    Value: !Ref SubnetRouteTableAssociation08
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable03, SubnetRouteTableAssociation08 ] ]
+  SubnetRouteTableAssociation09:
+    Condition: RouteTableName03
+    Value: !Ref SubnetRouteTableAssociation09
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateRoutetable03, SubnetRouteTableAssociation09 ] ]
+# ------------------------------------------------------------#
+# GetAtt Return Values
+# ------------------------------------------------------------#
+  AvailabilityZone01:
+    Condition: RouteTableName01
+    Value: !GetAtt Subnet01.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet01, AvailabilityZone ] ]
+  AvailabilityZone02:
+    Condition: RouteTableName01
+    Value: !GetAtt Subnet02.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet02, AvailabilityZone ] ]
+  AvailabilityZone03:
+    Condition: RouteTableName01
+    Value: !GetAtt Subnet03.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet03, AvailabilityZone ] ]
+  AvailabilityZone04:
+    Condition: RouteTableName02
+    Value: !GetAtt Subnet04.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet04, AvailabilityZone ] ]
+  AvailabilityZone05:
+    Condition: RouteTableName02
+    Value: !GetAtt Subnet05.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet05, AvailabilityZone ] ]
+  AvailabilityZone06:
+    Condition: RouteTableName02
+    Value: !GetAtt Subnet06.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet06, AvailabilityZone ] ]
+  AvailabilityZone07:
+    Condition: RouteTableName03
+    Value: !GetAtt Subnet07.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet07, AvailabilityZone ] ]
+  AvailabilityZone08:
+    Condition: RouteTableName03
+    Value: !GetAtt Subnet08.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet08, AvailabilityZone ] ]
+  AvailabilityZone09:
+    Condition: RouteTableName03
+    Value: !GetAtt Subnet09.AvailabilityZone
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet09, AvailabilityZone ] ]
+# ------------------------------------------------------------#
+  NetworkAclAssociationId01:
+    Condition: RouteTableName01
+    Value: !GetAtt Subnet01.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet01, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId02:
+    Condition: RouteTableName01
+    Value: !GetAtt Subnet02.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet02, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId03:
+    Condition: RouteTableName01
+    Value: !GetAtt Subnet03.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet03, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId04:
+    Condition: RouteTableName02
+    Value: !GetAtt Subnet04.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet04, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId05:
+    Condition: RouteTableName02
+    Value: !GetAtt Subnet05.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet05, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId06:
+    Condition: RouteTableName02
+    Value: !GetAtt Subnet06.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet06, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId07:
+    Condition: RouteTableName03
+    Value: !GetAtt Subnet07.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet07, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId08:
+    Condition: RouteTableName03
+    Value: !GetAtt Subnet08.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet08, NetworkAclAssociationId ] ]
+  NetworkAclAssociationId09:
+    Condition: RouteTableName03
+    Value: !GetAtt Subnet09.NetworkAclAssociationId
+    Export:
+      Name: !Join [ "-", [ !Ref Project, !Ref Enviroment, !Ref VPCName, PrivateSubnet09, NetworkAclAssociationId ] ]

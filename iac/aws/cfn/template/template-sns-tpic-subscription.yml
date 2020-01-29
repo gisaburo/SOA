@@ -1,0 +1,26 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  SNS Topic and Subscription Create
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+  Topic01:
+    Type: AWS::SNS::Topic
+    Properties: 
+      DisplayName: test1
+      TopicName: test3
+  Subscription01:
+    Type: AWS::SNS::Subscription
+    Properties: 
+      Endpoint: aaa@aaaa
+      Protocol: EMAIL
+      TopicArn: !GetAtt 
+        - Topic01
+        - Arn

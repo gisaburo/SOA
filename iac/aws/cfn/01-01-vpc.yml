@@ -1,0 +1,115 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  VPC Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project prefix name"
+        Parameters: 
+          - SSMProject
+      - Label: 
+          default: "Enviroment prefix name"
+        Parameters:
+          - SSMEnviroment
+      - Label: 
+          default: "VPC Configuration"
+        Parameters: 
+          - VPCName
+          - CIDR
+          - DnsSupport
+          - DnsHostnames
+          - Tenancy
+    ParameterLabels:
+      VPCName:
+        default: "VPC name default vpc"
+      CIDR: 
+        default: "VPC CIDR default 10.0.0.0/0"
+      DnsSupport:
+        default: "DnsSupport"
+      DnsHostnames:
+        default: "DnsHostnames"
+      Tenancy:
+        default: "Tenancy"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMProject:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "project"
+
+  SSMEnviroment:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "enviroment"
+
+  VPCName:
+    Type: String
+    Default: "vpc"
+
+  CIDR:
+    Type: String
+    Default: "10.0.0.0/16"
+
+  DnsSupport:
+    Type: String
+    Default: "true" 
+    AllowedValues:
+      - "true"
+      - "false"
+    
+  DnsHostnames:
+    Type: String
+    Default: "true"
+    AllowedValues:
+      - "true"
+      - "false"
+
+  Tenancy:
+    Type: String
+    Default: "default"
+    AllowedValues:
+      - "default"
+      - "dedicated"
+
+# ------------------------------------------------------------#
+# VPC
+# ------------------------------------------------------------#
+Resources:
+  VPC: 
+    Type: "AWS::EC2::VPC"
+    Properties: 
+      CidrBlock: !Ref CIDR
+      EnableDnsSupport: !Ref DnsSupport
+      EnableDnsHostnames: !Ref DnsHostnames
+      InstanceTenancy: !Ref Tenancy
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref SSMProject, !Ref SSMEnviroment, !Ref VPCName ] ]
+
+# ------------------------------------------------------------#
+#   SSM Parameter
+# ------------------------------------------------------------#
+  Parameter:
+    Type: "AWS::SSM::Parameter"
+    Properties:
+      Name: !Join [ "-", [ !Ref SSMProject, !Ref SSMEnviroment, !Ref VPCName ] ]
+      Type: "String"
+      Value: !Join [ "-", [ !Ref SSMProject, !Ref SSMEnviroment, !Ref VPCName ] ]
+      Description: "SSM parm for Project and Enviroment and VPC Prefix"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+  VPC:
+    Value: !Ref VPC
+    Export:
+      Name: !Join [ "-", [ !Ref SSMProject, !Ref SSMEnviroment, !Ref VPCName, id ] ]
+
+  CIDR:
+    Value: !Ref CIDR
+    Export:
+      Name: !Join [ "-", [ !Ref SSMProject, !Ref SSMEnviroment, !Ref VPCName, cidr ] ]

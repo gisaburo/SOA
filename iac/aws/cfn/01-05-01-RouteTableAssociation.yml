@@ -1,0 +1,71 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  RouteTableAssociation Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+
+      - Label: 
+          default: "RouteTable Name"
+        Parameters: 
+          - RouteTableName
+
+      - Label: 
+          default: "Subnet Name"
+        Parameters: 
+          - SubnetName
+
+      - Label: 
+          default: "Subnet AvailabilityZone"
+        Parameters: 
+          - SubnetAvailabilityZone
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  RouteTableName:
+    Type: String
+
+  SubnetName:
+    Type: String
+
+  SubnetAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+    AllowedValues:    
+      - "ap-northeast-1a"
+      - "ap-northeast-1c"
+      - "ap-northeast-1d"
+
+Resources: 
+# ------------------------------------------------------------#
+# RouteTable Associate
+# ------------------------------------------------------------# 
+# RouteTable Associate Subnet
+  SubnetRouteTableAssociation: 
+    Type: "AWS::EC2::SubnetRouteTableAssociation"
+    Properties: 
+      SubnetId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-${SubnetName}-${SubnetAvailabilityZone}-subnet"
+
+      RouteTableId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-${RouteTableName}-route"

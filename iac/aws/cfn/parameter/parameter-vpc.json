@@ -1,0 +1,26 @@
+[
+    {
+        "ParameterKey": "VPCTag",
+        "ParameterValue": "project-enviroment-vpc01"
+    },
+    {
+        "ParameterKey": "InternetGatewayTag",
+        "ParameterValue": "project-enviroment-vpc01-igw"
+    },
+    {
+        "ParameterKey": "CidrBlock",
+        "ParameterValue": "10.0.0.0/16"
+    },
+    {
+        "ParameterKey": "EnableDnsSupport",
+        "ParameterValue": "true"
+    },
+    {
+        "ParameterKey": "EnableDnsHostnames",
+        "ParameterValue": "true"
+    },
+    {
+        "ParameterKey": "InstanceTenancy",
+        "ParameterValue": "default"
+    }
+]

@@ -1,0 +1,93 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  NatGateway Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+
+      - Label: 
+          default: "EIP Name"
+        Parameters: 
+          - EIPName
+
+      - Label: 
+          default: "Subnet Name"
+        Parameters: 
+          - SubnetName
+
+      - Label:
+          default: "SubnetAvailabilityZone"
+        Parameters: 
+          - SubnetAvailabilityZone
+
+      - Label: 
+          default: "NatGateway Name"
+        Parameters: 
+          - NatGatewayName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  NatGatewayName:
+    Type: String
+
+  EIPName:
+    Type: String
+
+  SubnetName:
+    Type: String
+
+  SubnetAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+    AllowedValues:    
+      - "ap-northeast-1a"
+      - "ap-northeast-1c"
+      - "ap-northeast-1d"
+
+  NatGatewayName:
+    Type: String
+
+Resources:
+# ------------------------------------------------------------#
+# NatGateway
+# ------------------------------------------------------------#  
+# Natgateway create
+  NATGW:
+    Type: AWS::EC2::NatGateway
+    Properties:
+      AllocationId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-${EIPName}-eip"
+      SubnetId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-${SubnetName}-${SubnetAvailabilityZone}-subnet"
+      Tags:
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-${NatGatewayName}-natgw"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# NATGW
+  NATGW:
+    Value: !Ref NATGW
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-${NatGatewayName}-natgw"

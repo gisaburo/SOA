@@ -1,0 +1,317 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  VPN Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: Connection Type Configuration
+        Parameters:
+          - Type
+      - Label:
+          default: CustomerGateway Configuration
+        Parameters:
+          - BgpAsn
+          - IpAddress
+          - CustomerGatewayTag
+      - Label:
+          default: VPNGateway Configuration
+        Parameters:
+          - VPNGatewayTag
+      - Label:
+          default: VPCGatewayAttachment Configuration
+        Parameters:
+          - Attachment
+          - VpcId
+      - Label:
+          default: VPNGatewayRoutePropagation Configuration
+        Parameters:
+          - RouteTableIds
+      - Label:
+          default: VPNConnection Configuration
+        Parameters:
+          - StaticRoutesOnly
+          - VPNConnectionTag
+      - Label:
+          default: VPNConnectionRoute Configuration
+        Parameters:
+          - DestinationCidrBlock01
+          - DestinationCidrBlock02
+          - DestinationCidrBlock03
+      - Label:
+          default: Route Configuration
+        Parameters:
+          - RouteTableId01
+          - RouteTableId02
+          - RouteTableId03
+          - RouteTableId04
+# ------------------------------------------------------------#
+# Conditions Section
+# ------------------------------------------------------------#
+Conditions:
+  Attachment: !Equals [ !Ref Attachment, "attached" ]
+  RouteTableId01: !Not [ !Equals [ !Ref RouteTableId01, "" ] ]
+  RouteTableId02: !Not [ !Equals [ !Ref RouteTableId02, "" ] ]
+  RouteTableId03: !Not [ !Equals [ !Ref RouteTableId03, "" ] ]
+  RouteTableId04: !Not [ !Equals [ !Ref RouteTableId04, "" ] ]
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# Connection Type Input Parameters
+# ------------------------------------------------------------# 
+  Type:
+    Type: String
+    Default: ipsec.1
+# ------------------------------------------------------------#
+# CustomerGateway Input Parameters
+# ------------------------------------------------------------# 
+  BgpAsn:
+    Type: String
+    Default: 65000
+  IpAddress:
+    Type: String
+    Default: 1.2.3.4
+  CustomerGatewayTag:
+    Type: String
+    Default: project-enviroment-vpc-cgw
+# ------------------------------------------------------------#
+# VPNGateway Input Parameters
+# ------------------------------------------------------------# 
+  VPNGatewayTag:
+    Type: String
+    Default: project-enviroment-vpc-vgw
+# ------------------------------------------------------------#
+# VPCGatewayAttachment Input Parameters
+# ------------------------------------------------------------# 
+  VpcId:
+    Type: AWS::EC2::VPC::Id
+  Attachment:
+    Type: String
+    Default: attached
+    AllowedValues:
+      - attached
+      - detached
+# ------------------------------------------------------------#
+# Route Input Parameters
+# ------------------------------------------------------------# 
+  RouteTableId01:
+    Type: String
+    Default: rtb-xxxx 
+  RouteTableId02:
+    Type: String
+    Default: rtb-xxxx
+  RouteTableId03:
+    Type: String
+    Default: rtb-xxxx
+  RouteTableId04:
+    Type: String
+    Default: rtb-xxxx
+# ------------------------------------------------------------#
+# VPNConnection Input Parameters
+# ------------------------------------------------------------# 
+  StaticRoutesOnly:
+    Type: String
+    Default: true
+  VPNConnectionTag:
+    Type: String
+    Default: project-enviroment-vpc
+# ------------------------------------------------------------#
+# VPNConnectionRoute Input Parameters
+# ------------------------------------------------------------# 
+  DestinationCidrBlock01:
+    Type: String
+    Default: 192.168.0.0/24
+  DestinationCidrBlock02:
+    Type: String
+    Default: 192.168.1.0/24
+  DestinationCidrBlock03:
+    Type: String
+    Default: 192.168.2.0/24
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# CustomerGateway
+# ------------------------------------------------------------#
+  CustomerGateway:
+    Type: AWS::EC2::CustomerGateway
+    Properties: 
+      BgpAsn: !Ref BgpAsn
+      IpAddress: !Ref IpAddress
+      Tags: 
+        - Key: Name
+          Value: !Ref CustomerGatewayTag
+      Type: !Ref Type
+# ------------------------------------------------------------#
+# VPNGateway
+# ------------------------------------------------------------#
+  VPNGateway: 
+    Type: AWS::EC2::VPNGateway
+    Properties: 
+      Type: !Ref Type
+      Tags: 
+        - Key: Name
+          Value: !Ref VPNGatewayTag
+# ------------------------------------------------------------#
+# VPCGatewayAttachment
+# ------------------------------------------------------------#
+  VPCGatewayAttachment:
+    Type: AWS::EC2::VPCGatewayAttachment
+    Condition: Attachment
+    Properties: 
+      VpcId: !Ref VpcId
+      VpnGatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+# VPNGatewayRoutePropagation
+# ------------------------------------------------------------#
+#  VPNGatewayRoutePropagation:
+#    Type: AWS::EC2::VPNGatewayRoutePropagation
+#    Properties: 
+#      RouteTableIds: !Ref RouteTableIds
+#      VpnGatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+# VPNConnection
+# ------------------------------------------------------------#
+  VPNConnection:
+    Type: AWS::EC2::VPNConnection
+    Properties: 
+      CustomerGatewayId: !Ref CustomerGateway
+      StaticRoutesOnly: !Ref StaticRoutesOnly
+      Tags: 
+        - Key: Name
+          Value: !Ref VPNConnectionTag
+      Type: ipsec.1
+      VpnGatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+# VPNConnectionRoute
+# ------------------------------------------------------------#
+  VPNConnectionRoute01:
+    Type: AWS::EC2::VPNConnectionRoute
+    Properties: 
+      DestinationCidrBlock: !Ref DestinationCidrBlock01
+      VpnConnectionId: !Ref VPNConnection
+# ------------------------------------------------------------#
+  VPNConnectionRoute02:
+    Type: AWS::EC2::VPNConnectionRoute
+    Properties: 
+      DestinationCidrBlock: !Ref DestinationCidrBlock02
+      VpnConnectionId: !Ref VPNConnection
+# ------------------------------------------------------------#
+  VPNConnectionRoute03:
+    Type: AWS::EC2::VPNConnectionRoute
+    Properties: 
+      DestinationCidrBlock: !Ref DestinationCidrBlock03
+      VpnConnectionId: !Ref VPNConnection
+# ------------------------------------------------------------#
+# Route
+# ------------------------------------------------------------#
+  Route01:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId01
+    Properties:
+      RouteTableId: !Ref RouteTableId01
+      DestinationCidrBlock: !Ref DestinationCidrBlock01
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route02:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId01
+    Properties:
+      RouteTableId: !Ref RouteTableId01
+      DestinationCidrBlock: !Ref DestinationCidrBlock02
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route03:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId01
+    Properties:
+      RouteTableId: !Ref RouteTableId01
+      DestinationCidrBlock: !Ref DestinationCidrBlock03
+      GatewayId: !Ref VPNGateway 
+# ------------------------------------------------------------#
+  Route04:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId02
+    Properties:
+      RouteTableId: !Ref RouteTableId02
+      DestinationCidrBlock: !Ref DestinationCidrBlock01
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route05:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId02
+    Properties:
+      RouteTableId: !Ref RouteTableId02
+      DestinationCidrBlock: !Ref DestinationCidrBlock02
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route06:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId02
+    Properties:
+      RouteTableId: !Ref RouteTableId02
+      DestinationCidrBlock: !Ref DestinationCidrBlock03
+      GatewayId: !Ref VPNGateway 
+# ------------------------------------------------------------#
+  Route07:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId03
+    Properties:
+      RouteTableId: !Ref RouteTableId03
+      DestinationCidrBlock: !Ref DestinationCidrBlock01
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route08:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId03
+    Properties:
+      RouteTableId: !Ref RouteTableId03
+      DestinationCidrBlock: !Ref DestinationCidrBlock02
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route09:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId03
+    Properties:
+      RouteTableId: !Ref RouteTableId03
+      DestinationCidrBlock: !Ref DestinationCidrBlock03
+      GatewayId: !Ref VPNGateway 
+# ------------------------------------------------------------#
+  Route10:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId04
+    Properties:
+      RouteTableId: !Ref RouteTableId04
+      DestinationCidrBlock: !Ref DestinationCidrBlock01
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route11:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId04
+    Properties:
+      RouteTableId: !Ref RouteTableId04
+      DestinationCidrBlock: !Ref DestinationCidrBlock02
+      GatewayId: !Ref VPNGateway
+# ------------------------------------------------------------#
+  Route12:
+    Type: AWS::EC2::Route
+    Condition: RouteTableId04
+    Properties:
+      RouteTableId: !Ref RouteTableId04
+      DestinationCidrBlock: !Ref DestinationCidrBlock03
+      GatewayId: !Ref VPNGateway 

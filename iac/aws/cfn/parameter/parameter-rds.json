@@ -1,0 +1,58 @@
+[
+    {
+        "ParameterKey": "Project",
+        "ParameterValue": "project"
+    },
+    {
+        "ParameterKey": "Enviroment",
+        "ParameterValue": "enviroment"
+    },
+    {
+        "ParameterKey": "VPCName",
+        "ParameterValue": "vpc"
+    },
+    {
+        "ParameterKey": "Engine",
+        "ParameterValue": "aurora"
+    },
+    {
+        "ParameterKey": "EngineVersionMajor",
+        "ParameterValue": "5.6"
+    },
+    {
+        "ParameterKey": "EngineVersionMinor",
+        "ParameterValue": "10a"
+    },
+    {
+        "ParameterKey": "DBClusterIdentifier",
+        "ParameterValue": "dbcluster"
+    },
+    {
+        "ParameterKey": "MasterUsername",
+        "ParameterValue": "dbcluster"
+    },
+    {
+        "ParameterKey": "MasterUserPassword",
+        "ParameterValue": "dbcluster1234"
+    },
+    {
+        "ParameterKey": "BackupRetentionPeriod",
+        "ParameterValue": "7"
+    },
+    {
+        "ParameterKey": "StorageEncrypted",
+        "ParameterValue": "true"
+    },
+    {
+        "ParameterKey": "DBInstanceClass",
+        "ParameterValue": "db.t3.small"
+    },
+    {
+        "ParameterKey": "DeletionProtection",
+        "ParameterValue": "true"
+    },
+    {
+        "ParameterKey": "AutoMinorVersionUpgrade",
+        "ParameterValue": "true"
+    }
+]

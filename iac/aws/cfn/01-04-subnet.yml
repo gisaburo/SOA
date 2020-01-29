@@ -1,0 +1,73 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  Subnet Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups:
+      - Label:
+          default: "VPCid for Subnet"
+        Parameters:
+          - SSMVPCPrefix
+      - Label: 
+          default: "Subnet Configuration"
+        Parameters:
+          - SubnetName
+          - SubnetCIDR
+          - SubnetAvailabilityZone
+    ParameterLabels: 
+      SubnetName: 
+        default: "Subnet Name"
+      SubnetCIDR: 
+        default: "Subnet CIDR"
+      SubnetAvailabilityZone: 
+        default: "Subnet AvailabilityZone"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  SSMVPCPrefix:
+    Type: AWS::SSM::Parameter::Value<String>
+    Default: "project-enviroment-vpc"
+
+  SubnetName:
+    Type: String
+    Default: "subnet"
+
+  SubnetCIDR:
+    Type: String
+    Default: "10.0.0.0/24"
+
+  SubnetAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+
+# ------------------------------------------------------------#
+# Subnet
+# ------------------------------------------------------------#
+Resources:
+  Subnet: 
+    Type: "AWS::EC2::Subnet"
+    Properties: 
+      AvailabilityZone: !Ref SubnetAvailabilityZone
+      CidrBlock: !Ref SubnetCIDR
+      VpcId: 
+        Fn::ImportValue: !Join [ "-", [ !Ref SSMVPCPrefix, id ] ]
+      Tags: 
+        - Key: Name
+          Value: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref SubnetName, !Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ] ] ]
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#
+Outputs:
+  Subnet:
+    Value: !Ref Subnet
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref SubnetName, !Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ], id ] ]
+
+  SubnetCIDR:
+    Value: !Ref SubnetCIDR
+    Export:
+      Name: !Join [ "-", [ !Ref SSMVPCPrefix, !Ref SubnetName, !Select [2, !Split ["-", !Ref SubnetAvailabilityZone ] ], cidr ] ]

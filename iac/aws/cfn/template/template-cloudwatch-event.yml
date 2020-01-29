@@ -1,0 +1,25 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description:
+  SNS Subscription Create
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+  Rule01:
+    Type: AWS::Events::Rule
+    Properties: 
+      Description: Event Rule
+      EventPattern: 
+        source:
+          - aws.health
+      State: ENABLED
+      Name: personal-health-dashboard
+      Targets: 
+        - Arn: arn:aws:sns:ap-northeast-1:084163548594:test3
+          Id: OpsTopic

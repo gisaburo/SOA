@@ -1,0 +1,58 @@
+[
+    {
+        "ParameterKey": "Route",
+        "ParameterValue": "NatGateway"
+    },
+    {
+        "ParameterKey": "VpcId",
+        "ParameterValue": "vpc-0a2db1d515e3c6132"
+    },
+    {
+        "ParameterKey": "SubnetId",
+        "ParameterValue": "subnet-08ffed4f0a7314565"
+    },
+    {
+        "ParameterKey": "NatGatewayTag",
+        "ParameterValue": "project-enviroment-vpc01-natgateway-1d"
+    },
+    {
+        "ParameterKey": "RouteTableTag",
+        "ParameterValue": "project-enviroment-vpc01-private-nat-routetable-1d"
+    },
+    {
+        "ParameterKey": "SubnetValue01",
+        "ParameterValue": "project-enviroment-vpc01-private-nat-subnet01-1d, 10.0.7.0/24, ap-northeast-1d"
+    },
+    {
+        "ParameterKey": "SubnetValue02",
+        "ParameterValue": "project-enviroment-vpc01-private-nat-subnet01-1d, 10.0.8.0/24, ap-northeast-1d"
+    },
+    {
+        "ParameterKey": "SubnetValue03",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue04",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue05",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue06",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue07",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue08",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue09",
+        "ParameterValue": ""
+    }
+]

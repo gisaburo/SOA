@@ -1,0 +1,85 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  Subnet Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+      - Label: 
+          default: "Subnet Configuration"
+        Parameters: 
+          - SubnetName
+          - SubnetCIDR
+          - SubnetAvailabilityZone
+    ParameterLabels: 
+      SubnetName: 
+        default: "Subnet Name"
+      SubnetCIDR: 
+        default: "Subnet CIDR"
+      SubnetAvailabilityZone: 
+        default: "Subnet AvailabilityZone"
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  SubnetName:
+    Type: String
+
+  SubnetCIDR:
+    Type: String
+    Default: "10.0.0.0/24"
+
+  SubnetAvailabilityZone:
+    Type: String
+    Default: "ap-northeast-1a"
+    AllowedValues:    
+      - "ap-northeast-1a"
+      - "ap-northeast-1c"
+      - "ap-northeast-1d"
+
+Resources: 
+# ------------------------------------------------------------#
+# Subnet
+# ------------------------------------------------------------#          
+# Subnet Create
+  Subnet: 
+    Type: "AWS::EC2::Subnet"
+    Properties: 
+      AvailabilityZone: !Ref SubnetAvailabilityZone
+      CidrBlock: !Ref SubnetCIDR
+      VpcId: 
+        Fn::ImportValue: 
+          !Sub "${ProjectName}-${EnviromentName}-vpc"
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-${SubnetName}-${SubnetAvailabilityZone}-subnet"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# Subnet
+  Subnet:
+    Value: !Ref Subnet
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-${SubnetName}-${SubnetAvailabilityZone}-subnet"
+
+  SubnetCIDR:
+    Value: !Ref SubnetCIDR
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-${SubnetName}-${SubnetAvailabilityZone}-subnet-cidr"

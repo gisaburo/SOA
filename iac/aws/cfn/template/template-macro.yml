@@ -1,0 +1,13 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  DeletionPolicy macro Create
+# ------------------------------------------------------------#
+# DeletionPolicy macro
+# ------------------------------------------------------------#
+Resources:
+  DeletionPolicymacro:
+    Type: AWS::CloudFormation::Macro
+    Properties: 
+      Description: "Enable AllowedValues ​​of DeletionPolicy"
+      FunctionName: "arn:aws:lambda:ap-northeast-1:xxxxxxxx:function:macroDeletionPolicy" 
+      Name: "DeletionPolicymacro"

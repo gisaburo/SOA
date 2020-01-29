@@ -1,0 +1,57 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: 
+  RouteTable Create
+
+Metadata: 
+  "AWS::CloudFormation::Interface": 
+    ParameterGroups: 
+      - Label: 
+          default: "Project Name"
+        Parameters: 
+          - ProjectName
+      - Label: 
+          default: "Enviroment Name"
+        Parameters: 
+          - EnviromentName
+      - Label: 
+          default: "RouteTable Name"
+        Parameters: 
+          - RouteTableName
+
+# ------------------------------------------------------------#
+# Input Parameters
+# ------------------------------------------------------------# 
+Parameters:
+  ProjectName:
+    Type: String
+
+  EnviromentName:
+    Type: String
+
+  RouteTableName:
+    Type: String
+
+Resources: 
+# ------------------------------------------------------------#
+# RouteTable
+# ------------------------------------------------------------#          
+# RouteTable Create
+  RouteTable: 
+    Type: "AWS::EC2::RouteTable"
+    Properties: 
+      VpcId:
+        Fn::ImportValue:
+          !Sub "${ProjectName}-${EnviromentName}-vpc"
+      Tags: 
+        - Key: Name
+          Value: !Sub "${ProjectName}-${EnviromentName}-${RouteTableName}-route"
+
+# ------------------------------------------------------------#
+# Output Parameters
+# ------------------------------------------------------------#                
+Outputs:
+# Route
+  RouteTable:
+    Value: !Ref RouteTable
+    Export:
+      Name: !Sub "${ProjectName}-${EnviromentName}-${RouteTableName}-route"

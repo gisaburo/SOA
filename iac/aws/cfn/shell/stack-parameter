@@ -1,0 +1,6 @@
+stack-vpc,template-vpc.yml,parameter-vpc.json
+stack-network-public,template-network.yml,parameter-network-public.json
+stack-network-private-nat-1a,template-network.yml,parameter-network-private-nat-1a.json
+stack-network-private-nat-1c,template-network.yml,parameter-network-private-nat-1c.json
+stack-network-private-nat-1d,template-network.yml,parameter-network-private-nat-1d.json
+stack-network-private-Isolate,template-network.yml,parameter-network-private-isolate.json

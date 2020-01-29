@@ -1,0 +1,50 @@
+[
+    {
+        "ParameterKey": "Route",
+        "ParameterValue": "Isolate"
+    },
+    {
+        "ParameterKey": "VpcId",
+        "ParameterValue": "vpc-0a2db1d515e3c6132"
+    },
+    {
+        "ParameterKey": "RouteTableTag",
+        "ParameterValue": "project-enviroment-vpc01-private-isolate"
+    },
+    {
+        "ParameterKey": "SubnetValue01",
+        "ParameterValue": "project-enviroment-vpc01-private-isolate-subnet01-1a, 10.0.9.0/24, ap-northeast-1a"
+    },
+    {
+        "ParameterKey": "SubnetValue02",
+        "ParameterValue": "project-enviroment-vpc01-private-isolate-subnet01-1c, 10.0.10.0/24, ap-northeast-1c"
+    },
+    {
+        "ParameterKey": "SubnetValue03",
+        "ParameterValue": "project-enviroment-vpc01-private-isolate-subnet01-1d, 10.0.11.0/24, ap-northeast-1d"
+    },
+    {
+        "ParameterKey": "SubnetValue04",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue05",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue06",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue07",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue08",
+        "ParameterValue": ""
+    },
+    {
+        "ParameterKey": "SubnetValue09",
+        "ParameterValue": ""
+    }
+]

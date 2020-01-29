@@ -1,0 +1,182 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description: 
+  RDS aurora Create
+# ------------------------------------------------------------#
+# Metadata Section
+# ------------------------------------------------------------#
+Metadata:
+# ------------------------------------------------------------#
+# Interface
+# ------------------------------------------------------------# 
+  AWS::CloudFormation::Interface: 
+    ParameterGroups:
+      - Label:
+          default: DBSubnetGroup Configuration
+        Parameters:
+          - SubnetIds
+          - DBSubnetGroupName
+      - Label:
+          default: DBCluster Configuration
+        Parameters:
+          - Engine
+          - EngineVersionMajor
+          - EngineVersionMinor
+          - DBClusterIdentifier
+          - MasterUsername
+          - MasterUserPassword
+          - BackupRetentionPeriod
+          - StorageEncrypted
+          - DeletionProtection
+          - VpcSecurityGroupIds
+          - EnableCloudwatchLogsExports
+      - Label:
+          default: DBInstance Configuration
+        Parameters:
+          - AutoMinorVersionUpgrade
+          - DBInstanceIdentifier
+          - DBInstanceClass
+# ------------------------------------------------------------#
+# Parameters Section
+# ------------------------------------------------------------#
+Parameters:
+# ------------------------------------------------------------#
+# DBSubnetGroup Input Parameters
+# ------------------------------------------------------------#
+  SubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+  DBSubnetGroupName:
+    Type: String
+    Description: project-enviroment-DBSubnetGroup
+# ------------------------------------------------------------#
+# DBCluster Input Parameters
+# ------------------------------------------------------------#
+  Engine:
+    Type: String
+    Description: aurora
+  EngineVersionMajor:
+    Type: String
+    Description: 5.6
+  EngineVersionMinor:
+    Type: String
+    Description: 10a
+  DBClusterIdentifier:
+    Type: String
+    Description: dbcluster
+  MasterUsername:
+    Type: String
+    Description: dbcluster
+  MasterUserPassword:
+    Type: String
+    Description: dbcluster
+  BackupRetentionPeriod:
+    Type: String
+    Description: 7
+  StorageEncrypted:
+    Type: String
+    Description: true or false
+    AllowedValues:
+      - true
+      - false
+  DeletionProtection:
+    Type: String
+    Description: true or false
+    AllowedValues:
+      - true
+      - false
+  VpcSecurityGroupIds:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+  EnableCloudwatchLogsExports:
+    Type: CommaDelimitedList
+    Description: general, error, slowquery, audit
+# ------------------------------------------------------------#
+# DBInstance Input Parameters
+# ------------------------------------------------------------#
+  DBInstanceClass:
+    Type: String
+    Description: db.t3.small
+  AutoMinorVersionUpgrade:
+    Type: String
+    Description: true or false
+    AllowedValues:
+      - true
+      - false
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+# ------------------------------------------------------------#
+# DBSubnetGroup
+# ------------------------------------------------------------#
+  DBSubnetGroup:
+    Type: AWS::RDS::DBSubnetGroup
+    Properties:
+      DBSubnetGroupDescription: RDS subnet group.
+      DBSubnetGroupName: !Ref DBSubnetGroupName
+      SubnetIds: !Ref SubnetIds
+# ------------------------------------------------------------#
+# DBClusterParameterGroup 
+# ------------------------------------------------------------#
+  DBClusterParameterGroup:
+    Type: AWS::RDS::DBClusterParameterGroup
+    Properties:
+      Description: CloudFormation Aurora Cluster Parameter Group
+      Family: !Sub ${Engine}${EngineVersionMajor}
+      Parameters:
+        server_audit_logging: 0
+# ------------------------------------------------------------#
+# DBParameterGroup
+# ------------------------------------------------------------#
+  DBParameterGroup:
+    Type: AWS::RDS::DBParameterGroup
+    Properties:
+      Description: CloudFormation Aurora Instance Parameter Group
+      Family: !Sub ${Engine}${EngineVersionMajor}
+# ------------------------------------------------------------#
+# DBCluster
+# ------------------------------------------------------------#
+  DBCluster:
+    Type: AWS::RDS::DBCluster
+    DeletionPolicy: Snapshot
+    Properties:
+      Engine: !Ref Engine
+      EngineVersion: !Sub ${EngineVersionMajor}.${EngineVersionMinor}
+      DBClusterIdentifier: !Ref DBClusterIdentifier
+      DeletionProtection: !Ref DeletionProtection
+      MasterUsername: '{{resolve:ssm:MasterUsername:1}}'
+      MasterUserPassword: '{{resolve:ssm-secure:MasterUserPassword:1}}'
+      BackupRetentionPeriod: !Ref BackupRetentionPeriod
+      EnableCloudwatchLogsExports: !Ref EnableCloudwatchLogsExports
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DBClusterParameterGroupName: !Ref DBClusterParameterGroup
+      StorageEncrypted: !Ref StorageEncrypted
+      VpcSecurityGroupIds: !Ref VpcSecurityGroupIds
+# ------------------------------------------------------------#
+# DBInstance
+# ------------------------------------------------------------#
+  DBInstance01:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: !Ref Engine
+      AutoMinorVersionUpgrade: !Ref AutoMinorVersionUpgrade
+      DBClusterIdentifier: !Ref DBCluster
+      DBInstanceIdentifier: !Sub ${DBClusterIdentifier}-instance-1
+      DBInstanceClass: !Ref DBInstanceClass
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DBParameterGroupName: !Ref DBParameterGroup
+# ------------------------------------------------------------#
+  DBInstance02:
+    Type: AWS::RDS::DBInstance
+    Properties:
+      Engine: !Ref Engine
+      AutoMinorVersionUpgrade: !Ref AutoMinorVersionUpgrade
+      DBClusterIdentifier: !Ref DBCluster
+      DBInstanceIdentifier: !Sub ${DBClusterIdentifier}-instance-2
+      DBInstanceClass: !Ref DBInstanceClass
+      DBSubnetGroupName: !Ref DBSubnetGroup
+      DBParameterGroupName: !Ref DBParameterGroup

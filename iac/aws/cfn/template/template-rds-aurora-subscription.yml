@@ -1,0 +1,85 @@
+# ------------------------------------------------------------#
+# Template Version
+# ------------------------------------------------------------#
+AWSTemplateFormatVersion: 2010-09-09
+# ------------------------------------------------------------#
+# Description Section
+# ------------------------------------------------------------#
+Description: 
+  RDS EventSubscription Create
+# ------------------------------------------------------------#
+# Resources Section
+# ------------------------------------------------------------#
+Resources:
+  dbinstance:
+    Type: AWS::RDS::EventSubscription
+    Properties: 
+      Enabled: false
+      EventCategories: 
+        - deletion
+        - read replica
+        - failover
+        - restoration
+        - maintenance
+        - low storage
+        - configuration change
+        - backup
+        - creation
+        - availability
+        - recovery
+        - failure
+        - backtrack
+        - notification
+      SnsTopicArn: arn:aws:sns:ap-northeast-1:084163548594:testtopic
+      SourceType: db-instance
+# ------------------------------------------------------------#
+  dbsecuritygroup:
+    Type: AWS::RDS::EventSubscription
+    Properties: 
+      Enabled: false
+      EventCategories: 
+        - configuration change
+        - failure
+      SnsTopicArn: arn:aws:sns:ap-northeast-1:084163548594:testtopic
+      SourceType: db-security-group
+# ------------------------------------------------------------#
+  dbparametergroup:
+    Type: AWS::RDS::EventSubscription
+    Properties: 
+      Enabled: false
+      EventCategories: 
+        - configuration change
+      SnsTopicArn: arn:aws:sns:ap-northeast-1:084163548594:testtopic
+      SourceType: db-parameter-group
+# ------------------------------------------------------------#
+  dbsnapshot:
+    Type: AWS::RDS::EventSubscription
+    Properties: 
+      Enabled: false
+      EventCategories: 
+        - deletion
+        - creation
+        - restoration
+        - notification
+      SnsTopicArn: arn:aws:sns:ap-northeast-1:084163548594:testtopic
+      SourceType: db-snapshot
+# ------------------------------------------------------------#
+  dbcluster:
+    Type: AWS::RDS::EventSubscription
+    Properties: 
+      Enabled: false
+      EventCategories: 
+        - failover
+        - failure
+        - notification
+      SnsTopicArn: arn:aws:sns:ap-northeast-1:084163548594:testtopic
+      SourceType: db-cluster
+# ------------------------------------------------------------#
+  dbclustersnapshot:
+    Type: AWS::RDS::EventSubscription
+    Properties: 
+      Enabled: false
+      EventCategories: 
+        - backup
+      SnsTopicArn: arn:aws:sns:ap-northeast-1:084163548594:testtopic
+      SourceType: db-cluster-snapshot
