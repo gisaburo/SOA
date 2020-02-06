@@ -1,0 +1,29 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "MypjStack": {
+        "id": "MypjStack",
+        "path": "MypjStack",
+        "children": {
+          "vpc": {
+            "id": "vpc",
+            "path": "MypjStack/vpc",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.0.0/16"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
