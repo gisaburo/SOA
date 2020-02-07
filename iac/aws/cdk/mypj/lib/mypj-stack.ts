@@ -6,7 +6,14 @@ export class MypjStack extends cdk.Stack {
     super(scope, id, props);
 
     new ec2.CfnVPC(this, 'vpc', {
-      cidrBlock: "10.0.0.0/16"
+      cidrBlock: "10.0.0.0/16",
+      enableDnsHostnames: true,
+      enableDnsSupport: true,
+      instanceTenancy: "default",
+      tags:[{
+        "key":"Name", 
+        "value":"vpc"
+      }]
     })
   }
 }
