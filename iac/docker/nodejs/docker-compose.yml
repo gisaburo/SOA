@@ -1,0 +1,11 @@
+version: '2.1'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: ./dockerfile
+    command: npm run start
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/usr/src/app
