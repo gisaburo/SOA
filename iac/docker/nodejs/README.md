@@ -20,8 +20,8 @@ $ touch docker-compose.yml
 ```
 ## Run application on docker
 ```
-$ git clone 
-$ cd 
+$ git clone https://github.com/gisaburo/SOA.git
+$ cd SOA/iac/docker/nodejs
 $ npm install
 $ docker-compose up --build web
 ```
