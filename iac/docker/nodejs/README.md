@@ -22,5 +22,5 @@ $ touch docker-compose.yml
 ```
 $ git clone https://github.com/gisaburo/SOA.git
 $ cd SOA/iac/docker/nodejs
-$ docker-compose up --build web
+$ podman-compose up
 ```

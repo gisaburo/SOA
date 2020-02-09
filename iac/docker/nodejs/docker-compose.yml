@@ -1,9 +1,9 @@
-version: '2.1'
+version: '3'
 services:
   web:
     build:
       context: .
-      dockerfile: ./dockerfile
+      dockerfile: ./Dockerfile
     command: npm run start
     ports:
       - '8080:8080'
