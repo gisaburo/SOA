@@ -1,0 +1,7 @@
+README.md
+setup.py
+cdk_python/cdk_python.egg-info/PKG-INFO
+cdk_python/cdk_python.egg-info/SOURCES.txt
+cdk_python/cdk_python.egg-info/dependency_links.txt
+cdk_python/cdk_python.egg-info/requires.txt
+cdk_python/cdk_python.egg-info/top_level.txt

@@ -1,0 +1,37 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "cdk-python": {
+        "id": "cdk-python",
+        "path": "cdk-python",
+        "children": {
+          "vpc01": {
+            "id": "vpc01",
+            "path": "cdk-python/vpc01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.0.0/16",
+                "enableDnsHostnames": true,
+                "enableDnsSupport": true,
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "vpc01"
+                  }
+                ]
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
