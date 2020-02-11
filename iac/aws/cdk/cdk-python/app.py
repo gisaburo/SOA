@@ -2,10 +2,10 @@
 
 from aws_cdk import core
 
-from cdk_python.cdk_python_stack import CdkPythonStack
+from cdk_python.dev.vpc_stack import vpcStack
 
 
 app = core.App()
-CdkPythonStack(app, "cdk-python")
+vpcStack(app, "dev-vpc")
 
 app.synth()

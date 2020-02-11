@@ -8,13 +8,13 @@
         "id": "Tree",
         "path": "Tree"
       },
-      "cdk-python": {
-        "id": "cdk-python",
-        "path": "cdk-python",
+      "dev-vpc": {
+        "id": "dev-vpc",
+        "path": "dev-vpc",
         "children": {
-          "vpc01": {
-            "id": "vpc01",
-            "path": "cdk-python/vpc01",
+          "vpc": {
+            "id": "vpc",
+            "path": "dev-vpc/vpc",
             "attributes": {
               "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
               "aws:cdk:cloudformation:props": {
@@ -27,6 +27,36 @@
                     "value": "vpc01"
                   }
                 ]
+              }
+            }
+          },
+          "InternetGateway": {
+            "id": "InternetGateway",
+            "path": "dev-vpc/InternetGateway",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "InternetGateway"
+                  }
+                ]
+              }
+            }
+          },
+          "VPCGatewayAttachment": {
+            "id": "VPCGatewayAttachment",
+            "path": "dev-vpc/VPCGatewayAttachment",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "internetGatewayId": {
+                  "Ref": "InternetGateway"
+                }
               }
             }
           }
