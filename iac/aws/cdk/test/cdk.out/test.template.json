@@ -1,0 +1,89 @@
+{
+  "Resources": {
+    "CfnVPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "CfnVPC"
+          }
+        ]
+      }
+    },
+    "CfnInternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "CfnInternetGateway"
+          }
+        ]
+      }
+    },
+    "CfnVPCGatewayAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "CfnVPC"
+        },
+        "InternetGatewayId": {
+          "Ref": "CfnInternetGateway"
+        }
+      }
+    },
+    "publicSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Ref": "CfnVPC"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicSubnet"
+          }
+        ]
+      }
+    },
+    "privateSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Ref": "CfnVPC"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privateSubnet"
+          }
+        ]
+      }
+    },
+    "isolateSubnet": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Ref": "CfnVPC"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "isolateSubnet"
+          }
+        ]
+      }
+    }
+  }
+}

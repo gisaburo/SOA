@@ -1,0 +1,125 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "vpc": {
+        "id": "vpc",
+        "path": "vpc",
+        "children": {
+          "vpc01": {
+            "id": "vpc01",
+            "path": "vpc/vpc01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.0.0/24",
+                "enableDnsHostnames": true,
+                "enableDnsSupport": true,
+                "instanceTenancy": "default",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "vpc01"
+                  }
+                ]
+              }
+            }
+          },
+          "ovpc01": {
+            "id": "ovpc01",
+            "path": "vpc/ovpc01"
+          },
+          "InternetGateway01": {
+            "id": "InternetGateway01",
+            "path": "vpc/InternetGateway01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "internetgateway01"
+                  }
+                ]
+              }
+            }
+          },
+          "VPCGatewayAttachment01": {
+            "id": "VPCGatewayAttachment01",
+            "path": "vpc/VPCGatewayAttachment01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc01"
+                },
+                "internetGatewayId": {
+                  "Ref": "InternetGateway01"
+                }
+              }
+            }
+          },
+          "vpc02": {
+            "id": "vpc02",
+            "path": "vpc/vpc02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.0.0/16",
+                "enableDnsHostnames": true,
+                "enableDnsSupport": true,
+                "instanceTenancy": "default",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "vpc02"
+                  }
+                ]
+              }
+            }
+          },
+          "ovpc11": {
+            "id": "ovpc11",
+            "path": "vpc/ovpc11"
+          },
+          "InternetGateway02": {
+            "id": "InternetGateway02",
+            "path": "vpc/InternetGateway02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "internetgateway02"
+                  }
+                ]
+              }
+            }
+          },
+          "VPCGatewayAttachment02": {
+            "id": "VPCGatewayAttachment02",
+            "path": "vpc/VPCGatewayAttachment02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc02"
+                },
+                "internetGatewayId": {
+                  "Ref": "InternetGateway02"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

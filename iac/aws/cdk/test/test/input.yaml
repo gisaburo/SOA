@@ -1,0 +1,27 @@
+version: template01
+stage: dev
+VPC:
+    - cidr_block: 10.0.0.0/24
+      tags:
+        - key: Name
+          value: vpc01
+      export:
+        - value: ref
+          export_name: vpc01-vpc-id
+      InternetGateway:
+        - key: Name
+          value: internetgateway01
+        - export:
+            - value: ref
+              export_name: vpc01-internetgateway01-id
+    - cidr_block: 10.0.0.0/16
+      tags:
+        - key: Name
+          value: vpc02
+      export:
+        - value: ref
+          export_name: vpc02-vpc-id
+      InternetGateway:
+        - key: Name
+          value: internetgateway02
+

@@ -1,0 +1,96 @@
+{
+  "Resources": {
+    "vpc01": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "vpc01"
+          }
+        ]
+      }
+    },
+    "InternetGateway01": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "internetgateway01"
+          }
+        ]
+      }
+    },
+    "VPCGatewayAttachment01": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc01"
+        },
+        "InternetGatewayId": {
+          "Ref": "InternetGateway01"
+        }
+      }
+    },
+    "vpc02": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "vpc02"
+          }
+        ]
+      }
+    },
+    "InternetGateway02": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "internetgateway02"
+          }
+        ]
+      }
+    },
+    "VPCGatewayAttachment02": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc02"
+        },
+        "InternetGatewayId": {
+          "Ref": "InternetGateway02"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "ovpc01": {
+      "Value": {
+        "Ref": "vpc01"
+      },
+      "Export": {
+        "Name": "vpc01-vpc-id"
+      }
+    },
+    "ovpc11": {
+      "Value": {
+        "Ref": "vpc02"
+      },
+      "Export": {
+        "Name": "vpc02-vpc-id"
+      }
+    }
+  }
+}
