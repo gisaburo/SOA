@@ -1,0 +1,61 @@
+{
+  "Resources": {
+    "VPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPC"
+          }
+        ]
+      }
+    },
+    "InternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "InternetGateway"
+          }
+        ]
+      }
+    },
+    "VPCGatewayAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "InternetGatewayId": {
+          "Ref": "InternetGateway"
+        }
+      }
+    }
+  },
+  "Outputs": {
+    "outVPC": {
+      "Description": "VPCOutput",
+      "Value": {
+        "Ref": "VPC"
+      },
+      "Export": {
+        "Name": "vpc-id"
+      }
+    },
+    "outInternetGateway": {
+      "Description": "CfnInternetGatewayOutput",
+      "Value": {
+        "Ref": "InternetGateway"
+      },
+      "Export": {
+        "Name": "outInternetGateway-id"
+      }
+    }
+  }
+}

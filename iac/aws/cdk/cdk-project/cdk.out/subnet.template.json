@@ -1,0 +1,34 @@
+{
+  "Resources": {
+    "SubnetPublic": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Fn::ImportValue": "vpc-id"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Subnet-Public"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "subnet/Subnet-Public"
+      }
+    }
+  },
+  "Outputs": {
+    "outSubnetpublic": {
+      "Description": "SubnetOutput",
+      "Value": {
+        "Ref": "SubnetPublic"
+      },
+      "Export": {
+        "Name": "Subnet-public-id"
+      }
+    }
+  }
+}

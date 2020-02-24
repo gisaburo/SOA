@@ -1,0 +1,1547 @@
+{
+  "version": "tree-0.1",
+  "tree": {
+    "id": "App",
+    "path": "",
+    "children": {
+      "Tree": {
+        "id": "Tree",
+        "path": "Tree"
+      },
+      "networka": {
+        "id": "networka",
+        "path": "networka",
+        "children": {
+          "vpc": {
+            "id": "vpc",
+            "path": "networka/vpc",
+            "children": {
+              "vpc": {
+                "id": "vpc",
+                "path": "networka/vpc/vpc",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/16",
+                    "enableDnsHostnames": true,
+                    "enableDnsSupport": true,
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "vpc"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "internetgateway": {
+            "id": "internetgateway",
+            "path": "networka/internetgateway",
+            "children": {
+              "internetgateway": {
+                "id": "internetgateway",
+                "path": "networka/internetgateway/internetgateway",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "internetgateway"
+                      }
+                    ]
+                  }
+                }
+              },
+              "VPCGatewayAttachment": {
+                "id": "VPCGatewayAttachment",
+                "path": "networka/internetgateway/VPCGatewayAttachment",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "internetGatewayId": {
+                      "Ref": "internetgatewayC45597EB"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "publicsubnet01": {
+            "id": "publicsubnet01",
+            "path": "networka/publicsubnet01",
+            "children": {
+              "publicsubnet01": {
+                "id": "publicsubnet01",
+                "path": "networka/publicsubnet01/publicsubnet01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.0.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1a",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "publicsubnet01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "publicsubnet02": {
+            "id": "publicsubnet02",
+            "path": "networka/publicsubnet02",
+            "children": {
+              "publicsubnet02": {
+                "id": "publicsubnet02",
+                "path": "networka/publicsubnet02/publicsubnet02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.1.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1c",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "publicsubnet02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "publicsubnet03": {
+            "id": "publicsubnet03",
+            "path": "networka/publicsubnet03",
+            "children": {
+              "publicsubnet03": {
+                "id": "publicsubnet03",
+                "path": "networka/publicsubnet03/publicsubnet03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.2.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1d",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "publicsubnet03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "publicroutetable01": {
+            "id": "publicroutetable01",
+            "path": "networka/publicroutetable01",
+            "children": {
+              "publicroutetable01": {
+                "id": "publicroutetable01",
+                "path": "networka/publicroutetable01/publicroutetable01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "publicroutetable01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "publicroutetable02": {
+            "id": "publicroutetable02",
+            "path": "networka/publicroutetable02",
+            "children": {
+              "publicroutetable02": {
+                "id": "publicroutetable02",
+                "path": "networka/publicroutetable02/publicroutetable02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "publicroutetable02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "publicroutetable03": {
+            "id": "publicroutetable03",
+            "path": "networka/publicroutetable03",
+            "children": {
+              "publicroutetable03": {
+                "id": "publicroutetable03",
+                "path": "networka/publicroutetable03/publicroutetable03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "publicroutetable03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "publicroute01": {
+            "id": "publicroute01",
+            "path": "networka/publicroute01",
+            "children": {
+              "publicroute01": {
+                "id": "publicroute01",
+                "path": "networka/publicroute01/publicroute01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "publicroutetable019082E292"
+                    },
+                    "destinationCidrBlock": "0.0.0.0/0",
+                    "gatewayId": {
+                      "Ref": "internetgatewayC45597EB"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "publicroute02": {
+            "id": "publicroute02",
+            "path": "networka/publicroute02",
+            "children": {
+              "publicroute02": {
+                "id": "publicroute02",
+                "path": "networka/publicroute02/publicroute02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "publicroutetable023616AEF7"
+                    },
+                    "destinationCidrBlock": "0.0.0.0/0",
+                    "gatewayId": {
+                      "Ref": "internetgatewayC45597EB"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "publicroute03": {
+            "id": "publicroute03",
+            "path": "networka/publicroute03",
+            "children": {
+              "publicroute03": {
+                "id": "publicroute03",
+                "path": "networka/publicroute03/publicroute03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "publicroutetable0337E7A56E"
+                    },
+                    "destinationCidrBlock": "0.0.0.0/0",
+                    "gatewayId": {
+                      "Ref": "internetgatewayC45597EB"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation01": {
+            "id": "publicsubnetroutetableassociation01",
+            "path": "networka/publicsubnetroutetableassociation01",
+            "children": {
+              "publicsubnetroutetableassociation01": {
+                "id": "publicsubnetroutetableassociation01",
+                "path": "networka/publicsubnetroutetableassociation01/publicsubnetroutetableassociation01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "publicroutetable019082E292"
+                    },
+                    "subnetId": {
+                      "Ref": "publicsubnet01C2CAA48E"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation02": {
+            "id": "publicsubnetroutetableassociation02",
+            "path": "networka/publicsubnetroutetableassociation02",
+            "children": {
+              "publicsubnetroutetableassociation02": {
+                "id": "publicsubnetroutetableassociation02",
+                "path": "networka/publicsubnetroutetableassociation02/publicsubnetroutetableassociation02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "publicroutetable023616AEF7"
+                    },
+                    "subnetId": {
+                      "Ref": "publicsubnet02E542419F"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation03": {
+            "id": "publicsubnetroutetableassociation03",
+            "path": "networka/publicsubnetroutetableassociation03",
+            "children": {
+              "publicsubnetroutetableassociation03": {
+                "id": "publicsubnetroutetableassociation03",
+                "path": "networka/publicsubnetroutetableassociation03/publicsubnetroutetableassociation03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "publicroutetable0337E7A56E"
+                    },
+                    "subnetId": {
+                      "Ref": "publicsubnet034A1CAA6A"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "privatesubnet01": {
+            "id": "privatesubnet01",
+            "path": "networka/privatesubnet01",
+            "children": {
+              "privatesubnet01": {
+                "id": "privatesubnet01",
+                "path": "networka/privatesubnet01/privatesubnet01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.10.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1a",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "privatesubnet01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "privatesubnet02": {
+            "id": "privatesubnet02",
+            "path": "networka/privatesubnet02",
+            "children": {
+              "privatesubnet02": {
+                "id": "privatesubnet02",
+                "path": "networka/privatesubnet02/privatesubnet02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.11.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1c",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "privatesubnet02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "privatesubnet03": {
+            "id": "privatesubnet03",
+            "path": "networka/privatesubnet03",
+            "children": {
+              "privatesubnet03": {
+                "id": "privatesubnet03",
+                "path": "networka/privatesubnet03/privatesubnet03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.12.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1d",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "privatesubnet03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "privateroutetable01": {
+            "id": "privateroutetable01",
+            "path": "networka/privateroutetable01",
+            "children": {
+              "privateroutetable01": {
+                "id": "privateroutetable01",
+                "path": "networka/privateroutetable01/privateroutetable01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "privateroutetable01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "privateroutetable02": {
+            "id": "privateroutetable02",
+            "path": "networka/privateroutetable02",
+            "children": {
+              "privateroutetable02": {
+                "id": "privateroutetable02",
+                "path": "networka/privateroutetable02/privateroutetable02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "privateroutetable02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "privateroutetable03": {
+            "id": "privateroutetable03",
+            "path": "networka/privateroutetable03",
+            "children": {
+              "privateroutetable03": {
+                "id": "privateroutetable03",
+                "path": "networka/privateroutetable03/privateroutetable03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+                  "aws:cdk:cloudformation:props": {
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "privateroutetable03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "privatesubnetroutetableassociation01": {
+            "id": "privatesubnetroutetableassociation01",
+            "path": "networka/privatesubnetroutetableassociation01",
+            "children": {
+              "privatesubnetroutetableassociation01": {
+                "id": "privatesubnetroutetableassociation01",
+                "path": "networka/privatesubnetroutetableassociation01/privatesubnetroutetableassociation01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "privateroutetable013AB78172"
+                    },
+                    "subnetId": {
+                      "Ref": "privatesubnet011DDB83FC"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "privatesubnetroutetableassociation02": {
+            "id": "privatesubnetroutetableassociation02",
+            "path": "networka/privatesubnetroutetableassociation02",
+            "children": {
+              "privatesubnetroutetableassociation02": {
+                "id": "privatesubnetroutetableassociation02",
+                "path": "networka/privatesubnetroutetableassociation02/privatesubnetroutetableassociation02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "privateroutetable022B60E732"
+                    },
+                    "subnetId": {
+                      "Ref": "privatesubnet02FE99CD6C"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "privatesubnetroutetableassociation03": {
+            "id": "privatesubnetroutetableassociation03",
+            "path": "networka/privatesubnetroutetableassociation03",
+            "children": {
+              "privatesubnetroutetableassociation03": {
+                "id": "privatesubnetroutetableassociation03",
+                "path": "networka/privatesubnetroutetableassociation03/privatesubnetroutetableassociation03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+                  "aws:cdk:cloudformation:props": {
+                    "routeTableId": {
+                      "Ref": "privateroutetable032A045B36"
+                    },
+                    "subnetId": {
+                      "Ref": "privatesubnet035D6B7DA4"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "eip01": {
+            "id": "eip01",
+            "path": "networka/eip01",
+            "children": {
+              "eip01": {
+                "id": "eip01",
+                "path": "networka/eip01/eip01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "eip01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "eip02": {
+            "id": "eip02",
+            "path": "networka/eip02",
+            "children": {
+              "eip02": {
+                "id": "eip02",
+                "path": "networka/eip02/eip02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "eip02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "eip03": {
+            "id": "eip03",
+            "path": "networka/eip03",
+            "children": {
+              "eip03": {
+                "id": "eip03",
+                "path": "networka/eip03/eip03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+                  "aws:cdk:cloudformation:props": {
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "eip03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "natgateway01": {
+            "id": "natgateway01",
+            "path": "networka/natgateway01",
+            "children": {
+              "natgateway01": {
+                "id": "natgateway01",
+                "path": "networka/natgateway01/natgateway01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "allocationId": {
+                      "Fn::GetAtt": [
+                        "eip016F1F6C6B",
+                        "AllocationId"
+                      ]
+                    },
+                    "subnetId": {
+                      "Ref": "publicsubnet01C2CAA48E"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "natgateway01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "natgateway02": {
+            "id": "natgateway02",
+            "path": "networka/natgateway02",
+            "children": {
+              "natgateway02": {
+                "id": "natgateway02",
+                "path": "networka/natgateway02/natgateway02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "allocationId": {
+                      "Fn::GetAtt": [
+                        "eip02DF296BE8",
+                        "AllocationId"
+                      ]
+                    },
+                    "subnetId": {
+                      "Ref": "publicsubnet02E542419F"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "natgateway02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "natgateway03": {
+            "id": "natgateway03",
+            "path": "networka/natgateway03",
+            "children": {
+              "natgateway03": {
+                "id": "natgateway03",
+                "path": "networka/natgateway03/natgateway03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+                  "aws:cdk:cloudformation:props": {
+                    "allocationId": {
+                      "Fn::GetAtt": [
+                        "eip03441B10ED",
+                        "AllocationId"
+                      ]
+                    },
+                    "subnetId": {
+                      "Ref": "publicsubnet034A1CAA6A"
+                    },
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "natgateway03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "isolatesubnet01": {
+            "id": "isolatesubnet01",
+            "path": "networka/isolatesubnet01",
+            "children": {
+              "isolatesubnet01": {
+                "id": "isolatesubnet01",
+                "path": "networka/isolatesubnet01/isolatesubnet01",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.20.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1a",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "isolatesubnet01"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "isolatesubnet02": {
+            "id": "isolatesubnet02",
+            "path": "networka/isolatesubnet02",
+            "children": {
+              "isolatesubnet02": {
+                "id": "isolatesubnet02",
+                "path": "networka/isolatesubnet02/isolatesubnet02",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.21.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1c",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "isolatesubnet02"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          },
+          "isolatesubnet03": {
+            "id": "isolatesubnet03",
+            "path": "networka/isolatesubnet03",
+            "children": {
+              "isolatesubnet03": {
+                "id": "isolatesubnet03",
+                "path": "networka/isolatesubnet03/isolatesubnet03",
+                "attributes": {
+                  "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+                  "aws:cdk:cloudformation:props": {
+                    "cidrBlock": "10.0.22.0/24",
+                    "vpcId": {
+                      "Ref": "vpc6776A399"
+                    },
+                    "availabilityZone": "ap-northeast-1d",
+                    "tags": [
+                      {
+                        "key": "Name",
+                        "value": "isolatesubnet03"
+                      }
+                    ]
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "networkb": {
+        "id": "networkb",
+        "path": "networkb",
+        "children": {
+          "vpc": {
+            "id": "vpc",
+            "path": "networkb/vpc",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPC",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.0.0/16",
+                "enableDnsHostnames": true,
+                "enableDnsSupport": true,
+                "instanceTenancy": "default",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "vpc"
+                  }
+                ]
+              }
+            }
+          },
+          "internetgateway": {
+            "id": "internetgateway",
+            "path": "networkb/internetgateway",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::InternetGateway",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "internetgateway"
+                  }
+                ]
+              }
+            }
+          },
+          "VPCGatewayAttachment": {
+            "id": "VPCGatewayAttachment",
+            "path": "networkb/VPCGatewayAttachment",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::VPCGatewayAttachment",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "internetGatewayId": {
+                  "Ref": "internetgateway"
+                }
+              }
+            }
+          },
+          "publicsubnet01": {
+            "id": "publicsubnet01",
+            "path": "networkb/publicsubnet01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.0.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1a",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicsubnet01"
+                  }
+                ]
+              }
+            }
+          },
+          "publicsubnet02": {
+            "id": "publicsubnet02",
+            "path": "networkb/publicsubnet02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.1.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1c",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicsubnet02"
+                  }
+                ]
+              }
+            }
+          },
+          "publicsubnet03": {
+            "id": "publicsubnet03",
+            "path": "networkb/publicsubnet03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.2.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1d",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicsubnet03"
+                  }
+                ]
+              }
+            }
+          },
+          "publicroutetable01": {
+            "id": "publicroutetable01",
+            "path": "networkb/publicroutetable01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicroutetable01"
+                  }
+                ]
+              }
+            }
+          },
+          "publicroutetable02": {
+            "id": "publicroutetable02",
+            "path": "networkb/publicroutetable02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicroutetable02"
+                  }
+                ]
+              }
+            }
+          },
+          "publicroutetable03": {
+            "id": "publicroutetable03",
+            "path": "networkb/publicroutetable03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicroutetable03"
+                  }
+                ]
+              }
+            }
+          },
+          "publicroute01": {
+            "id": "publicroute01",
+            "path": "networkb/publicroute01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable01"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "gatewayId": {
+                  "Ref": "internetgateway"
+                }
+              }
+            }
+          },
+          "publicroute02": {
+            "id": "publicroute02",
+            "path": "networkb/publicroute02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable02"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "gatewayId": {
+                  "Ref": "internetgateway"
+                }
+              }
+            }
+          },
+          "publicroute03": {
+            "id": "publicroute03",
+            "path": "networkb/publicroute03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable03"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "gatewayId": {
+                  "Ref": "internetgateway"
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation01": {
+            "id": "publicsubnetroutetableassociation01",
+            "path": "networkb/publicsubnetroutetableassociation01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable01"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet01"
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation02": {
+            "id": "publicsubnetroutetableassociation02",
+            "path": "networkb/publicsubnetroutetableassociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable02"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet02"
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation03": {
+            "id": "publicsubnetroutetableassociation03",
+            "path": "networkb/publicsubnetroutetableassociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable03"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet03"
+                }
+              }
+            }
+          },
+          "privatesubnet01": {
+            "id": "privatesubnet01",
+            "path": "networkb/privatesubnet01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.11.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1a",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privatesubnet01"
+                  }
+                ]
+              }
+            }
+          },
+          "privatesubnet02": {
+            "id": "privatesubnet02",
+            "path": "networkb/privatesubnet02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.12.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1c",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privatesubnet02"
+                  }
+                ]
+              }
+            }
+          },
+          "privatesubnet03": {
+            "id": "privatesubnet03",
+            "path": "networkb/privatesubnet03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.13.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1d",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privatesubnet03"
+                  }
+                ]
+              }
+            }
+          },
+          "privateroutetable01": {
+            "id": "privateroutetable01",
+            "path": "networkb/privateroutetable01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privateroutetable01"
+                  }
+                ]
+              }
+            }
+          },
+          "privateroutetable02": {
+            "id": "privateroutetable02",
+            "path": "networkb/privateroutetable02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privateroutetable02"
+                  }
+                ]
+              }
+            }
+          },
+          "privateroutetable03": {
+            "id": "privateroutetable03",
+            "path": "networkb/privateroutetable03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privateroutetable03"
+                  }
+                ]
+              }
+            }
+          },
+          "privatesubnetroutetableassociation01": {
+            "id": "privatesubnetroutetableassociation01",
+            "path": "networkb/privatesubnetroutetableassociation01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable01"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet01"
+                }
+              }
+            }
+          },
+          "privatesubnetroutetableassociation02": {
+            "id": "privatesubnetroutetableassociation02",
+            "path": "networkb/privatesubnetroutetableassociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable02"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet02"
+                }
+              }
+            }
+          },
+          "privatesubnetroutetableassociation03": {
+            "id": "privatesubnetroutetableassociation03",
+            "path": "networkb/privatesubnetroutetableassociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable03"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet03"
+                }
+              }
+            }
+          },
+          "eip01": {
+            "id": "eip01",
+            "path": "networkb/eip01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "eip01"
+                  }
+                ]
+              }
+            }
+          },
+          "eip02": {
+            "id": "eip02",
+            "path": "networkb/eip02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "eip02"
+                  }
+                ]
+              }
+            }
+          },
+          "eip03": {
+            "id": "eip03",
+            "path": "networkb/eip03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "eip03"
+                  }
+                ]
+              }
+            }
+          },
+          "natgateway01": {
+            "id": "natgateway01",
+            "path": "networkb/natgateway01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+              "aws:cdk:cloudformation:props": {
+                "allocationId": {
+                  "Fn::GetAtt": [
+                    "eip01",
+                    "AllocationId"
+                  ]
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet01"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "natgateway01"
+                  }
+                ]
+              }
+            }
+          },
+          "natgateway02": {
+            "id": "natgateway02",
+            "path": "networkb/natgateway02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+              "aws:cdk:cloudformation:props": {
+                "allocationId": {
+                  "Fn::GetAtt": [
+                    "eip02",
+                    "AllocationId"
+                  ]
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet02"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "natgateway02"
+                  }
+                ]
+              }
+            }
+          },
+          "natgateway03": {
+            "id": "natgateway03",
+            "path": "networkb/natgateway03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+              "aws:cdk:cloudformation:props": {
+                "allocationId": {
+                  "Fn::GetAtt": [
+                    "eip03",
+                    "AllocationId"
+                  ]
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet03"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "natgateway03"
+                  }
+                ]
+              }
+            }
+          },
+          "privateroute01": {
+            "id": "privateroute01",
+            "path": "networkb/privateroute01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable01"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "natGatewayId": {
+                  "Ref": "natgateway01"
+                }
+              }
+            }
+          },
+          "privateroute02": {
+            "id": "privateroute02",
+            "path": "networkb/privateroute02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable02"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "natGatewayId": {
+                  "Ref": "natgateway02"
+                }
+              }
+            }
+          },
+          "privateroute03": {
+            "id": "privateroute03",
+            "path": "networkb/privateroute03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable03"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "natGatewayId": {
+                  "Ref": "natgateway03"
+                }
+              }
+            }
+          },
+          "isolatesubnet01": {
+            "id": "isolatesubnet01",
+            "path": "networkb/isolatesubnet01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.21.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1a",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "isolatesubnet01"
+                  }
+                ]
+              }
+            }
+          },
+          "isolatesubnet02": {
+            "id": "isolatesubnet02",
+            "path": "networkb/isolatesubnet02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.22.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1c",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "isolatesubnet02"
+                  }
+                ]
+              }
+            }
+          },
+          "isolatesubnet03": {
+            "id": "isolatesubnet03",
+            "path": "networkb/isolatesubnet03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.23.0/24",
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "availabilityZone": "ap-northeast-1d",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "isolatesubnet03"
+                  }
+                ]
+              }
+            }
+          },
+          "isolateroutetable01": {
+            "id": "isolateroutetable01",
+            "path": "networkb/isolateroutetable01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "isolateroutetable01"
+                  }
+                ]
+              }
+            }
+          },
+          "isolateroutetable02": {
+            "id": "isolateroutetable02",
+            "path": "networkb/isolateroutetable02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "isolateroutetable02"
+                  }
+                ]
+              }
+            }
+          },
+          "isolateroutetable03": {
+            "id": "isolateroutetable03",
+            "path": "networkb/isolateroutetable03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "vpc"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "isolateroutetable03"
+                  }
+                ]
+              }
+            }
+          },
+          "isolatesubnetroutetableassociation01": {
+            "id": "isolatesubnetroutetableassociation01",
+            "path": "networkb/isolatesubnetroutetableassociation01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "isolateroutetable01"
+                },
+                "subnetId": {
+                  "Ref": "isolatesubnet01"
+                }
+              }
+            }
+          },
+          "isolatesubnetroutetableassociation02": {
+            "id": "isolatesubnetroutetableassociation02",
+            "path": "networkb/isolatesubnetroutetableassociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "isolateroutetable02"
+                },
+                "subnetId": {
+                  "Ref": "isolatesubnet02"
+                }
+              }
+            }
+          },
+          "isolatesubnetroutetableassociation03": {
+            "id": "isolatesubnetroutetableassociation03",
+            "path": "networkb/isolatesubnetroutetableassociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "isolateroutetable03"
+                },
+                "subnetId": {
+                  "Ref": "isolatesubnet03"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

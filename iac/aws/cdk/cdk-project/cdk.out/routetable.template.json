@@ -1,0 +1,61 @@
+{
+  "Resources": {
+    "RouteTable": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Fn::ImportValue": "vpc-id"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Routetable"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "routetable/RouteTable"
+      }
+    },
+    "Route": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Fn::ImportValue": "InternetGateway-id"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "routetable/Route"
+      }
+    },
+    "GatewayRouteTableAssociation": {
+      "Type": "AWS::EC2::GatewayRouteTableAssociation",
+      "Properties": {
+        "GatewayId": {
+          "Fn::ImportValue": "InternetGateway-id"
+        },
+        "RouteTableId": {
+          "Ref": "RouteTable"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "routetable/GatewayRouteTableAssociation"
+      }
+    }
+  },
+  "Outputs": {
+    "outRoutetable": {
+      "Description": "RoutetableOutput",
+      "Value": {
+        "Ref": "RouteTable"
+      },
+      "Export": {
+        "Name": "Routetable-id"
+      }
+    }
+  }
+}

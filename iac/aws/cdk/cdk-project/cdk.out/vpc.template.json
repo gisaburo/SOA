@@ -1,0 +1,127 @@
+{
+  "Resources": {
+    "VPC": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "InstanceTenancy": "default",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "VPC"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "vpc/VPC"
+      }
+    },
+    "InternetGateway": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "InternetGateway"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "vpc/InternetGateway"
+      }
+    },
+    "VPCGatewayAttachment": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "InternetGatewayId": {
+          "Ref": "InternetGateway"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "vpc/VPCGatewayAttachment"
+      }
+    },
+    "subnetSubnet00EB09FA52": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Fn::ImportValue": "vpc-id"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Subnet-id-00"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "vpc/subnet/Subnet00"
+      }
+    },
+    "subnetSubnet01DA62F756": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Fn::ImportValue": "vpc-id"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Subnet-id-01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "vpc/subnet/Subnet01"
+      }
+    },
+    "subnetSubnet02EAD4A5E8": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Fn::ImportValue": "vpc-id"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "Subnet-id-02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "vpc/subnet/Subnet02"
+      }
+    }
+  },
+  "Outputs": {
+    "outVPC": {
+      "Description": "VPCOutput",
+      "Value": {
+        "Ref": "VPC"
+      },
+      "Export": {
+        "Name": "vpc-id"
+      }
+    },
+    "outInternetGateway": {
+      "Description": "CfnInternetGatewayOutput",
+      "Value": {
+        "Ref": "InternetGateway"
+      },
+      "Export": {
+        "Name": "InternetGateway-id"
+      }
+    }
+  }
+}

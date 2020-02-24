@@ -1,0 +1,562 @@
+{
+  "Resources": {
+    "vpc6776A399": {
+      "Type": "AWS::EC2::VPC",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/16",
+        "EnableDnsHostnames": true,
+        "EnableDnsSupport": true,
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "vpc"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/vpc/vpc"
+      }
+    },
+    "internetgatewayC45597EB": {
+      "Type": "AWS::EC2::InternetGateway",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "internetgateway"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/internetgateway/internetgateway"
+      }
+    },
+    "internetgatewayVPCGatewayAttachmentB01AC948": {
+      "Type": "AWS::EC2::VPCGatewayAttachment",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "InternetGatewayId": {
+          "Ref": "internetgatewayC45597EB"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/internetgateway/VPCGatewayAttachment"
+      }
+    },
+    "publicsubnet01C2CAA48E": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.0.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicsubnet01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicsubnet01/publicsubnet01"
+      }
+    },
+    "publicsubnet02E542419F": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.1.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicsubnet02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicsubnet02/publicsubnet02"
+      }
+    },
+    "publicsubnet034A1CAA6A": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.2.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1d",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicsubnet03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicsubnet03/publicsubnet03"
+      }
+    },
+    "publicroutetable019082E292": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicroutetable01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicroutetable01/publicroutetable01"
+      }
+    },
+    "publicroutetable023616AEF7": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicroutetable02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicroutetable02/publicroutetable02"
+      }
+    },
+    "publicroutetable0337E7A56E": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicroutetable03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicroutetable03/publicroutetable03"
+      }
+    },
+    "publicroute017D455025": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable019082E292"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "internetgatewayC45597EB"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicroute01/publicroute01"
+      }
+    },
+    "publicroute029EA0F86F": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable023616AEF7"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "internetgatewayC45597EB"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicroute02/publicroute02"
+      }
+    },
+    "publicroute03D4619071": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable0337E7A56E"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "internetgatewayC45597EB"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicroute03/publicroute03"
+      }
+    },
+    "publicsubnetroutetableassociation01C1BC4293": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable019082E292"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet01C2CAA48E"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicsubnetroutetableassociation01/publicsubnetroutetableassociation01"
+      }
+    },
+    "publicsubnetroutetableassociation0292B1075A": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable023616AEF7"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet02E542419F"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicsubnetroutetableassociation02/publicsubnetroutetableassociation02"
+      }
+    },
+    "publicsubnetroutetableassociation03F15F39F9": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable0337E7A56E"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet034A1CAA6A"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/publicsubnetroutetableassociation03/publicsubnetroutetableassociation03"
+      }
+    },
+    "privatesubnet011DDB83FC": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.10.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privatesubnet01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privatesubnet01/privatesubnet01"
+      }
+    },
+    "privatesubnet02FE99CD6C": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.11.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privatesubnet02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privatesubnet02/privatesubnet02"
+      }
+    },
+    "privatesubnet035D6B7DA4": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.12.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1d",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privatesubnet03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privatesubnet03/privatesubnet03"
+      }
+    },
+    "privateroutetable013AB78172": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privateroutetable01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privateroutetable01/privateroutetable01"
+      }
+    },
+    "privateroutetable022B60E732": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privateroutetable02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privateroutetable02/privateroutetable02"
+      }
+    },
+    "privateroutetable032A045B36": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privateroutetable03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privateroutetable03/privateroutetable03"
+      }
+    },
+    "privatesubnetroutetableassociation01ABC7D82C": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable013AB78172"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet011DDB83FC"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privatesubnetroutetableassociation01/privatesubnetroutetableassociation01"
+      }
+    },
+    "privatesubnetroutetableassociation02854FF943": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable022B60E732"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet02FE99CD6C"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privatesubnetroutetableassociation02/privatesubnetroutetableassociation02"
+      }
+    },
+    "privatesubnetroutetableassociation03A57E8480": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable032A045B36"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet035D6B7DA4"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/privatesubnetroutetableassociation03/privatesubnetroutetableassociation03"
+      }
+    },
+    "eip016F1F6C6B": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "eip01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/eip01/eip01"
+      }
+    },
+    "eip02DF296BE8": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "eip02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/eip02/eip02"
+      }
+    },
+    "eip03441B10ED": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "eip03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/eip03/eip03"
+      }
+    },
+    "natgateway01CCF7CA2C": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "eip016F1F6C6B",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet01C2CAA48E"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "natgateway01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/natgateway01/natgateway01"
+      }
+    },
+    "natgateway023D442187": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "eip02DF296BE8",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet02E542419F"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "natgateway02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/natgateway02/natgateway02"
+      }
+    },
+    "natgateway036B2AB492": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "eip03441B10ED",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet034A1CAA6A"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "natgateway03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/natgateway03/natgateway03"
+      }
+    },
+    "isolatesubnet017201EAF5": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.20.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1a",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "isolatesubnet01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/isolatesubnet01/isolatesubnet01"
+      }
+    },
+    "isolatesubnet027725CAAB": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.21.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "isolatesubnet02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/isolatesubnet02/isolatesubnet02"
+      }
+    },
+    "isolatesubnet0340619280": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.22.0/24",
+        "VpcId": {
+          "Ref": "vpc6776A399"
+        },
+        "AvailabilityZone": "ap-northeast-1d",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "isolatesubnet03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "network/isolatesubnet03/isolatesubnet03"
+      }
+    }
+  }
+}
