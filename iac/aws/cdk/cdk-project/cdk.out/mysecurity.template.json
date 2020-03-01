@@ -1,0 +1,142 @@
+{
+  "Resources": {
+    "publicsecuritygroup01": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "publicsecuritygroup",
+        "GroupName": "publicsecuritygroup01",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicsecuritygroup01"
+          }
+        ],
+        "VpcId": {
+          "Fn::ImportValue": "vpcid01"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/publicsecuritygroup01"
+      }
+    },
+    "privatesecuritygroup01": {
+      "Type": "AWS::EC2::SecurityGroup",
+      "Properties": {
+        "GroupDescription": "privatesecuritygroup",
+        "GroupName": "privatesecuritygroup01",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privatesecuritygroup01"
+          }
+        ],
+        "VpcId": {
+          "Fn::ImportValue": "vpcid01"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/privatesecuritygroup01"
+      }
+    },
+    "publicsecuritygroupingress01": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "Description": "for bastion",
+        "FromPort": 22,
+        "GroupId": {
+          "Ref": "publicsecuritygroup01"
+        },
+        "ToPort": 22
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/publicsecuritygroupingress01"
+      }
+    },
+    "publicsecuritygroupegress01": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "publicsecuritygroup01"
+        },
+        "IpProtocol": "tcp",
+        "Description": "for private",
+        "DestinationSecurityGroupId": {
+          "Ref": "privatesecuritygroup01"
+        },
+        "FromPort": 22,
+        "ToPort": 22
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/publicsecuritygroupegress01"
+      }
+    },
+    "privatesecuritygroupingress01": {
+      "Type": "AWS::EC2::SecurityGroupIngress",
+      "Properties": {
+        "IpProtocol": "tcp",
+        "Description": "for bastion",
+        "FromPort": 22,
+        "GroupId": {
+          "Ref": "privatesecuritygroup01"
+        },
+        "SourceSecurityGroupId": {
+          "Ref": "publicsecuritygroup01"
+        },
+        "ToPort": 22
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/privatesecuritygroupingress01"
+      }
+    },
+    "privatesecuritygroupegress01": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "privatesecuritygroup01"
+        },
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "Description": "for 443",
+        "FromPort": 443,
+        "ToPort": 443
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/privatesecuritygroupegress01"
+      }
+    },
+    "privatesecuritygroupegress02": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "privatesecuritygroup01"
+        },
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "Description": "for 80",
+        "FromPort": 80,
+        "ToPort": 80
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/privatesecuritygroupegress02"
+      }
+    },
+    "privatesecuritygroupegress03": {
+      "Type": "AWS::EC2::SecurityGroupEgress",
+      "Properties": {
+        "GroupId": {
+          "Ref": "privatesecuritygroup01"
+        },
+        "IpProtocol": "tcp",
+        "CidrIp": "0.0.0.0/0",
+        "Description": "for 22",
+        "FromPort": 22,
+        "ToPort": 22
+      },
+      "Metadata": {
+        "aws:cdk:path": "mysecurity/privatesecuritygroupegress03"
+      }
+    }
+  }
+}

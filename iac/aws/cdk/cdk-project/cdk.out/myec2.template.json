@@ -1,0 +1,13 @@
+{
+  "Resources": {
+    "template01": {
+      "Type": "AWS::EC2::LaunchTemplate",
+      "Properties": {
+        "LaunchTemplateName": "template01"
+      },
+      "Metadata": {
+        "aws:cdk:path": "myec2/template01"
+      }
+    }
+  }
+}
