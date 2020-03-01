@@ -10,7 +10,7 @@ def create_vpc(scope: core.Construct, id: str, *,
         instance_tenancy='default',
         tags='vpc01') -> aws_ec2.CfnVPC:
 
-    vpc = aws_ec2.CfnVPC(scope, id='vpc',
+    vpc = aws_ec2.CfnVPC(scope, 'vpc',
         cidr_block=cidr_block,
         enable_dns_hostnames=enable_dns_hostnames,
         enable_dns_support=enable_dns_support,
