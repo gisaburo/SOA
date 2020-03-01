@@ -17,29 +17,30 @@ Resources:
   Alarm:
     Type: AWS::CloudWatch::Alarm
     Properties: 
-      ActionsEnabled: True
+      ActionsEnabled: False
       AlarmActions: 
-        - String
-      AlarmDescription: String
-      AlarmName: String
-      ComparisonOperator: String
-      DatapointsToAlarm: Integer
+        - arn:aws:sns:ap-northeast-1:123456789012:test
+      AlarmDescription: sample instance alarm 
+      AlarmName: CPUUtilization-instance
+      ComparisonOperator: GreaterThanThreshold
+      DatapointsToAlarm: 1
       Dimensions: 
-        - Dimension
-      EvaluateLowSampleCountPercentile: String
-      EvaluationPeriods: Integer
-      ExtendedStatistic: String
+        - Name: InstanceId
+          Value: i-00f6ebb246fa5dd62
+#      EvaluateLowSampleCountPercentile: String
+      EvaluationPeriods: 3
+#      ExtendedStatistic: String
       InsufficientDataActions: 
-        - String
-      MetricName: String
-      Metrics: 
-        - MetricDataQuery
-      Namespace: String
+        - arn:aws:sns:ap-northeast-1:123456789012:test
+      MetricName: CPUUtilization
+#      Metrics: 
+#        - MetricDataQuery
+      Namespace: AWS/EC2
       OKActions: 
-        - String
-      Period: Integer
-      Statistic: String
-      Threshold: Double
-      ThresholdMetricId: String
-      TreatMissingData: String
-      Unit: String
+        - arn:aws:sns:ap-northeast-1:123456789012:test
+      Period: 60
+      Statistic: Average
+      Threshold: 80
+#      ThresholdMetricId: String
+      TreatMissingData: missing
+#      Unit: String
