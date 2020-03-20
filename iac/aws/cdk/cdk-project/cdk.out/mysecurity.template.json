@@ -121,21 +121,25 @@
       "Metadata": {
         "aws:cdk:path": "mysecurity/privatesecuritygroupegress02"
       }
-    },
-    "privatesecuritygroupegress03": {
-      "Type": "AWS::EC2::SecurityGroupEgress",
-      "Properties": {
-        "GroupId": {
-          "Ref": "privatesecuritygroup01"
-        },
-        "IpProtocol": "tcp",
-        "CidrIp": "0.0.0.0/0",
-        "Description": "for 22",
-        "FromPort": 22,
-        "ToPort": 22
+    }
+  },
+  "Outputs": {
+    "output01": {
+      "Description": "publicsecuritygroup",
+      "Value": {
+        "Ref": "publicsecuritygroup01"
       },
-      "Metadata": {
-        "aws:cdk:path": "mysecurity/privatesecuritygroupegress03"
+      "Export": {
+        "Name": "publicsecuritygroup01"
+      }
+    },
+    "output02": {
+      "Description": "privatesecuritygroup",
+      "Value": {
+        "Ref": "privatesecuritygroup01"
+      },
+      "Export": {
+        "Name": "privatesecuritygroup01"
       }
     }
   }

@@ -126,10 +126,74 @@
             ]
           }
         ],
+        "/mynetwork/publicsubnet02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicsubnet02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicsubnet03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicsubnet03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/publicroutetable01": [
           {
             "type": "aws:cdk:logicalId",
             "data": "publicroutetable01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicroutetable02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicroutetable02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicroutetable03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicroutetable03",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -158,10 +222,74 @@
             ]
           }
         ],
+        "/mynetwork/publicroute02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicroute02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicroute03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicroute03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/publicsubnetroutetableassociation01": [
           {
             "type": "aws:cdk:logicalId",
             "data": "publicsubnetroutetableassociation01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicsubnetroutetableassociation02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicsubnetroutetableassociation02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicsubnetroutetableassociation03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicsubnetroutetableassociation03",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -190,10 +318,74 @@
             ]
           }
         ],
+        "/mynetwork/publicSubnetNetworkAclAssociation02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicSubnetNetworkAclAssociation02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/publicSubnetNetworkAclAssociation03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "publicSubnetNetworkAclAssociation03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/privatesubnet01": [
           {
             "type": "aws:cdk:logicalId",
             "data": "privatesubnet01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privatesubnet02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privatesubnet02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privatesubnet03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privatesubnet03",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -222,10 +414,74 @@
             ]
           }
         ],
+        "/mynetwork/privateroutetable02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privateroutetable02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privateroutetable03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privateroutetable03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/privatesubnetroutetableassociation01": [
           {
             "type": "aws:cdk:logicalId",
             "data": "privatesubnetroutetableassociation01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privatesubnetroutetableassociation02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privatesubnetroutetableassociation02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privatesubnetroutetableassociation03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privatesubnetroutetableassociation03",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -254,10 +510,74 @@
             ]
           }
         ],
+        "/mynetwork/eip02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "eip02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/eip03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "eip03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/natgateway01": [
           {
             "type": "aws:cdk:logicalId",
             "data": "natgateway01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/natgateway02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "natgateway02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/natgateway03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "natgateway03",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -286,6 +606,38 @@
             ]
           }
         ],
+        "/mynetwork/privateroute02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privateroute02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privateroute03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privateroute03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/privateSubnetNetworkAclAssociation01": [
           {
             "type": "aws:cdk:logicalId",
@@ -302,10 +654,138 @@
             ]
           }
         ],
+        "/mynetwork/privateSubnetNetworkAclAssociation02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privateSubnetNetworkAclAssociation02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/privateSubnetNetworkAclAssociation03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "privateSubnetNetworkAclAssociation03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
         "/mynetwork/output01": [
           {
             "type": "aws:cdk:logicalId",
             "data": "output01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/output02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/output03": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output03",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/output04": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output04",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/output05": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output05",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/output06": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output06",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mynetwork/output07": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output07",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -439,10 +919,26 @@
             ]
           }
         ],
-        "/mysecurity/privatesecuritygroupegress03": [
+        "/mysecurity/output01": [
           {
             "type": "aws:cdk:logicalId",
-            "data": "privatesecuritygroupegress03",
+            "data": "output01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/mysecurity/output02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "output02",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
@@ -468,6 +964,70 @@
           {
             "type": "aws:cdk:logicalId",
             "data": "template01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/myec2/template02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "template02",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/myec2/instance01": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "instance01",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/myec2/eip": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "eip",
+            "trace": [
+              "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
+              "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",
+              "Kernel._create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:26)",
+              "Kernel.create (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7585:21)",
+              "KernelHost.processRequest (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7372:28)",
+              "KernelHost.run (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7312:14)",
+              "Immediate._onImmediate (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7315:37)",
+              "processImmediate (internal/timers.js:439:21)"
+            ]
+          }
+        ],
+        "/myec2/instance02": [
+          {
+            "type": "aws:cdk:logicalId",
+            "data": "instance02",
             "trace": [
               "/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:7838:49",
               "Kernel._wrapSandboxCode (/home/fedora/SOA/iac/aws/cdk/cdk-project/.env/lib/python3.7/site-packages/jsii/_embedded/jsii/jsii-runtime.js:8298:20)",

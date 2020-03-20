@@ -133,6 +133,46 @@
               }
             }
           },
+          "publicsubnet02": {
+            "id": "publicsubnet02",
+            "path": "mynetwork/publicsubnet02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.1.0/24",
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "availabilityZone": "ap-northeast-1c",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicsubnet02"
+                  }
+                ]
+              }
+            }
+          },
+          "publicsubnet03": {
+            "id": "publicsubnet03",
+            "path": "mynetwork/publicsubnet03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.2.0/24",
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "availabilityZone": "ap-northeast-1d",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicsubnet03"
+                  }
+                ]
+              }
+            }
+          },
           "publicroutetable01": {
             "id": "publicroutetable01",
             "path": "mynetwork/publicroutetable01",
@@ -151,6 +191,42 @@
               }
             }
           },
+          "publicroutetable02": {
+            "id": "publicroutetable02",
+            "path": "mynetwork/publicroutetable02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicroutetable02"
+                  }
+                ]
+              }
+            }
+          },
+          "publicroutetable03": {
+            "id": "publicroutetable03",
+            "path": "mynetwork/publicroutetable03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "publicroutetable03"
+                  }
+                ]
+              }
+            }
+          },
           "publicroute01": {
             "id": "publicroute01",
             "path": "mynetwork/publicroute01",
@@ -159,6 +235,38 @@
               "aws:cdk:cloudformation:props": {
                 "routeTableId": {
                   "Ref": "publicroutetable01"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "gatewayId": {
+                  "Ref": "internetgateway"
+                }
+              }
+            }
+          },
+          "publicroute02": {
+            "id": "publicroute02",
+            "path": "mynetwork/publicroute02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable02"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "gatewayId": {
+                  "Ref": "internetgateway"
+                }
+              }
+            }
+          },
+          "publicroute03": {
+            "id": "publicroute03",
+            "path": "mynetwork/publicroute03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable03"
                 },
                 "destinationCidrBlock": "0.0.0.0/0",
                 "gatewayId": {
@@ -182,6 +290,36 @@
               }
             }
           },
+          "publicsubnetroutetableassociation02": {
+            "id": "publicsubnetroutetableassociation02",
+            "path": "mynetwork/publicsubnetroutetableassociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable02"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet02"
+                }
+              }
+            }
+          },
+          "publicsubnetroutetableassociation03": {
+            "id": "publicsubnetroutetableassociation03",
+            "path": "mynetwork/publicsubnetroutetableassociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "publicroutetable03"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet03"
+                }
+              }
+            }
+          },
           "publicSubnetNetworkAclAssociation01": {
             "id": "publicSubnetNetworkAclAssociation01",
             "path": "mynetwork/publicSubnetNetworkAclAssociation01",
@@ -193,6 +331,36 @@
                 },
                 "subnetId": {
                   "Ref": "publicsubnet01"
+                }
+              }
+            }
+          },
+          "publicSubnetNetworkAclAssociation02": {
+            "id": "publicSubnetNetworkAclAssociation02",
+            "path": "mynetwork/publicSubnetNetworkAclAssociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetNetworkAclAssociation",
+              "aws:cdk:cloudformation:props": {
+                "networkAclId": {
+                  "Ref": "NetworkAcl"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet02"
+                }
+              }
+            }
+          },
+          "publicSubnetNetworkAclAssociation03": {
+            "id": "publicSubnetNetworkAclAssociation03",
+            "path": "mynetwork/publicSubnetNetworkAclAssociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetNetworkAclAssociation",
+              "aws:cdk:cloudformation:props": {
+                "networkAclId": {
+                  "Ref": "NetworkAcl"
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet03"
                 }
               }
             }
@@ -217,6 +385,46 @@
               }
             }
           },
+          "privatesubnet02": {
+            "id": "privatesubnet02",
+            "path": "mynetwork/privatesubnet02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.12.0/24",
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "availabilityZone": "ap-northeast-1c",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privatesubnet02"
+                  }
+                ]
+              }
+            }
+          },
+          "privatesubnet03": {
+            "id": "privatesubnet03",
+            "path": "mynetwork/privatesubnet03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Subnet",
+              "aws:cdk:cloudformation:props": {
+                "cidrBlock": "10.0.13.0/24",
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "availabilityZone": "ap-northeast-1d",
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privatesubnet03"
+                  }
+                ]
+              }
+            }
+          },
           "privateroutetable01": {
             "id": "privateroutetable01",
             "path": "mynetwork/privateroutetable01",
@@ -230,6 +438,42 @@
                   {
                     "key": "Name",
                     "value": "privateroutetable01"
+                  }
+                ]
+              }
+            }
+          },
+          "privateroutetable02": {
+            "id": "privateroutetable02",
+            "path": "mynetwork/privateroutetable02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privateroutetable02"
+                  }
+                ]
+              }
+            }
+          },
+          "privateroutetable03": {
+            "id": "privateroutetable03",
+            "path": "mynetwork/privateroutetable03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::RouteTable",
+              "aws:cdk:cloudformation:props": {
+                "vpcId": {
+                  "Ref": "VPC"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "privateroutetable03"
                   }
                 ]
               }
@@ -250,6 +494,36 @@
               }
             }
           },
+          "privatesubnetroutetableassociation02": {
+            "id": "privatesubnetroutetableassociation02",
+            "path": "mynetwork/privatesubnetroutetableassociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable02"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet02"
+                }
+              }
+            }
+          },
+          "privatesubnetroutetableassociation03": {
+            "id": "privatesubnetroutetableassociation03",
+            "path": "mynetwork/privatesubnetroutetableassociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetRouteTableAssociation",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable03"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet03"
+                }
+              }
+            }
+          },
           "eip01": {
             "id": "eip01",
             "path": "mynetwork/eip01",
@@ -260,6 +534,36 @@
                   {
                     "key": "Name",
                     "value": "eip01"
+                  }
+                ]
+              }
+            }
+          },
+          "eip02": {
+            "id": "eip02",
+            "path": "mynetwork/eip02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "eip02"
+                  }
+                ]
+              }
+            }
+          },
+          "eip03": {
+            "id": "eip03",
+            "path": "mynetwork/eip03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "eip03"
                   }
                 ]
               }
@@ -289,6 +593,54 @@
               }
             }
           },
+          "natgateway02": {
+            "id": "natgateway02",
+            "path": "mynetwork/natgateway02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+              "aws:cdk:cloudformation:props": {
+                "allocationId": {
+                  "Fn::GetAtt": [
+                    "eip02",
+                    "AllocationId"
+                  ]
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet02"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "natgateway02"
+                  }
+                ]
+              }
+            }
+          },
+          "natgateway03": {
+            "id": "natgateway03",
+            "path": "mynetwork/natgateway03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::NatGateway",
+              "aws:cdk:cloudformation:props": {
+                "allocationId": {
+                  "Fn::GetAtt": [
+                    "eip03",
+                    "AllocationId"
+                  ]
+                },
+                "subnetId": {
+                  "Ref": "publicsubnet03"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "natgateway03"
+                  }
+                ]
+              }
+            }
+          },
           "privateroute01": {
             "id": "privateroute01",
             "path": "mynetwork/privateroute01",
@@ -301,6 +653,38 @@
                 "destinationCidrBlock": "0.0.0.0/0",
                 "natGatewayId": {
                   "Ref": "natgateway01"
+                }
+              }
+            }
+          },
+          "privateroute02": {
+            "id": "privateroute02",
+            "path": "mynetwork/privateroute02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable02"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "natGatewayId": {
+                  "Ref": "natgateway02"
+                }
+              }
+            }
+          },
+          "privateroute03": {
+            "id": "privateroute03",
+            "path": "mynetwork/privateroute03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Route",
+              "aws:cdk:cloudformation:props": {
+                "routeTableId": {
+                  "Ref": "privateroutetable03"
+                },
+                "destinationCidrBlock": "0.0.0.0/0",
+                "natGatewayId": {
+                  "Ref": "natgateway03"
                 }
               }
             }
@@ -320,9 +704,63 @@
               }
             }
           },
+          "privateSubnetNetworkAclAssociation02": {
+            "id": "privateSubnetNetworkAclAssociation02",
+            "path": "mynetwork/privateSubnetNetworkAclAssociation02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetNetworkAclAssociation",
+              "aws:cdk:cloudformation:props": {
+                "networkAclId": {
+                  "Ref": "NetworkAcl"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet02"
+                }
+              }
+            }
+          },
+          "privateSubnetNetworkAclAssociation03": {
+            "id": "privateSubnetNetworkAclAssociation03",
+            "path": "mynetwork/privateSubnetNetworkAclAssociation03",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::SubnetNetworkAclAssociation",
+              "aws:cdk:cloudformation:props": {
+                "networkAclId": {
+                  "Ref": "NetworkAcl"
+                },
+                "subnetId": {
+                  "Ref": "privatesubnet03"
+                }
+              }
+            }
+          },
           "output01": {
             "id": "output01",
             "path": "mynetwork/output01"
+          },
+          "output02": {
+            "id": "output02",
+            "path": "mynetwork/output02"
+          },
+          "output03": {
+            "id": "output03",
+            "path": "mynetwork/output03"
+          },
+          "output04": {
+            "id": "output04",
+            "path": "mynetwork/output04"
+          },
+          "output05": {
+            "id": "output05",
+            "path": "mynetwork/output05"
+          },
+          "output06": {
+            "id": "output06",
+            "path": "mynetwork/output06"
+          },
+          "output07": {
+            "id": "output07",
+            "path": "mynetwork/output07"
           }
         }
       },
@@ -459,22 +897,13 @@
               }
             }
           },
-          "privatesecuritygroupegress03": {
-            "id": "privatesecuritygroupegress03",
-            "path": "mysecurity/privatesecuritygroupegress03",
-            "attributes": {
-              "aws:cdk:cloudformation:type": "AWS::EC2::SecurityGroupEgress",
-              "aws:cdk:cloudformation:props": {
-                "groupId": {
-                  "Ref": "privatesecuritygroup01"
-                },
-                "ipProtocol": "tcp",
-                "cidrIp": "0.0.0.0/0",
-                "description": "for 22",
-                "fromPort": 22,
-                "toPort": 22
-              }
-            }
+          "output01": {
+            "id": "output01",
+            "path": "mysecurity/output01"
+          },
+          "output02": {
+            "id": "output02",
+            "path": "mysecurity/output02"
           }
         }
       },
@@ -488,7 +917,122 @@
             "attributes": {
               "aws:cdk:cloudformation:type": "AWS::EC2::LaunchTemplate",
               "aws:cdk:cloudformation:props": {
-                "launchTemplateName": "template01"
+                "launchTemplateData": {
+                  "imageId": "ami-06a46da680048c8ae",
+                  "blockDeviceMappings": [
+                    {
+                      "deviceName": "/dev/sda1",
+                      "ebs": {
+                        "deleteOnTermination": true,
+                        "volumeSize": 20,
+                        "volumeType": "gp2"
+                      }
+                    }
+                  ],
+                  "securityGroupIds": [
+                    {
+                      "Fn::ImportValue": "publicsecuritygroup01"
+                    }
+                  ],
+                  "instanceType": "t3.micro"
+                },
+                "launchTemplateName": "public01"
+              }
+            }
+          },
+          "template02": {
+            "id": "template02",
+            "path": "myec2/template02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::LaunchTemplate",
+              "aws:cdk:cloudformation:props": {
+                "launchTemplateData": {
+                  "imageId": "ami-06a46da680048c8ae",
+                  "blockDeviceMappings": [
+                    {
+                      "deviceName": "/dev/sda1",
+                      "ebs": {
+                        "deleteOnTermination": true,
+                        "volumeSize": 20,
+                        "volumeType": "gp2"
+                      }
+                    }
+                  ],
+                  "securityGroupIds": [
+                    {
+                      "Fn::ImportValue": "privatesecuritygroup01"
+                    }
+                  ],
+                  "instanceType": "t3.micro"
+                },
+                "launchTemplateName": "private01"
+              }
+            }
+          },
+          "instance01": {
+            "id": "instance01",
+            "path": "myec2/instance01",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
+              "aws:cdk:cloudformation:props": {
+                "keyName": "aws-example-key",
+                "launchTemplate": {
+                  "launchTemplateId": {
+                    "Ref": "template01"
+                  },
+                  "version": {
+                    "Fn::GetAtt": [
+                      "template01",
+                      "LatestVersionNumber"
+                    ]
+                  }
+                },
+                "subnetId": {
+                  "Fn::ImportValue": "publicsubnet01"
+                }
+              }
+            }
+          },
+          "eip": {
+            "id": "eip",
+            "path": "myec2/eip",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::EIP",
+              "aws:cdk:cloudformation:props": {
+                "domain": "vpc",
+                "instanceId": {
+                  "Ref": "instance01"
+                },
+                "tags": [
+                  {
+                    "key": "Name",
+                    "value": "eip01"
+                  }
+                ]
+              }
+            }
+          },
+          "instance02": {
+            "id": "instance02",
+            "path": "myec2/instance02",
+            "attributes": {
+              "aws:cdk:cloudformation:type": "AWS::EC2::Instance",
+              "aws:cdk:cloudformation:props": {
+                "keyName": "aws-example-key",
+                "launchTemplate": {
+                  "launchTemplateId": {
+                    "Ref": "template02"
+                  },
+                  "version": {
+                    "Fn::GetAtt": [
+                      "template01",
+                      "LatestVersionNumber"
+                    ]
+                  }
+                },
+                "subnetId": {
+                  "Fn::ImportValue": "publicsubnet02"
+                }
               }
             }
           }

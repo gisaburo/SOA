@@ -3,10 +3,121 @@
     "template01": {
       "Type": "AWS::EC2::LaunchTemplate",
       "Properties": {
-        "LaunchTemplateName": "template01"
+        "LaunchTemplateData": {
+          "BlockDeviceMappings": [
+            {
+              "DeviceName": "/dev/sda1",
+              "Ebs": {
+                "DeleteOnTermination": true,
+                "VolumeSize": 20,
+                "VolumeType": "gp2"
+              }
+            }
+          ],
+          "ImageId": "ami-06a46da680048c8ae",
+          "InstanceType": "t3.micro",
+          "SecurityGroupIds": [
+            {
+              "Fn::ImportValue": "publicsecuritygroup01"
+            }
+          ]
+        },
+        "LaunchTemplateName": "public01"
       },
       "Metadata": {
         "aws:cdk:path": "myec2/template01"
+      }
+    },
+    "template02": {
+      "Type": "AWS::EC2::LaunchTemplate",
+      "Properties": {
+        "LaunchTemplateData": {
+          "BlockDeviceMappings": [
+            {
+              "DeviceName": "/dev/sda1",
+              "Ebs": {
+                "DeleteOnTermination": true,
+                "VolumeSize": 20,
+                "VolumeType": "gp2"
+              }
+            }
+          ],
+          "ImageId": "ami-06a46da680048c8ae",
+          "InstanceType": "t3.micro",
+          "SecurityGroupIds": [
+            {
+              "Fn::ImportValue": "privatesecuritygroup01"
+            }
+          ]
+        },
+        "LaunchTemplateName": "private01"
+      },
+      "Metadata": {
+        "aws:cdk:path": "myec2/template02"
+      }
+    },
+    "instance01": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "KeyName": "aws-example-key",
+        "LaunchTemplate": {
+          "LaunchTemplateId": {
+            "Ref": "template01"
+          },
+          "Version": {
+            "Fn::GetAtt": [
+              "template01",
+              "LatestVersionNumber"
+            ]
+          }
+        },
+        "SubnetId": {
+          "Fn::ImportValue": "publicsubnet01"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "myec2/instance01"
+      }
+    },
+    "eip": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Domain": "vpc",
+        "InstanceId": {
+          "Ref": "instance01"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "eip01"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "myec2/eip"
+      }
+    },
+    "instance02": {
+      "Type": "AWS::EC2::Instance",
+      "Properties": {
+        "KeyName": "aws-example-key",
+        "LaunchTemplate": {
+          "LaunchTemplateId": {
+            "Ref": "template02"
+          },
+          "Version": {
+            "Fn::GetAtt": [
+              "template01",
+              "LatestVersionNumber"
+            ]
+          }
+        },
+        "SubnetId": {
+          "Fn::ImportValue": "publicsubnet02"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "myec2/instance02"
       }
     }
   }

@@ -114,6 +114,44 @@
         "aws:cdk:path": "mynetwork/publicsubnet01"
       }
     },
+    "publicsubnet02": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.1.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": "ap-northeast-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicsubnet02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicsubnet02"
+      }
+    },
+    "publicsubnet03": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.2.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": "ap-northeast-1d",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicsubnet03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicsubnet03"
+      }
+    },
     "publicroutetable01": {
       "Type": "AWS::EC2::RouteTable",
       "Properties": {
@@ -131,6 +169,40 @@
         "aws:cdk:path": "mynetwork/publicroutetable01"
       }
     },
+    "publicroutetable02": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicroutetable02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicroutetable02"
+      }
+    },
+    "publicroutetable03": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "publicroutetable03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicroutetable03"
+      }
+    },
     "publicroute01": {
       "Type": "AWS::EC2::Route",
       "Properties": {
@@ -144,6 +216,36 @@
       },
       "Metadata": {
         "aws:cdk:path": "mynetwork/publicroute01"
+      }
+    },
+    "publicroute02": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable02"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "internetgateway"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicroute02"
+      }
+    },
+    "publicroute03": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable03"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "GatewayId": {
+          "Ref": "internetgateway"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicroute03"
       }
     },
     "publicsubnetroutetableassociation01": {
@@ -160,6 +262,34 @@
         "aws:cdk:path": "mynetwork/publicsubnetroutetableassociation01"
       }
     },
+    "publicsubnetroutetableassociation02": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable02"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet02"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicsubnetroutetableassociation02"
+      }
+    },
+    "publicsubnetroutetableassociation03": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "publicroutetable03"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet03"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicsubnetroutetableassociation03"
+      }
+    },
     "publicSubnetNetworkAclAssociation01": {
       "Type": "AWS::EC2::SubnetNetworkAclAssociation",
       "Properties": {
@@ -172,6 +302,34 @@
       },
       "Metadata": {
         "aws:cdk:path": "mynetwork/publicSubnetNetworkAclAssociation01"
+      }
+    },
+    "publicSubnetNetworkAclAssociation02": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet02"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicSubnetNetworkAclAssociation02"
+      }
+    },
+    "publicSubnetNetworkAclAssociation03": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet03"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/publicSubnetNetworkAclAssociation03"
       }
     },
     "privatesubnet01": {
@@ -193,6 +351,44 @@
         "aws:cdk:path": "mynetwork/privatesubnet01"
       }
     },
+    "privatesubnet02": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.12.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": "ap-northeast-1c",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privatesubnet02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privatesubnet02"
+      }
+    },
+    "privatesubnet03": {
+      "Type": "AWS::EC2::Subnet",
+      "Properties": {
+        "CidrBlock": "10.0.13.0/24",
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "AvailabilityZone": "ap-northeast-1d",
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privatesubnet03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privatesubnet03"
+      }
+    },
     "privateroutetable01": {
       "Type": "AWS::EC2::RouteTable",
       "Properties": {
@@ -210,6 +406,40 @@
         "aws:cdk:path": "mynetwork/privateroutetable01"
       }
     },
+    "privateroutetable02": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privateroutetable02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privateroutetable02"
+      }
+    },
+    "privateroutetable03": {
+      "Type": "AWS::EC2::RouteTable",
+      "Properties": {
+        "VpcId": {
+          "Ref": "VPC"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "privateroutetable03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privateroutetable03"
+      }
+    },
     "privatesubnetroutetableassociation01": {
       "Type": "AWS::EC2::SubnetRouteTableAssociation",
       "Properties": {
@@ -224,6 +454,34 @@
         "aws:cdk:path": "mynetwork/privatesubnetroutetableassociation01"
       }
     },
+    "privatesubnetroutetableassociation02": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable02"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet02"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privatesubnetroutetableassociation02"
+      }
+    },
+    "privatesubnetroutetableassociation03": {
+      "Type": "AWS::EC2::SubnetRouteTableAssociation",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable03"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet03"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privatesubnetroutetableassociation03"
+      }
+    },
     "eip01": {
       "Type": "AWS::EC2::EIP",
       "Properties": {
@@ -236,6 +494,34 @@
       },
       "Metadata": {
         "aws:cdk:path": "mynetwork/eip01"
+      }
+    },
+    "eip02": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "eip02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/eip02"
+      }
+    },
+    "eip03": {
+      "Type": "AWS::EC2::EIP",
+      "Properties": {
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "eip03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/eip03"
       }
     },
     "natgateway01": {
@@ -261,6 +547,52 @@
         "aws:cdk:path": "mynetwork/natgateway01"
       }
     },
+    "natgateway02": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "eip02",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet02"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "natgateway02"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/natgateway02"
+      }
+    },
+    "natgateway03": {
+      "Type": "AWS::EC2::NatGateway",
+      "Properties": {
+        "AllocationId": {
+          "Fn::GetAtt": [
+            "eip03",
+            "AllocationId"
+          ]
+        },
+        "SubnetId": {
+          "Ref": "publicsubnet03"
+        },
+        "Tags": [
+          {
+            "Key": "Name",
+            "Value": "natgateway03"
+          }
+        ]
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/natgateway03"
+      }
+    },
     "privateroute01": {
       "Type": "AWS::EC2::Route",
       "Properties": {
@@ -276,6 +608,36 @@
         "aws:cdk:path": "mynetwork/privateroute01"
       }
     },
+    "privateroute02": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable02"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "natgateway02"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privateroute02"
+      }
+    },
+    "privateroute03": {
+      "Type": "AWS::EC2::Route",
+      "Properties": {
+        "RouteTableId": {
+          "Ref": "privateroutetable03"
+        },
+        "DestinationCidrBlock": "0.0.0.0/0",
+        "NatGatewayId": {
+          "Ref": "natgateway03"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privateroute03"
+      }
+    },
     "privateSubnetNetworkAclAssociation01": {
       "Type": "AWS::EC2::SubnetNetworkAclAssociation",
       "Properties": {
@@ -289,6 +651,34 @@
       "Metadata": {
         "aws:cdk:path": "mynetwork/privateSubnetNetworkAclAssociation01"
       }
+    },
+    "privateSubnetNetworkAclAssociation02": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet02"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privateSubnetNetworkAclAssociation02"
+      }
+    },
+    "privateSubnetNetworkAclAssociation03": {
+      "Type": "AWS::EC2::SubnetNetworkAclAssociation",
+      "Properties": {
+        "NetworkAclId": {
+          "Ref": "NetworkAcl"
+        },
+        "SubnetId": {
+          "Ref": "privatesubnet03"
+        }
+      },
+      "Metadata": {
+        "aws:cdk:path": "mynetwork/privateSubnetNetworkAclAssociation03"
+      }
     }
   },
   "Outputs": {
@@ -299,6 +689,60 @@
       },
       "Export": {
         "Name": "vpcid01"
+      }
+    },
+    "output02": {
+      "Description": "publicsubnet01",
+      "Value": {
+        "Ref": "publicsubnet01"
+      },
+      "Export": {
+        "Name": "publicsubnet01"
+      }
+    },
+    "output03": {
+      "Description": "publicsubnet02",
+      "Value": {
+        "Ref": "publicsubnet02"
+      },
+      "Export": {
+        "Name": "publicsubnet02"
+      }
+    },
+    "output04": {
+      "Description": "publicsubnet03",
+      "Value": {
+        "Ref": "publicsubnet03"
+      },
+      "Export": {
+        "Name": "publicsubnet03"
+      }
+    },
+    "output05": {
+      "Description": "privatesubnet01",
+      "Value": {
+        "Ref": "privatesubnet01"
+      },
+      "Export": {
+        "Name": "privatesubnet01"
+      }
+    },
+    "output06": {
+      "Description": "privatesubnet02",
+      "Value": {
+        "Ref": "privatesubnet02"
+      },
+      "Export": {
+        "Name": "privatesubnet02"
+      }
+    },
+    "output07": {
+      "Description": "privatesubnet03",
+      "Value": {
+        "Ref": "privatesubnet03"
+      },
+      "Export": {
+        "Name": "privatesubnet03"
       }
     }
   }

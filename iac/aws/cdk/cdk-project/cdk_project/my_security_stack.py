@@ -21,4 +21,7 @@ class SecurityStack(core.Stack):
         # private Egress
         aws_ec2.CfnSecurityGroupEgress(self, 'privatesecuritygroupegress01', group_id=privatesecuritygroup01.ref, ip_protocol='tcp', cidr_ip='0.0.0.0/0', description='for 443', from_port=443, to_port=443)
         aws_ec2.CfnSecurityGroupEgress(self, 'privatesecuritygroupegress02', group_id=privatesecuritygroup01.ref, ip_protocol='tcp', cidr_ip='0.0.0.0/0', description='for 80', from_port=80, to_port=80)
-        aws_ec2.CfnSecurityGroupEgress(self, 'privatesecuritygroupegress03', group_id=privatesecuritygroup01.ref, ip_protocol='tcp', cidr_ip='0.0.0.0/0', description='for 22', from_port=22, to_port=22)
+#        aws_ec2.CfnSecurityGroupEgress(self, 'privatesecuritygroupegress03', group_id=privatesecuritygroup01.ref, ip_protocol='tcp', cidr_ip='0.0.0.0/0', description='for 22', from_port=22, to_port=22)
+        
+        core.CfnOutput(self, 'output01', value=publicsecuritygroup01.ref, description='publicsecuritygroup',export_name='publicsecuritygroup01')
+        core.CfnOutput(self, 'output02', value=privatesecuritygroup01.ref, description='privatesecuritygroup',export_name='privatesecuritygroup01')
