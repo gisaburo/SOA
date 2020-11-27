@@ -1,0 +1,5 @@
+---
+- include_tasks: roles/guest/tasks/virt_start.yml
+  loop: '{{ pool_list }}'
+  loop_control:
+    loop_var: outer_item

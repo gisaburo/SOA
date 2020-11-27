@@ -1,0 +1,16 @@
+---
+- name: virsh pool-start
+  shell: virsh pool-start --pool {{ outer_item }}
+  register: debug_pool_start
+  failed_when: false
+  changed_when: false
+
+- name: start check
+  debug: 
+    msg: '{{ debug_pool_start.stdout }}'
+  when: debug_pool_start.rc == 0
+
+- name: start check
+  debug: 
+    msg: '{{ debug_pool_start.stderr }}'
+  when: debug_pool_start.rc == 1

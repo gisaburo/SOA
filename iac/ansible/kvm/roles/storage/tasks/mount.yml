@@ -1,0 +1,15 @@
+---
+- name: mkdir
+  file: 
+    path: /var/lib/libvirt/images/kvm_pool
+    state: directory
+    recurse: yes
+    owner: root
+    group: root
+
+- name: mount disk
+  mount:
+    path: /var/lib/libvirt/images/kvm_pool
+    src: /dev/fedora_fedora/kvm_pool
+    fstype: xfs
+    state: mounted

@@ -1,0 +1,16 @@
+---
+- name: pool define
+  virt_pool:
+    command: define
+    name: '{{ outer_item }}'
+    xml: '{{ lookup("template", "storage/{{ outer_item }}.xml.j2") }}'
+
+- name: pool start
+  virt_pool:
+    command: create
+    name: '{{ outer_item }}'
+
+- name: pool autostart
+  virt_pool:
+    autostart: yes
+    name: '{{ outer_item }}'

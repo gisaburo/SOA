@@ -1,0 +1,16 @@
+---
+- name: net define
+  virt_net:
+    command: define
+    name: '{{ outer_item }}'
+    xml: '{{ lookup("template", "templates/{{ outer_item }}.xml.j2") }}'
+
+- name: net start
+  virt_net:
+    command: create
+    name: '{{ outer_item }}'
+
+- name: net autostart
+  virt_net:
+    autostart: yes
+    name: '{{ outer_item }}'

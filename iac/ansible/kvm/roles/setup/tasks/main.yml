@@ -1,0 +1,47 @@
+---
+# kvm vt mode check
+- name: lsmod | grep kvm
+  shell: lsmod | grep kvm
+  register: fail_kvm_enable
+  failed_when: false
+  changed_when: false
+  check_mode: no
+
+- name: kvm enable check
+  fail: 
+    msg: 'kvm disable'
+  when: fail_kvm_enable.rc == 1
+
+# update
+- name: update dnf packages
+  dnf:
+    name: '*'
+    state: latest
+    update_cache: yes
+  when: fail_kvm_enable.rc == 0
+
+# hostname
+- name: set hostname
+  hostname:
+    name: '{{ inventory_hostname }}'
+  when: fail_kvm_enable.rc == 0
+
+# install package 
+- name: install kvm package
+  dnf:
+    name: '{{ item }}'
+    state: latest
+  loop:
+    - qemu-kvm 
+    - libvirt 
+    - virt-install
+    - python3-lxml
+  when: fail_kvm_enable.rc == 0
+
+# start libvirtd
+- name: start libvirtd
+  systemd:
+    name: libvirtd.service
+    state: started
+    enabled: yes
+  when: fail_kvm_enable.rc == 0

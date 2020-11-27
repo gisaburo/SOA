@@ -1,0 +1,5 @@
+---
+- include_tasks: roles/network/tasks/net_define.yml
+  loop: '{{ br_isolate_list }}'
+  loop_control:
+    loop_var: outer_item

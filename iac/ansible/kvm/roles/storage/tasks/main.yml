@@ -1,0 +1,20 @@
+---
+- include_tasks: roles/storage/tasks/lvm.yml
+  loop: '{{ pool_list }}'
+  loop_control:
+    loop_var: outer_item
+
+- include_tasks: roles/storage/tasks/mkfs.yml
+  loop: '{{ pool_list }}'
+  loop_control:
+    loop_var: outer_item
+
+- include_tasks: roles/storage/tasks/mount.yml
+  loop: '{{ pool_list }}'
+  loop_control:
+    loop_var: outer_item
+
+- include_tasks: roles/storage/tasks/pool_define.yml
+  loop: '{{ pool_list }}'
+  loop_control:
+    loop_var: outer_item

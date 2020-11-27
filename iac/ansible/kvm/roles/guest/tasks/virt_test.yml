@@ -1,0 +1,43 @@
+---
+- name: create qemu disk images
+  shell: "qemu-img create -f raw /home/kvm/kvm_pool/fedora33-test.img 20G"
+#      delegate_to: 192.168.100.3
+- name: get vmlinuz
+  get_url:
+    url: "https://dl.fedoraproject.org/pub/alt/stage/33_RC-1.2/Server/x86_64/os/images/pxeboot/vmlinuz"
+    dest: "/tmp/vmlinuz"
+#      delegate_to: 192.168.100.3
+- name: get initrd.img
+  get_url:
+    url: "https://dl.fedoraproject.org/pub/alt/stage/33_RC-1.2/Server/x86_64/os/images/pxeboot/initrd.img"
+    dest: "/tmp/initrd.img"
+#      delegate_to: 192.168.100.3
+- name: uuidgen
+  shell: uuidgen
+  register: result
+#      delegate_to: "{{ host_ip }}"
+- name: set uuid
+  set_fact:
+    uuid: "{{ result.stdout }}"
+- name: define vm
+  virt:
+    name: fedora33-test
+    command: define
+    xml: "{{ lookup('template', 'domain.xml.j2') }}"
+#  delegate_to: "{{ host_ip }}"
+- name: start vm
+  virt:
+    name: fedora33-test
+    state: running
+    uri: "qemu:///system"
+#  delegate_to: "{{ host_ip }}"
+- name: wait vm create
+  virt:
+    name: fedora33-test
+    command: status
+  register: result
+  until: result.status == 'shutdown'
+  retries: 50
+  delay: 60
+#  delegate_to: "{{ host_ip }}"
+

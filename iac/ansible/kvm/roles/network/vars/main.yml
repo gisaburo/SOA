@@ -1,0 +1,4 @@
+---
+br_isolate_list:
+  - br-isolate-rt
+  - br-isolate-vm

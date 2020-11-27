@@ -1,0 +1,10 @@
+---
+- name: Deploy kvm
+  hosts: kvm
+  remote_user: fedora
+  become: true
+  roles:
+    - { role: setup, tags: setup}
+    - { role: network, tags: network}
+    - { role: storage, tags: storage}
+    - { role: guest, tags: guest}

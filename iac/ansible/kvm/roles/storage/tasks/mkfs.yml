@@ -1,0 +1,9 @@
+---
+- name: make filesystem
+  filesystem:
+    fstype: xfs
+    dev: /dev/fedora_fedora/{{ outer_item }}
+    resizefs: yes
+  register: debug_filesystem
+  failed_when: false
+  changed_when: false

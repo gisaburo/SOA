@@ -1,0 +1,9 @@
+---
+- name: Deploy kvm
+  hosts: localhost
+  become: true
+  roles:
+    - { role: setup, tags: setup}
+    - { role: network, tags: network}
+    - { role: storage, tags: storage}
+    - { role: guest, tags: guest}

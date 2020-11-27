@@ -1,0 +1,16 @@
+---
+- name: virsh pool-autostart
+  shell: virsh pool-autostart --pool {{ outer_item }}
+  register: debug_pool_autostart
+  failed_when: false
+  changed_when: false
+
+- name: autostart check
+  debug: 
+    msg: '{{ debug_pool_autostart.stdout }}'
+  when: debug_pool_autostart.rc == 0
+
+- name: autostart check
+  fail: 
+    msg: '{{ debug_pool_autostart.stderr }}'
+  when: debug_pool_autostart.rc == 1

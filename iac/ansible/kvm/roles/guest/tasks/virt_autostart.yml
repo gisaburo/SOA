@@ -1,0 +1,17 @@
+---
+- name: Define VM
+  shell: >
+    virt-install \
+    --name test \
+    --disk path=/home/kvm/kvm_pool/test.img,size=20 \
+    --vcpus 2 \
+    --ram 4096 \
+    --os-type linux \
+    --os-variant fedora30 \
+    --network bridge=private-mn \
+    --graphics none \
+    --console pty,target_type=serial \
+    --location /home/fedora/Fedora-Server-dvd-x86_64-30-1.2.iso \
+    --initrd-inject /home/fedora/template_ks.cfg \
+    --extra-args \
+      'inst.ks=file:/template_ks.cfg console=ttyS0,115200n8 serial'

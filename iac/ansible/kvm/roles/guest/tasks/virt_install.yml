@@ -1,0 +1,49 @@
+---
+- name: virsh domstats --domain
+  shell: virsh domstats --domain fedora33
+  register: debug_domain_exist
+  failed_when: false
+  changed_when: false
+  check_mode: no
+
+- name: domain exist check
+  debug: 
+    msg: '{{ debug_domain_exist.stdout }}'
+  when: debug_domain_exist.rc == 0
+
+- name: iso copy
+  copy:
+    src: roles/guest/files/Fedora-Server-dvd-x86_64-33-1.2.iso
+    dest: /tmp
+  when: debug_domain_exist.rc == 1
+
+- name: setup kikstart cfg
+  template:
+    src: ks.cfg.j2
+    dest: /tmp/ks.cfg
+    owner: root
+    group: root
+    mode: 0700
+    backup: no
+  when: debug_domain_exist.rc == 1
+
+- name: virt-install
+  shell: >
+    virt-install \
+    --name fedora33 \
+    --disk pool=kvm_pool,size=20 \
+    --vcpus 2 \
+    --ram 4096 \
+    --os-type linux \
+    --os-variant fedora30 \
+    --network bridge=br-isolate-vm \
+    --graphics none \
+    --console pty,target_type=serial \
+    --location /tmp/Fedora-Server-dvd-x86_64-33-1.2.iso \
+    --initrd-inject /tmp/ks.cfg \
+    --extra-args \
+      'inst.ks=file:/ks.cfg console=ttyS0,115200n8 serial'
+  register: debug_virt_install
+  failed_when: false
+  changed_when: false
+  when: debug_domain_exist.rc == 1
