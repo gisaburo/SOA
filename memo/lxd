@@ -1,0 +1,8 @@
+lxc launch images:fedora/32 k8s-master01 --vm -c limits.cpu=2 -c limits.memory=4GiB
+lxc launch images:fedora/32 k8s-worker01 --vm -c limits.cpu=2 -c limits.memory=4GiB
+lxc launch images:fedora/32 k8s-worker02 --vm -c limits.cpu=2 -c limits.memory=4GiB
+lxc launch images:fedora/32 k8s-worker03 --vm -c limits.cpu=2 -c limits.memory=4GiB
+lxc launch test test --vm -c limits.cpu=1 -c limits.memory=1GiB
+lxc launch images:debian/11 debian --vm --vm -c limits.cpu=2 -c limits.memory=4GiB
+
+lxc image export 8151f0a623f7

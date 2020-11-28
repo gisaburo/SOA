@@ -1,0 +1,27 @@
+{
+  "ignition": {
+    "config": {
+      "replace": {
+        "source": null,
+        "verification": {}
+      }
+    },
+    "security": {
+      "tls": {}
+    },
+    "timeouts": {},
+    "version": "3.0.0"
+  },
+  "passwd": {
+    "users": [
+      {
+        "name": "core",
+        "sshAuthorizedKeys": [
+          "ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQC8YAnjsg8KX2Bj1qhfw9IsQfhhyenu8ocoWv4uGoUkA1qpQReDIKTnebVe+6FnooHdlKlFfcV9kOGOIjPKeJzoghd54ffbvrGD4FLPMfyxc9nZWrpjMgMd8VkwdR2jh1ZlzPhPd8P/xJSoC1qt0/EGRA1C80KHrcPx/gUSZn2byhQ1aDD264UmZowLv+NSlvp+iIKM35IdC9LyRYfRmZ+7qNCpCpSNcabf1+1j91e2wC6Otm74Dfm/QC3CGpqTjgzJ243BzCV1A5LihHseTxSEhla6w9xGOZk8XZd/BdGjPdoUbBH4gNeOZE8YbXrzAaXSJKUN4YizJIyxby50TVfdsccXqKZR7bxpf5S4tpGkBjI4SlsfiSW/sOLECA2c19Y9eCP2S2iU2cux+rLZEV6UB/oSFCSo1mEzjGi05EtfHORIEzE39JwUZA8fJ8QPDJFkxSmQ7AXW6v8O0I85TsjtdvBBAr+4oNf4zUMgNOxHMk+DHwIvcSUp69me3huwngM= fedora@localhost.localdomain"
+        ]
+      }
+    ]
+  },
+  "storage": {},
+  "systemd": {}
+}

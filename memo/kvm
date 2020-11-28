@@ -1,0 +1,645 @@
+kubeadm join 192.168.100.177:6443 --token n7wxmk.id4x35q0i6vi9bku \
+    --discovery-token-ca-cert-hash sha256:0896659b40c05823f249021b995206cab21af8e5687881e854bbddeb541e0afe
+
+kubeadm join 192.168.100.11:6443 --token 2ut5og.0xk6fpm8e7fsl3r6 \
+    --discovery-token-ca-cert-hash sha256:9d707502f5744f7e2e8d24b0798189d87081732c92629df6183ebfc1a0ef0275
+    
+kubeadm token list		
+    
+openssl x509 -pubkey -in /etc/kubernetes/pki/ca.crt | openssl rsa -pubin -outform der 2>/dev/null | \
+   openssl dgst -sha256 -hex | sed 's/^.* //'
+
+kubeadm init --pod-network-cidr=192.168.200.0/24
+
+virt-install \
+--name fedora33 \
+--ram 4096 \
+--disk path=/home/kvm/kvm_pool/fedora33.img,size=20 \
+--vcpus 2 \
+--os-type linux \
+--os-variant fedora33 \
+--network bridge=private-mn \
+--graphics none \
+--console pty,target_type=serial \
+--location /home/fedora/Fedora-Server-dvd-x86_64-33-1.2.iso \
+--extra-args 'console=ttyS0,115200n8 serial'
+
+virt-install \
+--name centos8 \
+--ram 4096 \
+--disk path=/home/kvm/kvm_pool/centos8.img,size=20 \
+--vcpus 2 \
+--os-type linux \
+--os-variant centos8 \
+--network bridge=private-mn \
+--graphics none \
+--console pty,target_type=serial \
+--location /home/fedora/CentOS-8.2.2004-x86_64-minimal.iso \
+--extra-args 'console=ttyS0,115200n8 serial'
+
+virt-install  --connect=qemu:///system \
+--name=cumulus --vcpus=1 --ram=1024 \
+--network bridge=private-mn \
+--network bridge=private-swp1 \
+--network bridge=isolate-swp2 \
+--import \
+--disk  path=/home/kvm/kvm_pool/cumulus-vx.qcow2,format=qcow2
+
+virt-install  --connect=qemu:///system \
+--name=cumulus-test --vcpus=1 --ram=1024 \
+--network bridge=private-mn \
+--network bridge=private \
+--network bridge=isolate \
+--network bridge=isolate \
+--import \
+--disk  path=/home/kvm/kvm_pool/cumulus-vx-test.qcow2,format=qcow2
+
+virt-install  --connect=qemu:///system \
+--name=cumulus-test2 --vcpus=1 --ram=1024 \
+--network bridge=private-mn \
+--network bridge=private \
+--network bridge=isolate \
+--network bridge=isolate \
+--import \
+--disk  path=/home/kvm/kvm_pool/cumulus-vx-test2.qcow2,format=qcow2
+
+
+192.168.100.0/29 255.255.255.248 管理ネットワーク all node
+192.168.100.8/29 255.255.255.248 cumulus swp1
+192.168.100.16/29 255.255.255.248 cumulus swp2
+192.168.200.0/24 pod-network-cidr
+
+Nat mode
+Routed mode(bridge)
+Isolated mode
+cat << EOF | calicoctl create -f -
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  logSeverityScreen: Info
+  nodeToNodeMeshEnabled: false
+  asNumber: 65000
+EOF
+cat << EOF> ~/private-mn.xml
+<network>
+  <name>private-mn</name>
+  <forward mode='nat'>
+  </forward>
+  <bridge name='private-mn' stp='on' delay='0'/>
+  <ip address='192.168.100.1' netmask='255.255.255.248'>
+  </ip>
+</network>
+EOF
+
+cat << EOF> ~/private-swp1.xml
+<network>
+  <name>private-swp1</name>
+  <forward mode='nat'>
+  </forward>
+  <bridge name='private-swp1' stp='on' delay='0'/>
+  <ip address='192.168.100.8' netmask='255.255.255.248'>
+  </ip>
+</network>
+EOF
+
+cat << EOF> ~/isolate-swp2.xml
+<network>
+  <name>isolate-swp2</name>
+  <bridge name='isolate-swp2' />
+</network>
+EOF
+
+net add interface eth0 ip address 192.168.100.2/29
+net add interface eth0 ip gateway 192.168.100.1
+net pending
+net commit
+
+ping 8.8.8.8 --no-vrf-switch
+
+net add hostname cumulus
+net pending
+net commit
+
+sudo dpkg-reconfigure tzdata
+
+net add interface swp1-2
+net pending
+net commit
+
+net add interface swp1 ip address 198.168.100.10/29
+net pending
+net commit
+
+nmcli c m enp1s0 connection.autoconnect yes
+sudo nmcli c modify enp1s0 ipv4.addresses 192.168.200.2/29
+sudo nmcli c modify enp1s0 ipv4.addresses 192.168.102.12/24
+sudo nmcli c modify enp1s0 ipv4.gateway 192.168.200.2
+sudo nmcli c modify enp1s0 ipv4.addresses 192.168.100.11/29
+sudo nmcli c modify enp1s0 ipv4.addresses 192.168.100.12/29
+sudo nmcli c modify enp1s0 ipv4.gateway 192.168.100.9
+sudo nmcli c modify enp1s0 ipv4.dns 192.168.100.1
+sudo nmcli c modify enp1s0 ipv4.method manual
+net add routing route 0.0.0.0/0 192.168.1.1
+
+sudo nmcli c m enp7s0 connection.autoconnect yes
+
+sudo nmcli c modify enp1s0 ipv4.addresses 192.168.200.12/29
+sudo nmcli c modify enp1s0 ipv4.gateway 192.168.200.11
+
+sudo nmcli c modify enp7s0 ipv4.addresses 192.168.100.13/29
+sudo nmcli c modify enp7s0 ipv4.gateway 192.168.100.9
+	
+nmcli connection add type ethernet ifname enp1s0
+
+virt-edit -d k8s-master /etc/sysconfig/network-scripts/ifcfg-enp1s0
+virt-edit -d k8s-worker /etc/sysconfig/network-scripts/ifcfg-enp1s0
+
+sudo nmcli con add connection.interface-name enp1s0 type ethernet
+sudo nmcli c add type ethernet ifname enp1s0 con-name enp1s0
+
+calicoctl get node k8s-master --export -o yaml > k8s-master.yaml
+calicoctl get node k8s-worker --export -o yaml > k8s-worker.yaml
+
+cat << EOF | calicoctl apply -f -
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  logSeverityScreen: Info
+  nodeToNodeMeshEnabled: false
+  asNumber: 65002
+EOF
+
+cat << EOF | calicoctl apply -f -
+apiVersion: projectcalico.org/v3
+kind: IPPool
+metadata:
+  name: default-ipv4-ippool
+spec:
+  cidr: 192.168.204.0/22
+  ipipMode: Never
+  natOutgoing: true
+  disabled: false
+  nodeSelector: all()
+EOF
+  
+cat << EOF | calicoctl apply -f -
+apiVersion: projectcalico.org/v3
+kind: BGPPeer
+metadata:
+  name: bgppeer-culumus
+spec:
+  peerIP: 10.0.0.1
+  asNumber: 65000
+EOF
+
+<network>
+  <name>test</name>
+  <uuid>eeff4920-e4ed-4c49-b8ef-ffa5d0433aab</uuid>
+  <forward mode='nat'/>
+  <bridge name='test' stp='on' delay='0'/>
+  <mac address='52:54:00:6b:82:44'/>
+  <ip address='192.168.99.1' netmask='255.255.255.248'>
+  </ip>
+  <virtualport type='openvswitch'/>sudo nmcli con down "${NM_NAME}" ; \
+sudo nmcli con up ovs-port-eth-int ; \
+sudo nmcli con up ovs-bridge-int
+   <vlan trunk='yes'>
+    <tag id='42' nativeMode='untagged'/>
+    <tag id='47'/>
+  </vlan>
+  <portgroup name='dontpanic'>
+    <vlan>
+      <tag id='42'/>
+    </vlan>
+  </portgroup>
+</network>
+
+sudo nmcli con add type ethernet conn.interface wlp59s0 master ovs-port-eth con-name ovs-port-eth-int
+ovsbr0
+
+sudo nmcli con down wlp59s0 ; \
+sudo nmcli con up ovs-port-eth-int ; \
+sudo nmcli con up ovs-bridge-int
+
+nmcli conn add type ovs-bridge conn.interface ovsbr0
+nmcli conn add type ovs-port conn.interface ovsbr0 master ovsbr0
+nmcli conn add type ovs-interface slave-type ovs-port conn.interface ovsbr0 \
+  master ovsbr0 ipv4.method manual ipv4.address 192.168.100.9/29
+nmcli conn add type ovs-interface slave-type ovs-port conn.interface ovsbr0 \
+  master ovsbr0 ipv4.method disable
+
+nmcli c add type ovs-port conn.interface wlp59s0 master br-house con-name ovs-port-wlp59s0
+nmcli c add type ethernet conn.interface wlp59s0 master ovs-port-wlp59s0 con-name ovs-if-wlp59s0
+DEVICE=ovsbr0
+ONBOOT=yes
+DEVICETYPE=ovs
+TYPE=OVSBridge
+BOOTPROTO=static
+IPADDR=192.168.100.1
+NETMASK=255.255.255.0
+HOTPLUG=no
+ZONE=trusted
+
+DEVICE=ovsbr0
+ONBOOT=yes
+DEVICETYPE=ovs
+TYPE=OVSBridge
+BOOTPROTO=static
+IPADDR=192.168.100.1
+NETMASK=255.255.255.0
+HOTPLUG=no
+ZONE=trusted
+
+nmcli c add type ovs-bridge conn.interface bridge0 con-name bridge0
+nmcli c add type ovs-port conn.interface bridge0 master bridge0 con-name ovs-port-bridge0
+nmcli c add type ovs-interface slave-type ovs-port conn.interface bridge0 master ovs-port-bridge0  con-name ovs-if-bridge0
+nmcli c add type ovs-interface slave-type ovs-port conn.interface iface0 \
+ master port0 ipv4.method manual ipv4.address 192.0.2.1/24
+
+nmcli c add type ovs-bridge conn.interface br-house con-name br-house
+nmcli c add type ovs-port conn.interface br-house master br-house con-name ovs-port-br-house
+nmcli c add type ovs-interface slave-type ovs-port conn.interface br-house master ovs-port-br-house  con-name ovs-if-br-house
+
+nmcli c add type ovs-port conn.interface wlp59s0 master br-house con-name ovs-port-wlp59s0
+nmcli c add type ethernet conn.interface wlp59s0 master ovs-port-wlp59s0 con-name ovs-if-wlp59s0
+
+
+nmcli c add type ovs-bridge conn.interface ovs-bridge con-name ovs-bridge
+nmcli c add type ovs-port conn.interface port-ovs-bridge master ovs-bridge con-name ovs-bridge-port
+nmcli c add type ovs-interface slave-type ovs-port conn.interface ovs-bridge master ovs-bridge-port con-name ovs-bridge-int
+nmcli c add type ovs-port conn.interface ovs-port-eth master ovs-bridge con-name ovs-port-eth
+nmcli c add type ethernet conn.interface wlp59s0 master ovs-port-eth con-name ovs-port-eth-int
+nmcli c modify ovs-bridge-int ipv4.method disabled ipv6.method disabled
+
+nmcli conn add type ovs-bridge conn.interface bridge0
+DEVICE           TYPE        STATE     CONNECTION         
+bridge0          ovs-bridge  接続済み  ovs-bridge-bridge0 
+NAME                UUID                                  TYPE        DEVICE     
+ovs-bridge-bridge0  837b647b-3cac-44e3-893e-9296bd036735  ovs-bridge  bridge0    
+
+nmcli conn add type ovs-port conn.interface port0 master bridge0
+DEVICE           TYPE        STATE     CONNECTION         
+bridge0          ovs-bridge  接続済み  ovs-bridge-bridge0 
+port0            ovs-port    接続済み  ovs-slave-port0    
+NAME                UUID                                  TYPE        DEVICE     
+ovs-bridge-bridge0  837b647b-3cac-44e3-893e-9296bd036735  ovs-bridge  bridge0    
+ovs-slave-port0     a4762602-3f61-4ba9-b33d-63bee7c2b63b  ovs-port    port0      
+
+nmcli conn add type ovs-interface slave-type ovs-port conn.interface iface0 \
+  master port0 ipv4.method manual ipv4.address 192.0.2.1/24
+[root@localhost ~]# ovs-vsctl show
+f36a3294-7e95-4750-b959-b97cc679ab6d
+    Bridge bridge0
+        Port port0
+            Interface iface0
+                type: internal
+    ovs_version: "2.13.1"
+DEVICE           TYPE           STATE     CONNECTION         
+iface0           ovs-interface  接続済み  ovs-slave-iface0   
+bridge0          ovs-bridge     接続済み  ovs-bridge-bridge0 
+port0            ovs-port       接続済み  ovs-slave-port0    
+NAME                UUID                                  TYPE           DEVICE     
+ovs-slave-iface0    68142ef2-afce-40c3-bae9-452314dc543a  ovs-interface  iface0     
+ovs-bridge-bridge0  837b647b-3cac-44e3-893e-9296bd036735  ovs-bridge     bridge0    
+ovs-slave-port0     a4762602-3f61-4ba9-b33d-63bee7c2b63b  ovs-port       port0      
+
+12: ovs-system: <BROADCAST,MULTICAST> mtu 1500 qdisc noop state DOWN group default qlen 1000
+    link/ether aa:1b:fc:6a:55:00 brd ff:ff:ff:ff:ff:ff
+13: iface0: <BROADCAST,MULTICAST,UP,LOWER_UP> mtu 1500 qdisc noqueue state UNKNOWN group default qlen 1000
+    link/ether 42:b9:7c:37:f7:a1 brd ff:ff:ff:ff:ff:ff
+    inet 192.0.2.1/24 brd 192.0.2.255 scope global noprefixroute iface0
+       valid_lft forever preferred_lft forever
+    inet6 fe80::be12:8b6d:7931:2b2c/64 scope link noprefixroute 
+       valid_lft forever preferred_lft forever
+
+nmcli conn add type ovs-port conn.interface port1 master bridge0       
+nmcli conn add type ethernet conn.interface wlp59s0 master port1
+
+https://blog.christophersmart.com/2020/07/27/how-to-create-linux-bridges-and-open-vswitch-bridges-with-networkmanager/
+
+net add nat dynamic snat icmp source-ip 192.168.200.0/29 translate 192.168.100.12 1024-1200
+net add nat dynamic snat tcp source-ip 192.168.200.0/29 translate 192.168.100.12 1024-1200
+net add nat dynamic snat udp source-ip 192.168.200.0/29 translate 192.168.100.12 1024-1200
+net add nat dynamic snat icmp source-ip 192.168.200.0/29 out-interface swp1 translate 192.168.100.9
+net add nat static snat icmp 192.168.200.4 translate 172.30.58.80
+
+net add nat dynamic snat icmp source-ip 192.168.101.0/24 out-interface private translate 192.168.102.1 1024-1200
+net add nat dynamic snat tcp source-ip 192.168.101.0/24 out-interface private translate 192.168.102.1 1024-1200
+net add nat dynamic snat udp source-ip 192.168.101.0/24 out-interface private translate 192.168.102.1 1024-1200
+
+
+sudo nmcli con down wlp59s0 ; \
+sudo nmcli con up ovs-port-eth-int ; \
+sudo nmcli con up ovs-bridge-int
+
+qemu-img create -f qcow2 /home/kvm/kvm_pool/vyos.qcow2 2G
+
+virt-install \
+  --connect qemu:///system  \
+  --name vyos \
+  --vcpus 1 \
+  --ram 512 \
+  --network bridge=private \
+  --network bridge=br1 \
+  --network bridge=br1 \
+  --file /home/kvm/kvm_pool/vyos.qcow2 \
+  --cdrom /root/vyos-rolling-latest.iso \
+  --nographics
+
+set protocols static route 192.168.1.0/24 next-hop 192.168.200.1
+set protocols static route 192.168.200.0/29 next-hop 192.168.100.9
+
+sudo kubeadm init \
+  --service-cidr="192.168.202.0/23" \
+  --pod-network-cidr="192.168.204.0/22"
+  
+kubeadm join 192.168.200.3:6443 --token x12f2f.it84t7pmbzcuub0g \
+    --discovery-token-ca-cert-hash sha256:961e30681a15361237bdc0db27f5ffb9930b8c78c4280111b69b38b806f6950a 
+ 
+   mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+set ipv4.routes 192.168.200.0/29 192.168.100.11
+set ipv4.routes 192.168.204.0/22 192.168.100.11
+sudo ip route add 192.168.200.0/29 via 192.168.100.11
+sudo ip route add 192.168.204.0/22 via 192.168.100.11
+
+net add nat dynamic snat tcp source-ip 192.168.200.0/29 translate 192.168.100.12 1024-1200
+net add nat dynamic snat udp source-ip 192.168.200.0/29 translate 192.168.100.12 1024-1200
+net add nat dynamic snat icmp source-ip 192.168.200.0/29 translate 192.168.100.12 1024-1200
+
+net del nat dynamic snat tcp source-ip 192.168.204.0/23 translate 192.168.100.11 1024-1200
+net del nat dynamic snat udp source-ip 192.168.204.0/23 translate 192.168.100.11 1024-1200
+net del nat dynamic snat icmp source-ip 192.168.204.0/23 translate 192.168.100.11 1024-1200
+
+net add nat dynamic snat tcp source-ip 192.168.204.0/22 translate 192.168.100.11 1024-1200
+net add nat dynamic snat udp source-ip 192.168.204.0/22 translate 192.168.100.11 1024-1200
+net add nat dynamic snat icmp source-ip 192.168.204.0/22 translate 192.168.100.11 1024-1200
+
+net add nat dynamic snat tcp source-ip 192.168.202.0/23 translate 192.168.100.11 1024-1200
+net add nat dynamic snat udp source-ip 192.168.202.0/23 translate 192.168.100.11 1024-1200
+net add nat dynamic snat icmp source-ip 192.168.202.0/23 translate 192.168.100.11 1024-1200
+
+kubectl exec -it centos-deployment-56f4cd946f-tzwg2 bash
+
+net add vrf rocket vrf-table 1016
+
+sudo virt-install \
+--name fedora-test \
+--ram 2048 \
+--disk pool=dirpool,size=20 \
+--vcpus 2 \
+--os-type linux \
+--os-variant fedora32 \
+--network bridge=isolate \
+--graphics none \
+--console pty,target_type=serial \
+--location 'http://ftp.jaist.ac.jp/pub/Linux/Fedora/releases/32/Server/x86_64/os/' \
+--extra-args 'console=ttyS0,115200n8 serial'
+
+vrf list
+ip vrf pids rocket
+sudo systemctl start ntp@turtle
+chef-client
+collectd
+dhcpd
+dhcrelay
+hsflowd
+netq-agent
+ntp
+puppet
+snmptrapd
+ssh
+zabbix-agent
+
+net add vrf vrf1 vrf-table auto
+net add interface swp2 vrf vrf1
+
+net add vrf vrf2 vrf-table auto
+net add interface swp3 vrf vrf2
+
+net add bgp vrf vrf1 autonomous-system 65000
+net add bgp vrf vrf2 ipv4 unicast import vrf vrf1
+
+net del vrf rocket vrf-table auto
+net del interface swp2 vrf rocket
+
+net del vrf turtle vrf-table auto
+net del interface swp3 vrf turtle
+
+sudo virt-clone --original $k8s-master --name k8s-master-test --auto-clone
+
+kubeadm init --pod-network-cidr="192.168.204.0/22" --service-cidr="192.168.203.0/24"
+
+kubeadm join 192.168.200.3:6443 --token ydbauc.1y62ro6po7bd3wx9 \
+    --discovery-token-ca-cert-hash sha256:40f22e3e3bd23eb95f8330002ebf403780571112703f37bd3e6f85cc09f87e15
+
+
+
+
+net add bgp vrf public autonomous-system 65001
+net add bgp vrf private autonomous-system 65001
+net del bgp vrf public autonomous-system 65001
+net del bgp vrf private autonomous-system 65001
+net add bgp vrf public ipv4 unicast import vrf private
+net add bgp vrf private ipv4 unicast import vrf public
+
+net add bgp vrf private ipv4 unicast import vrf public
+net add bgp vrf public ipv4 unicast import vrf private
+
+net add routing route 192.168.101.0/24 public vrf private nexthop-vrf public
+net add routing route 192.168.102.0/24 private vrf public nexthop-vrf private
+
+net del routing route 192.168.100.8/29 public vrf private nexthop-vrf public
+net del routing route 192.168.200.0/29 private vrf public nexthop-vrf private
+
+iptables -t nat -A POSTROUTING -p all -s 192.168.200.0/24 -j SNAT --to-source 192.168.100.9
+
+kubeadm join 192.168.200.10:6443 --token 6nwuzs.p038yu5n8uiqfzb5 \
+    --discovery-token-ca-cert-hash sha256:ab785fcc9458a1efd0bdd4d5bcab5a9ff733ae51fb3e6bbf23c501a6c0de3bc9 
+    
+virt-clone --original k8s-worker --name k8s-worker-test --auto-clone
+
+net add bgp vrf public router-id 10.0.0.1
+net add bgp vrf public neighbor 192.168.102.2 remote-as 65002
+net add bgp vrf public neighbor 192.168.102.11 remote-as 65002
+net add bgp vrf public neighbor 192.168.102.2 update-source lo
+net add bgp vrf public neighbor 192.168.102.11 update-source lo
+net add bgp vrf public neighbor 192.168.102.2 activate
+net add bgp vrf public neighbor 192.168.102.11 activate
+net add bgp vrf public network 192.168.204.0/22
+
+net add bgp vrf private router-id 10.0.0.2
+net add bgp vrf private neighbor 192.168.102.2 remote-as 65001
+net add bgp vrf private neighbor 192.168.102.11 remote-as 65001
+net add bgp vrf private neighbor 192.168.102.2 update-source swp2
+net add bgp vrf private neighbor 192.168.102.11 update-source swp2
+net add bgp vrf private neighbor 192.168.102.2 activate
+net add bgp vrf private neighbor 192.168.102.11 activate
+net add bgp vrf private network 192.168.204.0/22
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes bysudo iptables -t nat -v -L  running the following on each as root:
+
+kubeadm join 192.168.102.2:6443 --token mkv6ii.3id58nijf9b5hdfx \
+    --discovery-token-ca-cert-hash sha256:571df867e31b91074bc9e84f542c3a7b20dd3cd9201e1234551ae555de287846 
+    
+net add bgp vrf public ipv4 unicast import vrf private
+
+net add bgp vrf public autonomous-system 65000
+net add bgp vrf public neighbor 192.168.102.1 remote-as external
+net add bgp vrf public neighbor 192.168.102.11 remote-as external
+net add bgp network 192.168.204.0/22
+
+kubectl apply -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+
+[pat]
+net add nat dynamic snat icmp source-ip 192.168.102.0/24 out-interface public translate 192.168.101.2 1024-1200
+net add nat dynamic snat udp source-ip 192.168.102.0/24 out-interface public translate 192.168.101.2 1024-1200
+net add nat dynamic snat tcp source-ip 192.168.102.0/24 out-interface public translate 192.168.101.2 1024-1200
+
+net add nat dynamic snat icmp source-ip 192.168.200.0/29 out-interface swp1 translate 192.168.101.2 1024-1200
+net add nat dynamic snat udp source-ip 192.168.200.0/29 out-interface swp1 translate 192.168.101.2 1024-1200
+net add nat dynamic snat tcp source-ip 192.168.200.0/29 out-interface swp1 translate 192.168.101.2 1024-1200
+net add nat dynamic snat icmp source-ip 192.168.200.0/29 out-interface public translate 192.168.101.2 1024-1200
+net add nat dynamic snat udp source-ip 192.168.200.0/29 out-interface public translate 192.168.101.2 1024-1200
+net add nat dynamic snat tcp source-ip 192.168.200.0/29 out-interface public translate 192.168.101.2 1024-1200
+
+net del nat dynamic snat icmp source-ip 192.168.101.0/24 out-interface private translate 192.168.102.1 1024-1200
+net del nat dynamic snat udp source-ip 192.168.101.0/24 out-interface private translate 192.168.102.1 1024-1200
+net del nat dynamic snat tcp source-ip 192.168.101.0/24 out-interface private translate 192.168.102.1 1024-1200
+[default route]
+net add routing route 192.168.102.0/24 10.0.0.1 vrf public
+net add routing route 0.0.0.0/0 192.168.101.1 vrf private
+net add routing route 0.0.0.0/0 192.168.101.1 vrf public
+[static leak]
+net add routing route 10.0.0.1/32 public vrf private nexthop-vrf public
+net add routing route 192.168.101.0/24 public vrf private nexthop-vrf public
+net add routing route 192.168.102.0/24 private vrf public nexthop-vrf private
+
+net del routing route 192.168.101.0/24 public vrf private nexthop-vrf public
+net del routing route 192.168.102.0/24 private vrf public nexthop-vrf private
+
+kubectl delete -f https://raw.githubusercontent.com/google/metallb/v0.8.1/manifests/metallb.yaml
+[fedora@k8s-worker ~]$ route 
+Kernel IP routing table
+Destination     Gateway         Genmask         Flags Metric Ref    Use Iface
+default         _gateway        0.0.0.0         UG    100    0        0 enp1s0
+192.168.200.0   0.0.0.0         255.255.255.248 U     100    0        0 enp1s0
+192.168.204.64  0.0.0.0         255.255.255.255 UH    0      0        0 cali4bcf1a3e75f
+192.168.204.64  0.0.0.0         255.255.255.192 U     0      0        0 *
+[fedora@k8s-worker ~]$ ip route 
+default via 192.168.200.2 dev enp1s0 proto static metric 100 
+192.168.200.0/29 dev enp1s0 proto kernel scope link src 192.168.200.4 metric 100 
+192.168.204.64 dev cali4bcf1a3e75f scope link 
+blackhole 192.168.204.64/26 proto bird 
+
+auto test
+iface test
+    vrf-table auto
+    address 2.2.2.2/32
+    
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/namespace.yaml
+kubectl apply -f https://raw.githubusercontent.com/metallb/metallb/v0.9.4/manifests/metallb.yaml
+kubectl create secret generic -n metallb-system memberlist --from-literal=secretkey="$(openssl rand -base64 128)"
+
+chectl server:start --platform k8s --installer helm --multiuser --domain 10.100.0.0.nip.io
+
+kubectl -n kubernetes-dashboard describe secret $(kubectl -n kubernetes-dashboard get secret | grep admin-user | awk '{print $1}')
+
+kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
+kubectl -n olm edit service packageserver-service
+
+kubectl delete namespaces che 
+kubectl delete namespaces default
+kubectl delete namespaces olm
+kubectl delete namespaces cert-manager
+
+cat <<EOF | kubectl apply -f -
+apiVersion: rbac.authorization.k8s.io/v1beta1
+kind: ClusterRoleBinding
+metadata:
+  name: kubernetes-dashboard
+  labels:
+    k8s-app: kubernetes-dashboard
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: cluster-admin
+subjects:
+- kind: ServiceAccount
+  name: kubernetes-dashboard
+  namespace: kube-system
+EOF
+
+chectl server:deploy --installer olm --platform k8s --domain 10.100.0.0.nip.io --postgres-pvc-storage-class-name=sata --workspace-pvc-storage-class-name=sata
+
+chectl server:start --platform k8s --installer helm --domain 10.100.0.0.nip.io
+
+SNAPSHOTTER_VERSION=v2.1.1
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/config/crd/snapshot.storage.k8s.io_volumesnapshotclasses.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/config/crd/snapshot.storage.k8s.io_volumesnapshotcontents.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/config/crd/snapshot.storage.k8s.io_volumesnapshots.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/deploy/kubernetes/snapshot-controller/rbac-snapshot-controller.yaml
+kubectl apply -f https://raw.githubusercontent.com/kubernetes-csi/external-snapshotter/${SNAPSHOTTER_VERSION}/deploy/kubernetes/snapshot-controller/setup-snapshot-controller.yaml
+
+helm dependencies update --skip-refresh /home/fedora/.cache/chectl/templates/kubernetes/helm/che/
+
+kubectl get all -A
+
+Your Kubernetes control-plane has initialized successfully!
+
+To start using your cluster, you need to run the following as a regular user:
+
+  mkdir -p $HOME/.kube
+  sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+  sudo chown $(id -u):$(id -g) $HOME/.kube/config
+
+You should now deploy a pod network to the cluster.
+Run "kubectl apply -f [podnetwork].yaml" with one of the options listed at:
+  https://kubernetes.io/docs/concepts/cluster-administration/addons/
+
+Then you can join any number of worker nodes by running the following on each as root:
+
+kubeadm join 192.168.102.2:6443 --token m48cq0.qossum0aq2103tqh \
+    --discovery-token-ca-cert-hash sha256:dffdb826170cd65a6ea0ea78b18744c9693e8dc6d71c6b84acdbb5fd572ee031
+
+m48cq0.qossum0aq2103tqh
+    
+cat << EOF | kubectl apply -f -
+apiVersion: v1
+kind: ConfigMap
+metadata:
+    namespace: metallb-system
+    name: config
+data:
+    config: |
+        peers:
+        - peer-address: 192.168.102.1
+          peer-asn: 65000
+          my-asn: 65001
+        address-pools:
+        - name: default
+          protocol: bgp
+          addresses:
+          - 10.100.0.0/24
+EOF
+
+virsh snapshot-create-as k8s-master-test master-test-0.1 "master-test-0.1 description"
+virsh snapshot-create-as k8s-worker-test worker-test-0.1 "worker-test-0.1 description"

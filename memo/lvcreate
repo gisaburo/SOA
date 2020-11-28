@@ -1,0 +1,9 @@
+lvcreate -n kvm_pool -L 200g fedora_fedora
+vgdisplay -v fedora_fedora
+lvremove /dev/fedora_fedora/kvm_pool
+lvdisplay
+vgdisplay
+pvdisplay
+lvs
+vgs
+pvs
